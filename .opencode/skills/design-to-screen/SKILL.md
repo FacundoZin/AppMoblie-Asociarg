@@ -101,7 +101,7 @@ Never:
 - Skip analysis phase
 - Infer execution intent from UI input alone
 - Modify unrelated files
-- Add APIs, authentication, or backend logic
+- Add APIs, authentication, or backend logicop
 - Install dependencies without justification
 
 Always:
