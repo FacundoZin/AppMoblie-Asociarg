@@ -1,21 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { ActivityItem } from '@/components';
+import { ActivityItem, FadeInUp } from '@/components';
 import { CreditCard, Calendar, Bell } from 'lucide-react-native';
-import { spacing } from '@/theme';
-
-interface Activity {
-  id: string;
-  icon: React.ComponentType<{ size?: number; color?: string }>;
-  description: string;
-  time: string;
-}
+import { lightColors, spacing } from '@/theme';
 
 interface RecentActivityProps {
-  activities?: Activity[];
+  activities?: Array<{
+    id: string;
+    icon: React.ComponentType<{ size?: number; color?: string }>;
+    description: string;
+    time: string;
+  }>;
 }
 
-const defaultActivities: Activity[] = [
+const defaultActivities = [
   {
     id: '1',
     icon: CreditCard,
@@ -39,13 +37,16 @@ const defaultActivities: Activity[] = [
 export function RecentActivity({ activities = defaultActivities }: RecentActivityProps) {
   return (
     <View style={styles.container}>
-      {activities.map((activity) => (
-        <ActivityItem
-          key={activity.id}
-          icon={activity.icon}
-          description={activity.description}
-          time={activity.time}
-        />
+      {activities.map((activity, index) => (
+        <FadeInUp key={activity.id} delay={600 + index * 100}>
+          <View style={styles.itemWrapper}>
+            <ActivityItem
+              icon={activity.icon}
+              description={activity.description}
+              time={activity.time}
+            />
+          </View>
+        </FadeInUp>
       ))}
     </View>
   );
@@ -55,5 +56,9 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.base,
     paddingBottom: spacing.lg,
+  },
+  itemWrapper: {
+    borderBottomWidth: 1,
+    borderBottomColor: lightColors.border,
   },
 });

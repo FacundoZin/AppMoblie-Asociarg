@@ -13,3 +13,6 @@ export { SectionTitle } from './section-title';
 export { QuickActionButton } from './quick-action-button';
 export { StatItem } from './stat-item';
 export { ActivityItem } from './activity-item';
+export { FadeInUp } from './fade-in-up';
+export { AnimatedButton } from './animated-button';
+export { AnimatedCard } from './animated-card';

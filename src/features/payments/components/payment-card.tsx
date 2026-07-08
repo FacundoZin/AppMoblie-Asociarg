@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Badge } from '@/components';
+import { Card, Text, Badge, FadeInUp } from '@/components';
 import { lightColors, spacing, radii } from '@/theme';
 import { Payment } from '../types';
 
@@ -25,33 +25,35 @@ export function PaymentCard({ payment, onPress }: PaymentCardProps) {
   });
 
   return (
-    <Card padding="xl" style={styles.card}>
-      <View style={styles.header}>
-        <View style={styles.amountContainer}>
-          <Text variant="xs" color={lightColors.textSecondary} style={styles.amountLabel}>
-            MONTO
-          </Text>
-          <Text variant="2xl" weight="bold" color={lightColors.textPrimary}>
-            ${payment.amount.toLocaleString('es-AR')}
-          </Text>
+    <FadeInUp>
+      <Card padding="xl" style={styles.card}>
+        <View style={styles.header}>
+          <View style={styles.amountContainer}>
+            <Text variant="xs" color={lightColors.primary} style={styles.amountLabel}>
+              MONTO
+            </Text>
+            <Text variant="2xl" weight="bold" color={lightColors.textPrimary}>
+              ${payment.amount.toLocaleString('es-AR')}
+            </Text>
+          </View>
+          <Badge variant={config.variant} label={config.label} />
         </View>
-        <Badge variant={config.variant} label={config.label} />
-      </View>
 
-      <View style={styles.divider} />
+        <View style={styles.divider} />
 
-      <View style={styles.footer}>
-        <View>
-          <Text variant="xs" color={lightColors.textSecondary}>
-            VENCIMIENTO
-          </Text>
-          <Text variant="base" weight="medium" color={lightColors.textPrimary}>
-            {formattedDate}
-          </Text>
+        <View style={styles.footer}>
+          <View>
+            <Text variant="xs" color={lightColors.primary}>
+              VENCIMIENTO
+            </Text>
+            <Text variant="base" weight="medium" color={lightColors.textPrimary}>
+              {formattedDate}
+            </Text>
+          </View>
+          <View style={[styles.indicator, { backgroundColor: config.color }]} />
         </View>
-        <View style={[styles.indicator, { backgroundColor: config.color }]} />
-      </View>
-    </Card>
+      </Card>
+    </FadeInUp>
   );
 }
 

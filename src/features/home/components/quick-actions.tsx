@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Text, Icon } from '@/components';
+import { Text, Icon, FadeInUp } from '@/components';
 import { CreditCard, Calendar, CreditCard as CredentialIcon, User, DollarSign } from 'lucide-react-native';
 import { lightColors, spacing, radii, shadows } from '@/theme';
 
@@ -35,44 +35,56 @@ export function QuickActions({
 
   return (
     <View style={styles.container}>
-      {actions.map((action, index) => (
-        <TouchableOpacity
-          key={index}
-          style={styles.action}
-          onPress={action.onPress}
-          activeOpacity={0.7}
-        >
-          <View style={styles.iconContainer}>
-            <Icon name={action.icon} size={24} color={lightColors.primary} />
-          </View>
-          <Text variant="xs" weight="medium" color={lightColors.textPrimary} style={styles.label}>
-            {action.label}
-          </Text>
-        </TouchableOpacity>
-      ))}
+      <View style={styles.grid}>
+        {actions.map((action, index) => (
+          <FadeInUp key={index} delay={200 + index * 100}>
+            <TouchableOpacity
+              style={styles.action}
+              onPress={action.onPress}
+              activeOpacity={0.7}
+            >
+              <View style={styles.iconContainer}>
+                <Icon name={action.icon} size={22} color={lightColors.primary} />
+              </View>
+              <Text variant="xs" weight="medium" color={lightColors.textPrimary} style={styles.label}>
+                {action.label}
+              </Text>
+            </TouchableOpacity>
+          </FadeInUp>
+        ))}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: spacing.base,
+    marginBottom: spacing.lg,
+  },
+  grid: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: spacing.base,
-    paddingVertical: spacing.lg,
+    backgroundColor: lightColors.surface,
+    borderRadius: radii.xl,
+    padding: spacing.lg,
+    borderWidth: 1,
+    borderColor: lightColors.border,
   },
   action: {
     flex: 1,
     alignItems: 'center',
   },
   iconContainer: {
-    width: 56,
-    height: 56,
+    width: 48,
+    height: 48,
     borderRadius: radii.lg,
     backgroundColor: lightColors.primaryLight,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: spacing.sm,
+    marginBottom: spacing.xs,
+    borderWidth: 1,
+    borderColor: lightColors.primary,
   },
   label: {
     textAlign: 'center',

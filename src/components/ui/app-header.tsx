@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
 import { Avatar } from './avatar';
-import { lightColors, spacing } from '@/theme';
+import { lightColors, spacing, radii } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface AppHeaderProps {
@@ -24,17 +24,20 @@ export function AppHeader({
 
   return (
     <View style={[styles.container, { paddingTop: insets.top + spacing.md }]}>
-      <View style={styles.textContainer}>
-        <Text variant="sm" color={lightColors.textSecondary}>
-          {greeting}
-        </Text>
-        <Text variant="xl" weight="bold">
-          {userName}
-        </Text>
-      </View>
+      <View style={styles.accentBar} />
+      <View style={styles.content}>
+        <View style={styles.textContainer}>
+          <Text variant="sm" color={lightColors.textSecondary}>
+            {greeting}
+          </Text>
+          <Text variant="xl" weight="bold" color={lightColors.textPrimary}>
+            {userName}
+          </Text>
+        </View>
 
-      <View style={styles.actions}>
-        <Avatar uri={avatarUri} initials={avatarInitials} size="md" />
+        <View style={styles.actions}>
+          <Avatar uri={avatarUri} initials={avatarInitials} size="md" />
+        </View>
       </View>
     </View>
   );
@@ -42,11 +45,19 @@ export function AppHeader({
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: lightColors.surface,
+    paddingBottom: spacing.md,
+  },
+  accentBar: {
+    height: 3,
+    backgroundColor: lightColors.primary,
+    marginBottom: spacing.md,
+  },
+  content: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: spacing.base,
-    paddingBottom: spacing.md,
   },
   textContainer: {
     flex: 1,

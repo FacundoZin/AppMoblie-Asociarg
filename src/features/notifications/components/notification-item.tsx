@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Badge } from '@/components';
+import { Card, Text, Badge, FadeInUp } from '@/components';
 import { lightColors, spacing, radii } from '@/theme';
 import { Notification } from '../types';
 
@@ -22,30 +22,32 @@ const badgeVariant: Record<string, 'success' | 'info' | 'default'> = {
 
 export function NotificationItem({ notification }: NotificationItemProps) {
   return (
-    <View style={[styles.card, !notification.read && styles.unread]}>
-      <Card padding="xl">
-        <View style={styles.header}>
-          <View style={styles.titleRow}>
-            <Text variant="base" weight="semibold" color={lightColors.textPrimary}>
-              {notification.from}
-            </Text>
-            {!notification.read && <View style={styles.dot} />}
+    <FadeInUp>
+      <View style={[styles.card, !notification.read && styles.unread]}>
+        <Card padding="xl">
+          <View style={styles.header}>
+            <View style={styles.titleRow}>
+              <Text variant="base" weight="semibold" color={lightColors.textPrimary}>
+                {notification.from}
+              </Text>
+              {!notification.read && <View style={styles.dot} />}
+            </View>
+            <Badge
+              variant={badgeVariant[notification.type] || 'default'}
+              label={badgeLabel[notification.type] || 'Info'}
+            />
           </View>
-          <Badge
-            variant={badgeVariant[notification.type] || 'default'}
-            label={badgeLabel[notification.type] || 'Info'}
-          />
-        </View>
 
-        <Text variant="sm" color={lightColors.textPrimary} style={styles.text}>
-          {notification.text}
-        </Text>
+          <Text variant="sm" color={lightColors.textPrimary} style={styles.text}>
+            {notification.text}
+          </Text>
 
-        <Text variant="xs" color={lightColors.textSecondary}>
-          {notification.time}
-        </Text>
-      </Card>
-    </View>
+          <Text variant="xs" color={lightColors.textSecondary}>
+            {notification.time}
+          </Text>
+        </Card>
+      </View>
+    </FadeInUp>
   );
 }
 

@@ -1,7 +1,8 @@
 import { Tabs } from 'expo-router';
 import { Home, MessageCircle, CreditCard, Calendar } from 'lucide-react-native';
 import { Icon } from '@/components';
-import { lightColors, spacing } from '@/theme';
+import { lightColors, spacing, radii } from '@/theme';
+import { View, StyleSheet } from 'react-native';
 
 export default function TabsLayout() {
   return (
@@ -14,8 +15,10 @@ export default function TabsLayout() {
           height: 65,
           paddingBottom: spacing.sm,
           paddingTop: 6,
+          borderTopWidth: 0,
+          backgroundColor: lightColors.surface,
         },
-        tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({ color, size, focused }) => {
           let IconComponent = Home;
 
           if (route.name === 'index') IconComponent = Home;
@@ -23,7 +26,12 @@ export default function TabsLayout() {
           else if (route.name === 'pagos/index') IconComponent = CreditCard;
           else if (route.name === 'convocatorias/index') IconComponent = Calendar;
 
-          return <Icon name={IconComponent} size={size} color={color} />;
+          return (
+            <View style={styles.iconContainer}>
+              {focused && <View style={styles.indicator} />}
+              <Icon name={IconComponent} size={size} color={color} />
+            </View>
+          );
         },
       })}
     >
@@ -54,3 +62,17 @@ export default function TabsLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  indicator: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: lightColors.primary,
+    marginBottom: 4,
+  },
+});

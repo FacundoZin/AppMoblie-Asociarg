@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Badge } from '@/components';
+import { Card, Text, Badge, FadeInUp } from '@/components';
 import { Calendar, MapPin, Users } from 'lucide-react-native';
 import { Icon } from '@/components';
 import { lightColors, spacing, radii } from '@/theme';
@@ -27,41 +27,49 @@ export function EventCard({ event, onPress }: EventCardProps) {
   });
 
   return (
-    <Card padding="xl" style={styles.card}>
-      <View style={styles.header}>
-        <View style={styles.titleContainer}>
-          <Text variant="xl" weight="bold" color={lightColors.textPrimary}>
-            {event.title}
-          </Text>
-          <Badge variant={config.variant} label={config.label} />
-        </View>
-      </View>
-
-      <View style={styles.divider} />
-
-      <View style={styles.info}>
-        <View style={styles.infoRow}>
-          <Icon name={Calendar} size={18} color={lightColors.primary} />
-          <Text variant="sm" color={lightColors.textPrimary}>
-            {formattedDate}
-          </Text>
+    <FadeInUp>
+      <Card padding="xl" style={styles.card}>
+        <View style={styles.header}>
+          <View style={styles.titleContainer}>
+            <Text variant="xl" weight="bold" color={lightColors.textPrimary}>
+              {event.title}
+            </Text>
+            <Badge variant={config.variant} label={config.label} />
+          </View>
         </View>
 
-        <View style={styles.infoRow}>
-          <Icon name={MapPin} size={18} color={lightColors.primary} />
-          <Text variant="sm" color={lightColors.textPrimary}>
-            {event.location}
-          </Text>
-        </View>
+        <View style={styles.divider} />
 
-        <View style={styles.infoRow}>
-          <Icon name={Users} size={18} color={lightColors.primary} />
-          <Text variant="sm" color={lightColors.textPrimary}>
-            {event.attendees} asistentes
-          </Text>
+        <View style={styles.info}>
+          <View style={styles.infoRow}>
+            <View style={styles.iconContainer}>
+              <Icon name={Calendar} size={18} color={lightColors.primary} />
+            </View>
+            <Text variant="sm" weight="medium" color={lightColors.textPrimary}>
+              {formattedDate}
+            </Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <View style={styles.iconContainer}>
+              <Icon name={MapPin} size={18} color={lightColors.primary} />
+            </View>
+            <Text variant="sm" weight="medium" color={lightColors.textPrimary}>
+              {event.location}
+            </Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <View style={styles.iconContainer}>
+              <Icon name={Users} size={18} color={lightColors.primary} />
+            </View>
+            <Text variant="sm" weight="medium" color={lightColors.textPrimary}>
+              {event.attendees} asistentes
+            </Text>
+          </View>
         </View>
-      </View>
-    </Card>
+      </Card>
+    </FadeInUp>
   );
 }
 
@@ -90,5 +98,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,
+  },
+  iconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: lightColors.primaryLight,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
