@@ -16,3 +16,4 @@ export { ActivityItem } from './activity-item';
 export { FadeInUp } from './fade-in-up';
 export { AnimatedButton } from './animated-button';
 export { AnimatedCard } from './animated-card';
+export { EmptyState } from './empty-state';

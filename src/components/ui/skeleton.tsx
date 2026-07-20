@@ -1,30 +1,47 @@
-import React from 'react';
-import { View, StyleSheet, DimensionValue } from 'react-native';
-import { lightColors, radii, spacing } from '@/theme';
+import React, { useEffect } from 'react';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
+import { View, StyleSheet } from 'react-native';
+import { lightColors, radii } from '@/theme';
 
 interface SkeletonProps {
-  width?: DimensionValue;
+  width?: number | string;
   height?: number;
   borderRadius?: number;
-  marginVertical?: number;
+  style?: any;
 }
 
-export function Skeleton({
-  width = '100%',
-  height = 20,
-  borderRadius,
-  marginVertical,
-}: SkeletonProps) {
+export function Skeleton({ width = '100%', height = 20, borderRadius, style }: SkeletonProps) {
+  const opacity = useSharedValue(0.3);
+
+  useEffect(() => {
+    const animation = withTiming(0.7, {
+      duration: 1000,
+      easing: Easing.inOut(Easing.ease),
+    });
+
+    const interval = setInterval(() => {
+      opacity.value = opacity.value === 0.3 ? 0.7 : 0.3;
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
+
   return (
-    <View
+    <Animated.View
       style={[
         styles.skeleton,
-        {
-          width,
-          height,
-          borderRadius: borderRadius || radii.sm,
-          marginVertical: marginVertical || 0,
-        },
+        { width, height, borderRadius: borderRadius || radii.md },
+        animatedStyle,
+        style,
       ]}
     />
   );
