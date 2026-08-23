@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import { Home, MessageCircle, CreditCard, Calendar, User, Phone } from 'lucide-react-native';
 import { Icon } from '@/components';
-import { lightColors, spacing, radii } from '@/theme';
+import { lightColors } from '@/theme';
 import { View, StyleSheet, Platform } from 'react-native';
 
 export default function TabsLayout() {
@@ -23,7 +23,7 @@ export default function TabsLayout() {
           shadowOpacity: 0.08,
           shadowRadius: 4,
         },
-        tabBarIcon: ({ color, size, focused }) => {
+        tabBarIcon: ({ color, focused }) => {
           let IconComponent = Home;
 
           if (route.name === 'index') IconComponent = Home;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SectionTitle, Chip, Text, FadeInUp, EmptyState } from '@/components';
-import { FeaturedEventCard, EventCard, CalendarWidget, EventSkeleton } from '../components';
+import { FeaturedEventCard, EventCard, CalendarWidget } from '../components';
 import { mockEvents } from '../hooks';
 import { lightColors, spacing } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -12,13 +12,6 @@ type FilterType = 'all' | 'training' | 'match' | 'meeting' | 'event';
 export function EventsScreen() {
   const insets = useSafeAreaInsets();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Simular carga para demo de skeleton
-  const handleRefresh = () => {
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 1500);
-  };
 
   const upcomingEvents = mockEvents.filter((e) => {
     const eventDate = new Date(e.date);
@@ -34,23 +27,10 @@ export function EventsScreen() {
       style={styles.container}
       contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing.lg }]}
       showsVerticalScrollIndicator={false}
-      refreshControl={
-        // Pull to refresh podría agregarse aquí
-        undefined
-      }
     >
       <SectionTitle title="Convocatorias" />
 
-      {isLoading ? (
-        <>
-          <EventSkeleton />
-          <EventSkeleton />
-          <EventSkeleton />
-        </>
-      ) : (
-        <>
-          {/* Hero Card */}
-          {featuredEvent && <FeaturedEventCard event={featuredEvent} />}
+      {featuredEvent && <FeaturedEventCard event={featuredEvent} />}
 
           {/* Calendario */}
           <FadeInUp delay={200}>
@@ -115,8 +95,6 @@ export function EventsScreen() {
               description="No hay eventos programados próximamente"
             />
           )}
-        </>
-      )}
     </ScrollView>
   );
 }

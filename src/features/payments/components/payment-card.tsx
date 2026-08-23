@@ -34,7 +34,7 @@ const statusConfig = {
   },
 };
 
-export function PaymentCard({ payment, onPress }: PaymentCardProps) {
+export function PaymentCard({ payment }: PaymentCardProps) {
   const config = statusConfig[payment.status];
   const date = new Date(payment.dueDate);
   const formattedDate = date.toLocaleDateString('es-AR', {

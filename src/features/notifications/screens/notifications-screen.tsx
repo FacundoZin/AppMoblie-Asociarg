@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native';
-import { SectionTitle, Chip, Text, FadeInUp, EmptyState } from '@/components';
-import { NotificationItem, NotificationSkeleton } from '../components';
+import { Chip, Text, FadeInUp, EmptyState } from '@/components';
+import { NotificationItem } from '../components';
 import { mockNotifications } from '../hooks';
 import { lightColors, spacing, radii } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -12,7 +12,6 @@ type FilterType = 'all' | 'unread' | 'important' | 'payment' | 'event' | 'club' 
 export function NotificationsScreen() {
   const insets = useSafeAreaInsets();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
-  const [isLoading, setIsLoading] = useState(false);
 
   // Contadores
   const unreadCount = mockNotifications.filter((n) => !n.read).length;
@@ -75,22 +74,14 @@ export function NotificationsScreen() {
           </Text>
         </View>
 
-        {isLoading ? (
-          <>
-            <NotificationSkeleton />
-            <NotificationSkeleton />
-            <NotificationSkeleton />
-          </>
-        ) : (
-          <>
-            {/* Resumen horizontal scrollable */}
+        {/* Resumen horizontal scrollable */}
             <FadeInUp delay={100}>
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.summaryScroll}
               >
-                {summaryItems.map((item, index) => (
+                {summaryItems.map((item) => (
                   <View key={item.label} style={styles.summaryCard}>
                     <View style={[styles.summaryIcon, { backgroundColor: item.bgColor }]}>
                       <item.icon size={20} color={item.color} />
@@ -174,15 +165,13 @@ export function NotificationsScreen() {
               />
             ) : (
               <View style={styles.list}>
-                {filteredNotifications.map((notification, index) => (
-                  <FadeInUp key={notification.id} delay={200 + index * 80}>
+                {filteredNotifications.map((notification) => (
+                  <FadeInUp key={notification.id} delay={200}>
                     <NotificationItem notification={notification} />
                   </FadeInUp>
                 ))}
               </View>
             )}
-          </>
-        )}
       </ScrollView>
     </SafeAreaView>
   );

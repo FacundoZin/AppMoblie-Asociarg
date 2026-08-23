@@ -51,7 +51,7 @@ export function ProfileStatsCard({
   return (
     <FadeInUp delay={300}>
       <View style={styles.container}>
-        {stats.map((stat, index) => (
+        {stats.map((stat) => (
           <Card key={stat.label} padding="lg" style={styles.statCard}>
             <View style={[styles.iconContainer, { backgroundColor: stat.bgColor }]}>
               <Icon name={stat.icon} size={20} color={stat.color} />

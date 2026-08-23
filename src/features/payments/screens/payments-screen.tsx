@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { SectionTitle, Chip, Text, FadeInUp, EmptyState } from '@/components';
+import { SectionTitle, Chip, FadeInUp, EmptyState } from '@/components';
 import { PaymentSummaryCard, PaymentCard } from '../components';
 import { mockPayments } from '../hooks';
 import { lightColors, spacing } from '@/theme';

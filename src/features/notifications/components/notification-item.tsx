@@ -61,7 +61,7 @@ const badgeVariant: Record<string, 'success' | 'info' | 'warning' | 'default'> =
   default: 'default',
 };
 
-export function NotificationItem({ notification, onPress }: NotificationItemProps) {
+export function NotificationItem({ notification }: NotificationItemProps) {
   const category = notification.type || 'default';
   const config = categoryConfig[category] || categoryConfig.default;
   const IconComponent = config.icon;

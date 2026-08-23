@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
 import { Avatar } from './avatar';
-import { lightColors, spacing, radii } from '@/theme';
+import { lightColors, spacing } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface AppHeaderProps {
@@ -18,7 +18,6 @@ export function AppHeader({
   userName,
   avatarUri,
   avatarInitials,
-  onNotificationPress,
 }: AppHeaderProps) {
   const insets = useSafeAreaInsets();
 

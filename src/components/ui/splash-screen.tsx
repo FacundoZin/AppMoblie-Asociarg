@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, Image } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  withDelay,
 } from 'react-native-reanimated';
 
 interface SplashScreenProps {
@@ -14,22 +13,27 @@ interface SplashScreenProps {
 export function SplashScreen({ onFinish }: SplashScreenProps) {
   const opacity = useSharedValue(1);
   const scale = useSharedValue(1);
+  const onFinishRef = useRef(onFinish);
+  onFinishRef.current = onFinish;
 
   useEffect(() => {
-    // Animación de entrada
+    // Entrance animation
     scale.value = withTiming(1.1, { duration: 800 });
 
-    // Animación de salida después de 1.5 segundos
-    const timeout = setTimeout(() => {
+    // Exit animation after 1.5 seconds, then notify the parent
+    const exitTimeout = setTimeout(() => {
       opacity.value = withTiming(0, { duration: 500 });
       scale.value = withTiming(0.9, { duration: 500 });
-
-      setTimeout(() => {
-        onFinish();
-      }, 500);
     }, 1500);
 
-    return () => clearTimeout(timeout);
+    const finishTimeout = setTimeout(() => {
+      onFinishRef.current();
+    }, 2000);
+
+    return () => {
+      clearTimeout(exitTimeout);
+      clearTimeout(finishTimeout);
+    };
   }, []);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -40,7 +44,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
       <Image
-        source={require('../../../assets/splash-icon.png')}
+        source={require('../../../assets/icon.png')}
         style={styles.logo}
         resizeMode="contain"
       />

@@ -16,7 +16,6 @@ interface QuickActionProps {
   color: string;
   bgColor: string;
   onPress: () => void;
-  delay?: number;
 }
 
 export function QuickAction({
@@ -26,7 +25,6 @@ export function QuickAction({
   color,
   bgColor,
   onPress,
-  delay = 0,
 }: QuickActionProps) {
   const scale = useSharedValue(1);
 

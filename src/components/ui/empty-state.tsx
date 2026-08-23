@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Icon } from '@/components';
-import { CheckCircle, XCircle, AlertCircle, Info } from 'lucide-react-native';
+import { Info } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 
 interface EmptyStateProps {

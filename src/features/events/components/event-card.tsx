@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Badge, Icon } from '@/components';
-import { Calendar, MapPin, Users, Clock } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { MapPin, Users } from 'lucide-react-native';
+import { lightColors, spacing } from '@/theme';
 import { Event } from '../types';
 
 interface EventCardProps {
@@ -16,13 +16,9 @@ const statusConfig: Record<string, { variant: 'success' | 'warning' | 'info' | '
   completed: { variant: 'default', label: 'Finalizada', color: lightColors.neutral },
 };
 
-export function EventCard({ event, onPress }: EventCardProps) {
+export function EventCard({ event }: EventCardProps) {
   const config = statusConfig[event.status] || statusConfig.upcoming;
   const date = new Date(event.date);
-  const formattedDate = date.toLocaleDateString('es-AR', {
-    day: '2-digit',
-    month: 'long',
-  });
 
   const dayNumber = date.getDate();
   const monthShort = date.toLocaleDateString('es-AR', { month: 'short' });

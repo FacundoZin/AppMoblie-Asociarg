@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Text, Icon, FadeInUp } from '@/components';
 import { CreditCard, Calendar, CreditCard as CredentialIcon, User, DollarSign } from 'lucide-react-native';
-import { lightColors, spacing, radii, shadows } from '@/theme';
+import { lightColors, spacing, radii } from '@/theme';
 
 interface QuickAction {
   icon: React.ComponentType<{ size?: number; color?: string }>;

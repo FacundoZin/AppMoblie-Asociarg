@@ -23,32 +23,16 @@ const mockClub: ClubContact = {
 
 export const contactService = {
   getClubContact: async (): Promise<ClubContact> => {
-    // Preparado para conectar con backend
+    // Ready to connect to backend
     return new Promise((resolve) => {
       setTimeout(() => resolve(mockClub), 300);
     });
   },
 
-  sendContactForm: async (data: ContactFormData): Promise<{ success: boolean }> => {
-    // Preparado para conectar con backend
+  sendContactForm: async (_data: ContactFormData): Promise<{ success: boolean }> => {
+    // Ready to connect to backend
     return new Promise((resolve) => {
       setTimeout(() => resolve({ success: true }), 500);
     });
-  },
-
-  openWhatsApp: (whatsappNumber: string): void => {
-    const url = `https://wa.me/${whatsappNumber}`;
-    // Linking.openURL(url) se manejará desde el hook
-  },
-
-  openPhone: (phoneNumber: string): void => {
-    const url = `tel:${phoneNumber}`;
-    // Linking.openURL(url) se manejará desde el hook
-  },
-
-  openMaps: (address: string): void => {
-    const encoded = encodeURIComponent(address);
-    const url = `https://maps.google.com/?q=${encoded}`;
-    // Linking.openURL(url) se manejará desde el hook
   },
 };

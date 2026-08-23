@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Badge, Button, Icon, FadeInUp } from '@/components';
-import { Calendar, MapPin, Users, Clock } from 'lucide-react-native';
+import { Text, Badge, Button, Icon, FadeInUp } from '@/components';
+import { Calendar, MapPin, Users } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 import { Event } from '../types';
 

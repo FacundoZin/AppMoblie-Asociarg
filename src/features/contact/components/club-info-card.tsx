@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Badge, Icon, FadeInUp } from '@/components';
-import { Building2, Phone, Mail, MapPin, Clock } from 'lucide-react-native';
+import { Text, Badge, Icon, FadeInUp } from '@/components';
+import { Building2, Phone, Clock } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 import { ClubContact } from '../types';
 

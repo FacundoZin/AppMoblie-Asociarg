@@ -4,7 +4,6 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  withTiming,
 } from 'react-native-reanimated';
 import { Card, Text, Icon } from '@/components';
 import { LucideIcon } from 'lucide-react-native';

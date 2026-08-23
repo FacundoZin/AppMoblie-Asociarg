@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Badge, Button, Icon, FadeInUp } from '@/components';
+import { Text, Badge, Button, Icon, FadeInUp } from '@/components';
 import { CreditCard } from 'lucide-react-native';
-import { lightColors, spacing, radii, shadows } from '@/theme';
+import { lightColors, spacing, radii } from '@/theme';
 
 interface HeroCardProps {
   memberNumber: string;

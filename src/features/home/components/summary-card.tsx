@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Card, Text, FadeInUp } from '@/components';
 import { CreditCard, Calendar, Bell } from 'lucide-react-native';
 import { Icon } from '@/components';
-import { lightColors, spacing, radii, shadows } from '@/theme';
+import { lightColors, spacing, radii } from '@/theme';
 
 interface SummaryCardProps {
   pendingPayments: number;

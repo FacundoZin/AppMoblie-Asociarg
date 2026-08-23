@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Text } from './text';
-import { lightColors, radii, spacing } from '@/theme';
+import { lightColors, radii } from '@/theme';
 
 type AvatarSize = 'sm' | 'md' | 'lg';
 

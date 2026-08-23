@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Icon } from '@/components';
+import { Card, Text } from '@/components';
 import { lightColors, spacing, radii } from '@/theme';
 
 export function CalendarWidget() {

@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionTitle, Text, FadeInUp, EmptyState } from '@/components';
-import { MessageCircle, Phone, Clock, MapPin } from 'lucide-react-native';
+import { MessageCircle, Phone, MapPin } from 'lucide-react-native';
 import { lightColors, spacing } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useContact } from '../hooks';
@@ -65,7 +65,6 @@ export function ContactScreen() {
               color={lightColors.success}
               bgColor="#E8F8E7"
               onPress={openWhatsApp}
-              delay={150}
             />
           </FadeInUp>
 
@@ -77,7 +76,6 @@ export function ContactScreen() {
               color={lightColors.primary}
               bgColor={lightColors.primaryLight}
               onPress={openPhone}
-              delay={200}
             />
           </FadeInUp>
 
@@ -89,7 +87,6 @@ export function ContactScreen() {
               color={lightColors.info}
               bgColor="#E8F4FD"
               onPress={openMaps}
-              delay={250}
             />
           </FadeInUp>
         </View>
