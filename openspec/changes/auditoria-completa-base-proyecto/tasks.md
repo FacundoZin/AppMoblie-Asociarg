@@ -55,16 +55,16 @@ Chain strategy: stacked-to-main
 
 ## Phase 4: UI Kit Cleanup (Slice d) — ~200-300 lines
 
-- [ ] 4.1 Delete dead components: `animated-button.tsx`, `animated-card.tsx`, `stat-item.tsx`, `divider.tsx` from `src/components/ui/`
-- [ ] 4.2 Delete dead feature components: `user-card.tsx` (home), `contact-action-card.tsx` (contact), `notification-summary.tsx` (notifications)
-- [ ] 4.3 Delete `src/hooks/use-stagger-animation.ts` (rules-of-hooks violation + unused)
-- [ ] 4.4 Update barrel exports (`index.ts`) in `components/ui/`, `features/*/components/` to remove deleted entries
-- [ ] 4.5 Fix `any` style props in `fade-in-up.tsx` and `skeleton.tsx` → `StyleProp<ViewStyle>`
-- [ ] 4.6 Create `src/components/common/screen.tsx` with `ScreenProps` (children, backgroundColor, edges) using SafeAreaView + theme background
-- [ ] 4.7 Create `src/components/common/pattern-card.tsx` with `PatternCardProps` (children, variant, style) — extract two-circle decorative pattern
-- [ ] 4.8 Create `src/components/common/stat-card.tsx` with `StatCardProps` (icon, label, value, color, bgColor)
-- [ ] 4.9 Create `src/components/common/index.ts` barrel export for Screen, PatternCard, StatCard
-- [ ] 4.10 Verify: `npx tsc --noEmit` passes, no missing imports, deleted components have zero references
+- [x] 4.1 Delete dead components: `animated-button.tsx`, `animated-card.tsx`, `stat-item.tsx`, `divider.tsx` from `src/components/ui/`
+- [x] 4.2 Delete dead feature components: `user-card.tsx` (home), `contact-action-card.tsx` (contact), `notification-summary.tsx` (notifications)
+- [x] 4.3 Delete `src/hooks/use-stagger-animation.ts` (rules-of-hooks violation + unused)
+- [x] 4.4 Update barrel exports (`index.ts`) in `components/ui/`, `features/*/components/` to remove deleted entries
+- [x] 4.5 Fix `any` style props in `fade-in-up.tsx` and `skeleton.tsx` → `StyleProp<ViewStyle>`
+- [x] 4.6 Create `src/components/common/screen.tsx` with `ScreenProps` (children, backgroundColor, edges) using SafeAreaView + theme background
+- [x] 4.7 Create `src/components/common/pattern-card.tsx` with `PatternCardProps` (children, variant, style) — extract two-circle decorative pattern
+- [x] 4.8 Create `src/components/common/stat-card.tsx` with `StatCardProps` (icon, label, value, color, bgColor)
+- [x] 4.9 Create `src/components/common/index.ts` barrel export for Screen, PatternCard, StatCard
+- [x] 4.10 Verify: `npx tsc --noEmit` passes, no missing imports, deleted components have zero references
 
 ## Phase 5: Data Layer (Slice e) — ~150-250 lines
 

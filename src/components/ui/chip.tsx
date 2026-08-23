@@ -5,7 +5,8 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
-import { Text, Icon } from '@/components';
+import { Text } from './text';
+import { Icon } from './icon';
 import { LucideIcon } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Icon } from '@/components';
+import { Text } from './text';
+import { Icon } from './icon';
 import { Info } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 

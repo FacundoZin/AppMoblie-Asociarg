@@ -1,6 +1,5 @@
 export { Text } from './text';
 export { Icon } from './icon';
-export { Divider } from './divider';
 export { Skeleton } from './skeleton';
 export { Badge } from './badge';
 export { Chip } from './chip';
@@ -11,9 +10,7 @@ export { Button } from './button';
 export { AppHeader } from './app-header';
 export { SectionTitle } from './section-title';
 export { QuickActionButton } from './quick-action-button';
-export { StatItem } from './stat-item';
 export { ActivityItem } from './activity-item';
 export { FadeInUp } from './fade-in-up';
-export { AnimatedButton } from './animated-button';
-export { AnimatedCard } from './animated-card';
 export { EmptyState } from './empty-state';
+export { SplashScreen } from './splash-screen';
