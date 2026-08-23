@@ -2,12 +2,13 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SectionTitle } from '@/components';
 import { ProfileHero, ProfileInfoCard, ProfileStatsCard, ProfileActions } from '../components';
-import { mockProfile, mockStats } from '../hooks';
+import { useProfile } from '../hooks';
 import { lightColors, spacing } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
+  const { data: profile, stats } = useProfile();
 
   return (
     <ScrollView
@@ -17,16 +18,16 @@ export function ProfileScreen() {
     >
       <SectionTitle title="Mi Perfil" />
 
-      <ProfileHero profile={mockProfile} />
+      <ProfileHero profile={profile} />
 
       <ProfileStatsCard
-        paymentsCompleted={mockStats.paymentsCompleted}
-        eventsAttended={mockStats.eventsAttended}
-        yearsAsMember={mockStats.yearsAsMember}
-        invitations={mockStats.invitations}
+        paymentsCompleted={stats.paymentsCompleted}
+        eventsAttended={stats.eventsAttended}
+        yearsAsMember={stats.yearsAsMember}
+        invitations={stats.invitations}
       />
 
-      <ProfileInfoCard profile={mockProfile} />
+      <ProfileInfoCard profile={profile} />
 
       <ProfileActions />
     </ScrollView>

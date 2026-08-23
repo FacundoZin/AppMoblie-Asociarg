@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native';
 import { Chip, Text, FadeInUp, EmptyState } from '@/components';
 import { NotificationItem } from '../components';
-import { mockNotifications } from '../hooks';
+import { useNotifications } from '../hooks';
 import { lightColors, spacing, radii } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Bell, Mail, Star, CreditCard, Calendar, Users, Settings } from 'lucide-react-native';
@@ -11,31 +11,32 @@ type FilterType = 'all' | 'unread' | 'important' | 'payment' | 'event' | 'club' 
 
 export function NotificationsScreen() {
   const insets = useSafeAreaInsets();
+  const { data: notifications } = useNotifications();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
   // Contadores
-  const unreadCount = mockNotifications.filter((n) => !n.read).length;
-  const importantCount = mockNotifications.filter((n) => n.type === 'success').length;
-  const paymentCount = mockNotifications.filter((n) => n.type === 'success').length;
-  const eventCount = mockNotifications.filter((n) => n.type === 'event').length;
-  const clubCount = mockNotifications.filter((n) => n.type === 'info').length;
-  const systemCount = mockNotifications.filter((n) => n.type === 'info').length;
+  const unreadCount = notifications.filter((n) => !n.read).length;
+  const importantCount = notifications.filter((n) => n.type === 'success').length;
+  const paymentCount = notifications.filter((n) => n.type === 'success').length;
+  const eventCount = notifications.filter((n) => n.type === 'event').length;
+  const clubCount = notifications.filter((n) => n.type === 'info').length;
+  const systemCount = notifications.filter((n) => n.type === 'info').length;
 
   // Filtrado
   const getFilteredNotifications = () => {
     switch (activeFilter) {
       case 'unread':
-        return mockNotifications.filter((n) => !n.read);
+        return notifications.filter((n) => !n.read);
       case 'important':
       case 'payment':
-        return mockNotifications.filter((n) => n.type === 'success');
+        return notifications.filter((n) => n.type === 'success');
       case 'event':
-        return mockNotifications.filter((n) => n.type === 'event');
+        return notifications.filter((n) => n.type === 'event');
       case 'club':
       case 'system':
-        return mockNotifications.filter((n) => n.type === 'info');
+        return notifications.filter((n) => n.type === 'info');
       default:
-        return mockNotifications;
+        return notifications;
     }
   };
 
@@ -109,7 +110,7 @@ export function NotificationsScreen() {
                   label="Todos"
                   selected={activeFilter === 'all'}
                   onPress={() => setActiveFilter('all')}
-                  count={mockNotifications.length}
+                  count={notifications.length}
                 />
                 <Chip
                   icon={Mail}

@@ -1,21 +1,38 @@
+import { useCallback, useEffect, useState } from 'react';
 import { Profile } from '../types';
+import { mockProfile, mockStats } from '../mocks/profile.mock';
 
-export const mockProfile: Profile = {
-  id: '1',
-  name: 'Nahuel Attar',
-  dni: '12345678',
-  email: 'nahuel.attar@email.com',
-  phone: '+54 9 11 1234-5678',
-  birthDate: '1990-05-15',
-  memberSince: '2023-03-10',
-  status: 'active',
-  plan: 'Mensual',
-  discipline: 'Fútbol',
-};
+interface UseProfileReturn {
+  data: Profile;
+  stats: typeof mockStats;
+  isLoading: boolean;
+  error: Error | null;
+  refresh: () => void;
+}
 
-export const mockStats = {
-  paymentsCompleted: 24,
-  eventsAttended: 18,
-  yearsAsMember: 2,
-  invitations: 12,
-};
+/**
+ * Data-access hook for the member profile and its summary stats.
+ * Mock-backed during the prototype phase; the shape (data/loading/error/refresh)
+ * is ready for a real backend.
+ */
+export function useProfile(): UseProfileReturn {
+  const [data, setData] = useState<Profile>(mockProfile);
+  const [stats, setStats] = useState<typeof mockStats>(mockStats);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const refresh = useCallback(() => {
+    setIsLoading(true);
+    setError(null);
+    // Prototype phase: mock data resolves synchronously.
+    setData(mockProfile);
+    setStats(mockStats);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  return { data, stats, isLoading, error, refresh };
+}

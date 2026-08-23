@@ -2,13 +2,14 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { AppHeader, SectionTitle } from '@/components';
 import { HeroCard, QuickActions, SummaryCard, RecentActivity } from '../components';
-import { mockUser } from '../hooks';
+import { useUser } from '../hooks';
 import { lightColors, spacing } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function HomeScreen() {
   const insets = useSafeAreaInsets();
-  const initials = mockUser.name
+  const { data: user } = useUser();
+  const initials = user.name
     .split(' ')
     .map((n) => n[0])
     .join('')
@@ -25,12 +26,12 @@ export function HomeScreen() {
     >
       <AppHeader
         greeting={greeting}
-        userName={mockUser.name}
+        userName={user.name}
         avatarInitials={initials}
       />
 
       <HeroCard
-        memberNumber={mockUser.dni}
+        memberNumber={user.dni}
         status="active"
         dueDate="10/07/2026"
       />

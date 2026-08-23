@@ -1,1 +1,1 @@
-export { mockPayments } from './use-payments';
+export { usePayments } from './use-payments';

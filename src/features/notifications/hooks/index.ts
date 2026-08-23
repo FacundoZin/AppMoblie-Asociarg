@@ -1,1 +1,1 @@
-export { mockNotifications } from './use-notifications';
+export { useNotifications } from './use-notifications';

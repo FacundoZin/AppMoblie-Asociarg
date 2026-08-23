@@ -1,1 +1,1 @@
-export { mockProfile, mockStats } from './use-profile';
+export { useProfile } from './use-profile';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SectionTitle, Chip, Text, FadeInUp, EmptyState } from '@/components';
 import { FeaturedEventCard, EventCard, CalendarWidget } from '../components';
-import { mockEvents } from '../hooks';
+import { useEvents } from '../hooks';
 import { lightColors, spacing } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Calendar, Dumbbell, Trophy, Users, PartyPopper } from 'lucide-react-native';
@@ -11,9 +11,10 @@ type FilterType = 'all' | 'training' | 'match' | 'meeting' | 'event';
 
 export function EventsScreen() {
   const insets = useSafeAreaInsets();
+  const { data: events } = useEvents();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
-  const upcomingEvents = mockEvents.filter((e) => {
+  const upcomingEvents = events.filter((e) => {
     const eventDate = new Date(e.date);
     const today = new Date();
     return eventDate >= today;
@@ -45,7 +46,7 @@ export function EventsScreen() {
                 label="Todos"
                 selected={activeFilter === 'all'}
                 onPress={() => setActiveFilter('all')}
-                count={mockEvents.length}
+                count={events.length}
               />
               <Chip
                 icon={Dumbbell}

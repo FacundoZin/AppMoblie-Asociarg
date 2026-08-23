@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SectionTitle, Chip, FadeInUp, EmptyState } from '@/components';
 import { PaymentSummaryCard, PaymentCard } from '../components';
-import { mockPayments } from '../hooks';
+import { usePayments } from '../hooks';
 import { lightColors, spacing } from '@/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CreditCard, CheckCircle, Clock, AlertCircle } from 'lucide-react-native';
@@ -11,11 +11,12 @@ type FilterType = 'all' | 'pending' | 'paid' | 'overdue';
 
 export function PaymentsScreen() {
   const insets = useSafeAreaInsets();
+  const { data: payments } = usePayments();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
-  const pendingPayments = mockPayments.filter((p) => p.status === 'pending');
-  const paidPayments = mockPayments.filter((p) => p.status === 'paid');
-  const overduePayments = mockPayments.filter((p) => p.status === 'overdue');
+  const pendingPayments = payments.filter((p) => p.status === 'pending');
+  const paidPayments = payments.filter((p) => p.status === 'paid');
+  const overduePayments = payments.filter((p) => p.status === 'overdue');
   const totalPending = [...pendingPayments, ...overduePayments].reduce((sum, p) => sum + p.amount, 0);
 
   const getFilteredPayments = () => {
@@ -27,7 +28,7 @@ export function PaymentsScreen() {
       case 'overdue':
         return overduePayments;
       default:
-        return mockPayments;
+        return payments;
     }
   };
 
@@ -55,7 +56,7 @@ export function PaymentsScreen() {
             label="Todas"
             selected={activeFilter === 'all'}
             onPress={() => setActiveFilter('all')}
-            count={mockPayments.length}
+            count={payments.length}
           />
           <Chip
             icon={Clock}

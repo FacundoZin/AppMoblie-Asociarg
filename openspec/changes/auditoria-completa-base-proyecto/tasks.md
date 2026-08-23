@@ -68,15 +68,15 @@ Chain strategy: stacked-to-main
 
 ## Phase 5: Data Layer (Slice e) — ~150-250 lines
 
-- [ ] 5.1 Create `src/features/home/mocks/user.mock.ts` — move mock user data from `use-user.ts`
-- [ ] 5.2 Create `src/features/events/mocks/events.mock.ts` — move mock event data from `use-events.ts`
-- [ ] 5.3 Create `src/features/profile/mocks/profile.mock.ts` — move mock profile data from `use-profile.ts`
-- [ ] 5.4 Create `src/features/notifications/mocks/notifications.mock.ts` — move mock notification data from `use-notifications.ts`
-- [ ] 5.5 Create `src/features/payments/mocks/payments.mock.ts` — move mock payment data from `use-payments.ts`
-- [ ] 5.6 Refactor each `use-*.ts` hook to import from `../mocks/` and return proper shape: `{ data, isLoading, error, refresh }`
-- [ ] 5.7 Remove dead URL-builder methods from `src/features/contact/services/contact.service.ts`
-- [ ] 5.8 Update hook barrel exports (`features/*/hooks/index.ts`)
-- [ ] 5.9 Verify: `grep -rn 'const.*MOCK' src/features/*/hooks/` returns zero, hooks compile with strict types
+- [x] 5.1 Create `src/features/home/mocks/user.mock.ts` — move mock user data from `use-user.ts`
+- [x] 5.2 Create `src/features/events/mocks/events.mock.ts` — move mock event data from `use-events.ts`
+- [x] 5.3 Create `src/features/profile/mocks/profile.mock.ts` — move mock profile data from `use-profile.ts`
+- [x] 5.4 Create `src/features/notifications/mocks/notifications.mock.ts` — move mock notification data from `use-notifications.ts`
+- [x] 5.5 Create `src/features/payments/mocks/payments.mock.ts` — move mock payment data from `use-payments.ts`
+- [x] 5.6 Refactor each `use-*.ts` hook to import from `../mocks/` and return proper shape: `{ data, isLoading, error, refresh }`
+- [x] 5.7 Remove dead URL-builder methods from `src/features/contact/services/contact.service.ts` *(completed early in slice a — methods were verified dead)*
+- [x] 5.8 Update hook barrel exports (`features/*/hooks/index.ts`)
+- [x] 5.9 Verify: `grep -rn 'const.*MOCK' src/features/*/hooks/` returns zero, hooks compile with strict types
 
 ## Phase 6: Feature Screens (Slice f) — ~200-300 lines
 

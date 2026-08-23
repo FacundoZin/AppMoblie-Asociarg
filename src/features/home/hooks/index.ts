@@ -1,1 +1,1 @@
-export { mockUser } from './use-user';
+export { useUser } from './use-user';

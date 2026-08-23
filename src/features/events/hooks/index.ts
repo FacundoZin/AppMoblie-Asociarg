@@ -1,1 +1,1 @@
-export { mockEvents } from './use-events';
+export { useEvents } from './use-events';
