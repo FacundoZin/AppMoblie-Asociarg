@@ -1,0 +1,41 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Expo SDK 54, React Native 0.81.5, Expo Router 6, TypeScript 5.9, React 19.1
+  Architecture: Feature-based (src/features/), atomic UI components (src/components/ui/), file-based routing (app/)
+  Path alias: @/* -> src/*
+  Design system: Custom tokens (src/theme/), lucide-react-native icons, Manrope font
+  Phase: UI prototype only - no backend, auth, database, or API integration
+  Testing: None available
+  Style: No linter or formatter configured; TypeScript strict mode enabled
+
+rules:
+  proposal:
+    - UI prototype phase: proposals MUST NOT include backend, auth, database, or API integration
+    - Focus on reusable UI components and screen layouts
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Follow existing feature-based architecture (src/features/{feature}/)
+    - Use design tokens from src/theme/ (colors, spacing, radii, shadows, typography)
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    guidelines:
+      - Follow existing code patterns and component structure
+      - Use path alias @/* for imports
+      - Components MUST be in src/components/ui/ (shared) or src/features/{feature}/components/
+      - Use existing design tokens, never hardcode colors/spacing
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: "npx expo start --no-dev --minify"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
