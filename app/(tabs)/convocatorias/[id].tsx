@@ -1,12 +1,33 @@
-import { View, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
+import { Screen, Text } from '@/components';
+import { lightColors, spacing } from '@/theme';
 
 export default function EventDetailScreen() {
   const { id } = useLocalSearchParams();
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Detalle de convocatoria: {id}</Text>
-    </View>
+    <Screen>
+      <View style={styles.container}>
+        <Text variant="lg" weight="semibold" color={lightColors.textPrimary}>
+          Detalle de convocatoria
+        </Text>
+        <Text variant="sm" color={lightColors.textSecondary} style={styles.idText}>
+          ID: {id}
+        </Text>
+      </View>
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: spacing.base,
+  },
+  idText: {
+    marginTop: spacing.sm,
+  },
+});

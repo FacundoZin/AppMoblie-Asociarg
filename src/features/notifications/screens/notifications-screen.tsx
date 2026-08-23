@@ -1,39 +1,34 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native';
-import { Chip, Text, FadeInUp, EmptyState } from '@/components';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Screen, Chip, Text, FadeInUp, EmptyState, StatCard } from '@/components';
 import { NotificationItem } from '../components';
 import { useNotifications } from '../hooks';
-import { lightColors, spacing, radii } from '@/theme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Bell, Mail, Star, CreditCard, Calendar, Users, Settings } from 'lucide-react-native';
+import { lightColors, spacing } from '@/theme';
+import { Bell, Mail, CreditCard, Calendar } from 'lucide-react-native';
+import { NotificationType } from '../types';
 
-type FilterType = 'all' | 'unread' | 'important' | 'payment' | 'event' | 'club' | 'system';
+type FilterType = 'all' | 'unread' | NotificationType;
 
 export function NotificationsScreen() {
-  const insets = useSafeAreaInsets();
   const { data: notifications } = useNotifications();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
-  // Contadores
+  // Counters
   const unreadCount = notifications.filter((n) => !n.read).length;
-  const importantCount = notifications.filter((n) => n.type === 'success').length;
   const paymentCount = notifications.filter((n) => n.type === 'success').length;
   const eventCount = notifications.filter((n) => n.type === 'event').length;
-  const clubCount = notifications.filter((n) => n.type === 'info').length;
-  const systemCount = notifications.filter((n) => n.type === 'info').length;
+  const infoCount = notifications.filter((n) => n.type === 'info').length;
 
-  // Filtrado
+  // Filtering
   const getFilteredNotifications = () => {
     switch (activeFilter) {
       case 'unread':
         return notifications.filter((n) => !n.read);
-      case 'important':
-      case 'payment':
+      case 'success':
         return notifications.filter((n) => n.type === 'success');
       case 'event':
         return notifications.filter((n) => n.type === 'event');
-      case 'club':
-      case 'system':
+      case 'info':
         return notifications.filter((n) => n.type === 'info');
       default:
         return notifications;
@@ -42,30 +37,24 @@ export function NotificationsScreen() {
 
   const filteredNotifications = getFilteredNotifications();
 
-  // Mensaje dinámico
+  // Dynamic message
   const getHeaderMessage = () => {
     if (unreadCount === 0) return 'Todo está actualizado';
     if (unreadCount === 1) return 'Tenés 1 novedad importante';
     return `Tenés ${unreadCount} novedades importantes`;
   };
 
-  // Resumen horizontal
+  // Summary cards (single category system, driven by NotificationType)
   const summaryItems = [
-    { icon: Mail, label: 'Sin leer', count: unreadCount, color: lightColors.primary, bgColor: lightColors.primaryLight },
-    { icon: Star, label: 'Importantes', count: importantCount, color: lightColors.warning, bgColor: lightColors.warningLight },
-    { icon: CreditCard, label: 'Pagos', count: paymentCount, color: lightColors.success, bgColor: lightColors.successLight },
-    { icon: Calendar, label: 'Eventos', count: eventCount, color: lightColors.info, bgColor: lightColors.infoLight },
-    { icon: Users, label: 'Club', count: clubCount, color: lightColors.primary, bgColor: lightColors.primaryLight },
-    { icon: Settings, label: 'Sistema', count: systemCount, color: lightColors.neutral, bgColor: lightColors.neutralLight },
+    { icon: Mail, label: 'Sin leer', count: unreadCount, color: 'primary' as const },
+    { icon: CreditCard, label: 'Pagos', count: paymentCount, color: 'success' as const },
+    { icon: Calendar, label: 'Eventos', count: eventCount, color: 'info' as const },
+    { icon: Bell, label: 'Info', count: infoCount, color: 'neutral' as const },
   ];
 
   return (
-    <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing.lg }]}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* Header */}
+    <Screen>
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <Text variant="2xl" weight="bold" color={lightColors.textPrimary}>
             Actividad
@@ -75,116 +64,93 @@ export function NotificationsScreen() {
           </Text>
         </View>
 
-        {/* Resumen horizontal scrollable */}
-            <FadeInUp delay={100}>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.summaryScroll}
-              >
-                {summaryItems.map((item) => (
-                  <View key={item.label} style={styles.summaryCard}>
-                    <View style={[styles.summaryIcon, { backgroundColor: item.bgColor }]}>
-                      <item.icon size={20} color={item.color} />
-                    </View>
-                    <Text variant="2xl" weight="bold" color={lightColors.textPrimary}>
-                      {item.count}
-                    </Text>
-                    <Text variant="xs" color={lightColors.textSecondary}>
-                      {item.label}
-                    </Text>
-                  </View>
-                ))}
-              </ScrollView>
-            </FadeInUp>
-
-            {/* Filtros horizontal scrollable */}
-            <FadeInUp delay={150}>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.filtersScroll}
-              >
-                <Chip
-                  icon={Bell}
-                  label="Todos"
-                  selected={activeFilter === 'all'}
-                  onPress={() => setActiveFilter('all')}
-                  count={notifications.length}
-                />
-                <Chip
-                  icon={Mail}
-                  label="Sin leer"
-                  selected={activeFilter === 'unread'}
-                  onPress={() => setActiveFilter('unread')}
-                  count={unreadCount}
-                />
-                <Chip
-                  icon={Star}
-                  label="Importantes"
-                  selected={activeFilter === 'important'}
-                  onPress={() => setActiveFilter('important')}
-                  count={importantCount}
-                />
-                <Chip
-                  icon={CreditCard}
-                  label="Pagos"
-                  selected={activeFilter === 'payment'}
-                  onPress={() => setActiveFilter('payment')}
-                  count={paymentCount}
-                />
-                <Chip
-                  icon={Calendar}
-                  label="Eventos"
-                  selected={activeFilter === 'event'}
-                  onPress={() => setActiveFilter('event')}
-                  count={eventCount}
-                />
-                <Chip
-                  icon={Users}
-                  label="Club"
-                  selected={activeFilter === 'club'}
-                  onPress={() => setActiveFilter('club')}
-                  count={clubCount}
-                />
-                <Chip
-                  icon={Settings}
-                  label="Sistema"
-                  selected={activeFilter === 'system'}
-                  onPress={() => setActiveFilter('system')}
-                  count={systemCount}
-                />
-              </ScrollView>
-            </FadeInUp>
-
-            {/* Lista de notificaciones */}
-            {filteredNotifications.length === 0 ? (
-              <EmptyState
-                icon={Bell}
-                title="Sin notificaciones"
-                description="No hay notificaciones en esta categoría"
+        <FadeInUp delay={100}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.summaryScroll}
+          >
+            {summaryItems.map((item) => (
+              <StatCard
+                key={item.label}
+                icon={item.icon}
+                label={item.label}
+                value={item.count}
+                color={item.color}
+                style={styles.summaryCard}
               />
-            ) : (
-              <View style={styles.list}>
-                {filteredNotifications.map((notification) => (
-                  <FadeInUp key={notification.id} delay={200}>
-                    <NotificationItem notification={notification} />
-                  </FadeInUp>
-                ))}
-              </View>
-            )}
+            ))}
+          </ScrollView>
+        </FadeInUp>
+
+        <FadeInUp delay={150}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.filtersScroll}
+          >
+            <Chip
+              icon={Bell}
+              label="Todos"
+              selected={activeFilter === 'all'}
+              onPress={() => setActiveFilter('all')}
+              count={notifications.length}
+            />
+            <Chip
+              icon={Mail}
+              label="Sin leer"
+              selected={activeFilter === 'unread'}
+              onPress={() => setActiveFilter('unread')}
+              count={unreadCount}
+            />
+            <Chip
+              icon={CreditCard}
+              label="Pagos"
+              selected={activeFilter === 'success'}
+              onPress={() => setActiveFilter('success')}
+              count={paymentCount}
+            />
+            <Chip
+              icon={Calendar}
+              label="Eventos"
+              selected={activeFilter === 'event'}
+              onPress={() => setActiveFilter('event')}
+              count={eventCount}
+            />
+            <Chip
+              icon={Bell}
+              label="Info"
+              selected={activeFilter === 'info'}
+              onPress={() => setActiveFilter('info')}
+              count={infoCount}
+            />
+          </ScrollView>
+        </FadeInUp>
+
+        {filteredNotifications.length === 0 ? (
+          <EmptyState
+            icon={Bell}
+            title="Sin notificaciones"
+            description="No hay notificaciones en esta categoría"
+          />
+        ) : (
+          <View style={styles.list}>
+            {filteredNotifications.map((notification) => (
+              <FadeInUp key={notification.id} delay={200}>
+                <NotificationItem notification={notification} />
+              </FadeInUp>
+            ))}
+          </View>
+        )}
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: lightColors.background,
-  },
   content: {
     flexGrow: 1,
+    paddingBottom: spacing.lg,
   },
   header: {
     paddingHorizontal: spacing.base,
@@ -201,20 +167,6 @@ const styles = StyleSheet.create({
   },
   summaryCard: {
     width: 100,
-    padding: spacing.md,
-    backgroundColor: lightColors.surface,
-    borderRadius: radii.lg,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: lightColors.border,
-  },
-  summaryIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: radii.md,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: spacing.sm,
   },
   filtersScroll: {
     paddingHorizontal: spacing.base,

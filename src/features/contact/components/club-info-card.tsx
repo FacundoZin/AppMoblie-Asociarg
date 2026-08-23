@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Badge, Icon, FadeInUp } from '@/components';
+import { Text, Badge, Icon } from '@/components';
 import { Building2, Phone, Clock } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 import { ClubContact } from '../types';
@@ -23,9 +23,8 @@ export function ClubInfoCard({ club }: ClubInfoCardProps) {
   });
 
   return (
-    <FadeInUp delay={100}>
-      <View style={styles.container}>
-        <View style={styles.card}>
+    <View style={styles.container}>
+      <View style={styles.card}>
           <View style={styles.pattern} />
 
           <View style={styles.header}>
@@ -59,7 +58,6 @@ export function ClubInfoCard({ club }: ClubInfoCardProps) {
           )}
         </View>
       </View>
-    </FadeInUp>
   );
 }
 

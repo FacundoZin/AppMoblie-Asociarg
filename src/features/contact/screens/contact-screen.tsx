@@ -1,20 +1,17 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { SectionTitle, Text, FadeInUp, EmptyState } from '@/components';
+import { Screen, SectionTitle, Text, FadeInUp, EmptyState } from '@/components';
 import { MessageCircle, Phone, MapPin } from 'lucide-react-native';
 import { lightColors, spacing } from '@/theme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useContact } from '../hooks';
 import { ClubInfoCard, QuickAction, ScheduleCard } from '../components';
 
 export function ContactScreen() {
-  const insets = useSafeAreaInsets();
   const { club, isLoading, openWhatsApp, openPhone, openMaps } = useContact();
 
   if (isLoading) {
     return (
-      <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
+      <Screen>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <SectionTitle title="Contacto" />
           <View style={styles.loadingContainer}>
@@ -23,27 +20,24 @@ export function ContactScreen() {
             </Text>
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </Screen>
     );
   }
 
   if (!club) {
     return (
-      <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
+      <Screen>
         <EmptyState
           title="Sin información"
           description="No pudimos cargar los datos del club"
         />
-      </SafeAreaView>
+      </Screen>
     );
   }
 
   return (
-    <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing.lg }]}
-        showsVerticalScrollIndicator={false}
-      >
+    <Screen>
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <SectionTitle title="Contacto" />
 
         <FadeInUp delay={50}>
@@ -54,7 +48,9 @@ export function ContactScreen() {
           </View>
         </FadeInUp>
 
-        <ClubInfoCard club={club} />
+        <FadeInUp delay={100}>
+          <ClubInfoCard club={club} />
+        </FadeInUp>
 
         <View style={styles.actionsContainer}>
           <FadeInUp delay={150}>
@@ -91,19 +87,18 @@ export function ContactScreen() {
           </FadeInUp>
         </View>
 
-        <ScheduleCard schedule={club.schedule} />
+        <FadeInUp delay={400}>
+          <ScheduleCard schedule={club.schedule} />
+        </FadeInUp>
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: lightColors.background,
-  },
   content: {
     flexGrow: 1,
+    paddingBottom: spacing.lg,
   },
   headerMessage: {
     paddingHorizontal: spacing.base,

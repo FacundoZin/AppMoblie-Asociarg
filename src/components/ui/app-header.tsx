@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
 import { Avatar } from './avatar';
 import { lightColors, spacing } from '@/theme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface AppHeaderProps {
   greeting: string;
@@ -19,10 +18,8 @@ export function AppHeader({
   avatarUri,
   avatarInitials,
 }: AppHeaderProps) {
-  const insets = useSafeAreaInsets();
-
   return (
-    <View style={[styles.container, { paddingTop: insets.top + spacing.md }]}>
+    <View style={styles.container}>
       <View style={styles.accentBar} />
       <View style={styles.content}>
         <View style={styles.textContainer}>
@@ -45,6 +42,7 @@ export function AppHeader({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: lightColors.surface,
+    paddingTop: spacing.md,
     paddingBottom: spacing.md,
   },
   accentBar: {

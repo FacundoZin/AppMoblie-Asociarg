@@ -1,1 +1,1 @@
-export type { Event, EventStatus } from './event.types';
+export type { Event, EventStatus, EventCategory } from './event.types';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Badge, Icon, FadeInUp } from '@/components';
+import { Card, Text, Badge, Icon } from '@/components';
 import { CheckCircle, Clock, AlertCircle } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 import { Payment } from '../types';
@@ -46,8 +46,7 @@ export function PaymentCard({ payment }: PaymentCardProps) {
   const month = date.toLocaleDateString('es-AR', { month: 'long' });
 
   return (
-    <FadeInUp>
-      <Card padding="xl" style={styles.card}>
+    <Card padding="xl" style={styles.card}>
         <View style={styles.header}>
           <View style={styles.monthContainer}>
             <Text variant="xs" color={lightColors.textSecondary} style={styles.monthLabel}>
@@ -87,23 +86,31 @@ export function PaymentCard({ payment }: PaymentCardProps) {
         <View style={styles.footer}>
           <Badge variant={config.variant} label={config.label} />
           {payment.status === 'paid' && (
-            <Text variant="xs" color={lightColors.success} weight="medium">
-              ✓ Pago confirmado
-            </Text>
+            <View style={styles.footerStatus}>
+              <Icon name={CheckCircle} size={14} color={lightColors.success} />
+              <Text variant="xs" color={lightColors.success} weight="medium">
+                Pago confirmado
+              </Text>
+            </View>
           )}
           {payment.status === 'pending' && (
-            <Text variant="xs" color={lightColors.primary} weight="medium">
-              ⏰ Próximo vencimiento
-            </Text>
+            <View style={styles.footerStatus}>
+              <Icon name={Clock} size={14} color={lightColors.primary} />
+              <Text variant="xs" color={lightColors.primary} weight="medium">
+                Próximo vencimiento
+              </Text>
+            </View>
           )}
           {payment.status === 'overdue' && (
-            <Text variant="xs" color={lightColors.error} weight="medium">
-              ⚠ Requiere atención
-            </Text>
+            <View style={styles.footerStatus}>
+              <Icon name={AlertCircle} size={14} color={lightColors.error} />
+              <Text variant="xs" color={lightColors.error} weight="medium">
+                Requiere atención
+              </Text>
+            </View>
           )}
         </View>
       </Card>
-    </FadeInUp>
   );
 }
 
@@ -157,5 +164,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  footerStatus: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
   },
 });

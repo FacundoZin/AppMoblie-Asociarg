@@ -1,1 +1,1 @@
-export type { Payment } from './payment.types';
+export type { Payment, PaymentStatus } from './payment.types';

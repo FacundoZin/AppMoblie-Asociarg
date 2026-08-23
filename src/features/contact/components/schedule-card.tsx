@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Card, Text, Icon, FadeInUp } from '@/components';
+import { Card, Text, Icon } from '@/components';
 import { Clock, ChevronDown, ChevronUp } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 import { ScheduleItem } from '../types';
@@ -18,8 +18,7 @@ export function ScheduleCard({ schedule }: ScheduleCardProps) {
   const todaySchedule = schedule.find((s) => s.day === currentDayName);
 
   return (
-    <FadeInUp delay={400}>
-      <Card padding="lg" style={styles.card}>
+    <Card padding="lg" style={styles.card}>
         <TouchableOpacity
           style={styles.header}
           onPress={() => setIsExpanded(!isExpanded)}
@@ -78,7 +77,6 @@ export function ScheduleCard({ schedule }: ScheduleCardProps) {
           </View>
         )}
       </Card>
-    </FadeInUp>
   );
 }
 

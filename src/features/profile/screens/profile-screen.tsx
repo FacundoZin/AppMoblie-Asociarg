@@ -1,45 +1,46 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { SectionTitle } from '@/components';
+import { Screen, SectionTitle, FadeInUp } from '@/components';
 import { ProfileHero, ProfileInfoCard, ProfileStatsCard, ProfileActions } from '../components';
 import { useProfile } from '../hooks';
-import { lightColors, spacing } from '@/theme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { spacing } from '@/theme';
 
 export function ProfileScreen() {
-  const insets = useSafeAreaInsets();
   const { data: profile, stats } = useProfile();
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing.lg }]}
-      showsVerticalScrollIndicator={false}
-    >
-      <SectionTitle title="Mi Perfil" />
+    <Screen>
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <SectionTitle title="Mi Perfil" />
 
-      <ProfileHero profile={profile} />
+        <FadeInUp delay={100}>
+          <ProfileHero profile={profile} />
+        </FadeInUp>
 
-      <ProfileStatsCard
-        paymentsCompleted={stats.paymentsCompleted}
-        eventsAttended={stats.eventsAttended}
-        yearsAsMember={stats.yearsAsMember}
-        invitations={stats.invitations}
-      />
+        <FadeInUp delay={200}>
+          <ProfileStatsCard
+            paymentsCompleted={stats.paymentsCompleted}
+            eventsAttended={stats.eventsAttended}
+            yearsAsMember={stats.yearsAsMember}
+            invitations={stats.invitations}
+          />
+        </FadeInUp>
 
-      <ProfileInfoCard profile={profile} />
+        <FadeInUp delay={300}>
+          <ProfileInfoCard profile={profile} />
+        </FadeInUp>
 
-      <ProfileActions />
-    </ScrollView>
+        <FadeInUp delay={400}>
+          <ProfileActions />
+        </FadeInUp>
+      </ScrollView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: lightColors.background,
-  },
   content: {
     flexGrow: 1,
+    paddingBottom: spacing.lg,
   },
 });

@@ -1,13 +1,11 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { AppHeader, SectionTitle } from '@/components';
+import { Screen, AppHeader, SectionTitle, FadeInUp } from '@/components';
 import { HeroCard, QuickActions, SummaryCard, RecentActivity } from '../components';
 import { useUser } from '../hooks';
-import { lightColors, spacing } from '@/theme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { spacing } from '@/theme';
 
 export function HomeScreen() {
-  const insets = useSafeAreaInsets();
   const { data: user } = useUser();
   const initials = user.name
     .split(' ')
@@ -19,44 +17,35 @@ export function HomeScreen() {
   const greeting = hour < 12 ? 'Buenos días' : hour < 18 ? 'Buenas tardes' : 'Buenas noches';
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing.lg }]}
-      showsVerticalScrollIndicator={false}
-    >
-      <AppHeader
-        greeting={greeting}
-        userName={user.name}
-        avatarInitials={initials}
-      />
+    <Screen>
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <AppHeader greeting={greeting} userName={user.name} avatarInitials={initials} />
 
-      <HeroCard
-        memberNumber={user.dni}
-        status="active"
-        dueDate="10/07/2026"
-      />
+        <FadeInUp delay={100}>
+          <HeroCard memberNumber={user.dni} status="active" dueDate="2026-07-10" />
+        </FadeInUp>
 
-      <QuickActions />
+        <FadeInUp delay={200}>
+          <QuickActions />
+        </FadeInUp>
 
-      <SectionTitle title="Resumen" />
-      <SummaryCard
-        pendingPayments={1}
-        activeEvents={2}
-        newNotifications={3}
-      />
+        <SectionTitle title="Resumen" />
+        <FadeInUp delay={300}>
+          <SummaryCard pendingPayments={1} activeEvents={2} newNotifications={3} />
+        </FadeInUp>
 
-      <SectionTitle title="Actividad reciente" />
-      <RecentActivity />
-    </ScrollView>
+        <SectionTitle title="Actividad reciente" />
+        <FadeInUp delay={400}>
+          <RecentActivity />
+        </FadeInUp>
+      </ScrollView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: lightColors.background,
-  },
   content: {
     flexGrow: 1,
+    paddingBottom: spacing.lg,
   },
 });

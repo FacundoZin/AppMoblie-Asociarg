@@ -80,22 +80,22 @@ Chain strategy: stacked-to-main
 
 ## Phase 6: Feature Screens (Slice f) — ~200-300 lines
 
-- [ ] 6.1 Wrap `home-screen.tsx` content in `<Screen>` scaffold, remove manual `SafeAreaView`
-- [ ] 6.2 Wrap `profile-screen.tsx` content in `<Screen>` scaffold, remove manual safe-area handling
-- [ ] 6.3 Wrap `events-screen.tsx` content in `<Screen>` scaffold
-- [ ] 6.4 Wrap `contact-screen.tsx` content in `<Screen>` scaffold
-- [ ] 6.5 Wrap `notifications-screen.tsx` content in `<Screen>`, replace inline summary with `<StatCard>`
-- [ ] 6.6 Wrap `payments-screen.tsx` content in `<Screen>` scaffold
-- [ ] 6.7 Update `HeroCard` (home) to use `<PatternCard variant="primary">` internally
-- [ ] 6.8 Update `ProfileHero` (profile) to use `<PatternCard variant="primary">` internally
-- [ ] 6.9 Update `FeaturedEventCard` (events) to use `<PatternCard variant="surface">` internally
-- [ ] 6.10 Update `SummaryCard` (home) to use `<StatCard>`
-- [ ] 6.11 Align notification type/category — unify to single system, verify icon/badge mapping
-- [ ] 6.12 Remove dead buttons (onPress-less) and dead filter states from all screens
-- [ ] 6.13 Remove nested `FadeInUp` from card components — animation lives at screen level only
-- [ ] 6.14 Update `app/+not-found.tsx` to use `<Screen>` + theme tokens
-- [ ] 6.15 Update `app/(tabs)/pagos/[id].tsx` and `app/(tabs)/convocatorias/[id].tsx` to use `<Screen>`
-- [ ] 6.16 Verify: `grep -rn 'SafeAreaView' src/` returns zero matches outside `common/screen.tsx`, all screens render correctly
+- [x] 6.1 Wrap `home-screen.tsx` content in `<Screen>` scaffold, remove manual `SafeAreaView`
+- [x] 6.2 Wrap `profile-screen.tsx` content in `<Screen>` scaffold, remove manual safe-area handling
+- [x] 6.3 Wrap `events-screen.tsx` content in `<Screen>` scaffold
+- [x] 6.4 Wrap `contact-screen.tsx` content in `<Screen>` scaffold
+- [x] 6.5 Wrap `notifications-screen.tsx` content in `<Screen>`, replace inline summary with `<StatCard>`
+- [x] 6.6 Wrap `payments-screen.tsx` content in `<Screen>` scaffold
+- [x] 6.7 Update `HeroCard` (home) to use `<PatternCard variant="primary">` internally
+- [x] 6.8 Update `ProfileHero` (profile) to use `<PatternCard variant="primary">` internally
+- [x] 6.9 Update `FeaturedEventCard` (events) to use `<PatternCard variant="surface">` internally
+- [x] 6.10 Update `SummaryCard` (home) to use `<StatCard>`
+- [x] 6.11 Align notification type/category — unify to single system, verify icon/badge mapping
+- [x] 6.12 Remove dead buttons (onPress-less) and dead filter states from all screens
+- [x] 6.13 Remove nested `FadeInUp` from card components — animation lives at screen level only
+- [x] 6.14 Update `app/+not-found.tsx` to use `<Screen>` + theme tokens
+- [x] 6.15 Update `app/(tabs)/pagos/[id].tsx` and `app/(tabs)/convocatorias/[id].tsx` to use `<Screen>`
+- [x] 6.16 Verify: `grep -rn 'SafeAreaView' src/` returns zero matches outside `common/screen.tsx`, all screens render correctly
 
 ## Phase 7: Docs + Cleanup (Slice g) — ~100-150 lines
 

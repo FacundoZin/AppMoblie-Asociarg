@@ -2,23 +2,39 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Text } from '@/components';
 import { lightColors, spacing, radii } from '@/theme';
+import { Event } from '../types';
 
-export function CalendarWidget() {
+interface CalendarWidgetProps {
+  /** Events to highlight; only events in the current month render dots. */
+  events: Event[];
+}
+
+export function CalendarWidget({ events }: CalendarWidgetProps) {
   const today = new Date();
   const currentDay = today.getDate();
   const currentMonth = today.toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
 
-  // Días del mes (simplificado para visualización)
-  const daysInMonth = 30;
+  // Real month length (no hardcoded 30-day month).
+  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-  // Días con eventos (mock)
-  const eventDays = [5, 12, 15, 20, 25];
+  // Event days derived from the events data, scoped to the current month.
+  const eventDays = Array.from(
+    new Set(
+      events
+        .filter((event) => {
+          const date = new Date(event.date);
+          return (
+            date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()
+          );
+        })
+        .map((event) => new Date(event.date).getDate()),
+    ),
+  );
 
   return (
     <View style={styles.container}>
       <Card padding="lg" style={styles.card}>
-        {/* Header del calendario */}
         <View style={styles.header}>
           <Text variant="base" weight="bold" color={lightColors.textPrimary}>
             {currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)}
@@ -28,7 +44,6 @@ export function CalendarWidget() {
           </Text>
         </View>
 
-        {/* Días de la semana */}
         <View style={styles.weekDays}>
           {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, index) => (
             <Text key={index} variant="xs" color={lightColors.textSecondary} style={styles.weekDay}>
@@ -37,7 +52,6 @@ export function CalendarWidget() {
           ))}
         </View>
 
-        {/* Grid de días */}
         <View style={styles.daysGrid}>
           {days.map((day) => {
             const isToday = day === currentDay;
@@ -59,9 +73,7 @@ export function CalendarWidget() {
                 >
                   {day}
                 </Text>
-                {hasEvent && !isToday && (
-                  <View style={styles.eventDot} />
-                )}
+                {hasEvent && !isToday && <View style={styles.eventDot} />}
               </View>
             );
           })}

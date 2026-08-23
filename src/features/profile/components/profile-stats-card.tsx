@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Icon, FadeInUp } from '@/components';
+import { StatCard } from '@/components/common';
 import { CreditCard, Award, TrendingUp, Users } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing } from '@/theme';
 
 interface ProfileStatsCardProps {
   paymentsCompleted: number;
@@ -22,50 +22,41 @@ export function ProfileStatsCard({
       icon: CreditCard,
       label: 'Cuotas pagadas',
       value: paymentsCompleted,
-      color: lightColors.success,
-      bgColor: lightColors.successLight,
+      color: 'success' as const,
     },
     {
       icon: Award,
       label: 'Eventos asistidos',
       value: eventsAttended,
-      color: lightColors.info,
-      bgColor: lightColors.infoLight,
+      color: 'info' as const,
     },
     {
       icon: TrendingUp,
       label: 'Años como socio',
       value: yearsAsMember,
-      color: lightColors.primary,
-      bgColor: lightColors.primaryLight,
+      color: 'primary' as const,
     },
     {
       icon: Users,
       label: 'Convocatorias',
       value: invitations,
-      color: lightColors.warning,
-      bgColor: lightColors.warningLight,
+      color: 'warning' as const,
     },
   ];
 
   return (
-    <FadeInUp delay={300}>
-      <View style={styles.container}>
-        {stats.map((stat) => (
-          <Card key={stat.label} padding="lg" style={styles.statCard}>
-            <View style={[styles.iconContainer, { backgroundColor: stat.bgColor }]}>
-              <Icon name={stat.icon} size={20} color={stat.color} />
-            </View>
-            <Text variant="2xl" weight="bold" color={lightColors.textPrimary} style={styles.value}>
-              {stat.value}
-            </Text>
-            <Text variant="xs" color={lightColors.textSecondary} style={styles.label}>
-              {stat.label}
-            </Text>
-          </Card>
-        ))}
-      </View>
-    </FadeInUp>
+    <View style={styles.container}>
+      {stats.map((stat) => (
+        <StatCard
+          key={stat.label}
+          icon={stat.icon}
+          label={stat.label}
+          value={stat.value}
+          color={stat.color}
+          style={styles.statCard}
+        />
+      ))}
+    </View>
   );
 }
 
@@ -78,20 +69,5 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    alignItems: 'center',
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: radii.lg,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: spacing.sm,
-  },
-  value: {
-    marginBottom: spacing.xs,
-  },
-  label: {
-    textAlign: 'center',
   },
 });

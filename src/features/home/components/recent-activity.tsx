@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { ActivityItem, FadeInUp } from '@/components';
+import { ActivityItem } from '@/components';
 import { CreditCard, Calendar, Bell } from 'lucide-react-native';
 import { lightColors, spacing } from '@/theme';
 
@@ -37,16 +37,14 @@ const defaultActivities = [
 export function RecentActivity({ activities = defaultActivities }: RecentActivityProps) {
   return (
     <View style={styles.container}>
-      {activities.map((activity, index) => (
-        <FadeInUp key={activity.id} delay={600 + index * 100}>
-          <View style={styles.itemWrapper}>
-            <ActivityItem
-              icon={activity.icon}
-              description={activity.description}
-              time={activity.time}
-            />
-          </View>
-        </FadeInUp>
+      {activities.map((activity) => (
+        <View key={activity.id} style={styles.itemWrapper}>
+          <ActivityItem
+            icon={activity.icon}
+            description={activity.description}
+            time={activity.time}
+          />
+        </View>
       ))}
     </View>
   );

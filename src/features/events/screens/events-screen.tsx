@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { SectionTitle, Chip, Text, FadeInUp, EmptyState } from '@/components';
+import { Screen, SectionTitle, Chip, Text, FadeInUp, EmptyState } from '@/components';
 import { FeaturedEventCard, EventCard, CalendarWidget } from '../components';
 import { useEvents } from '../hooks';
 import { lightColors, spacing } from '@/theme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Calendar, Dumbbell, Trophy, Users, PartyPopper } from 'lucide-react-native';
+import { EventCategory } from '../types';
 
-type FilterType = 'all' | 'training' | 'match' | 'meeting' | 'event';
+type FilterType = 'all' | EventCategory;
 
 export function EventsScreen() {
-  const insets = useSafeAreaInsets();
   const { data: events } = useEvents();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
@@ -20,93 +19,96 @@ export function EventsScreen() {
     return eventDate >= today;
   });
 
-  const featuredEvent = upcomingEvents[0];
-  const otherEvents = upcomingEvents.slice(1);
+  const visibleEvents =
+    activeFilter === 'all' ? upcomingEvents : upcomingEvents.filter((e) => e.category === activeFilter);
+
+  const featuredEvent = visibleEvents[0];
+  const otherEvents = visibleEvents.slice(1);
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing.lg }]}
-      showsVerticalScrollIndicator={false}
-    >
-      <SectionTitle title="Convocatorias" />
+    <Screen>
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <SectionTitle title="Convocatorias" />
 
-      {featuredEvent && <FeaturedEventCard event={featuredEvent} />}
-
-          {/* Calendario */}
-          <FadeInUp delay={200}>
-            <CalendarWidget />
+        {featuredEvent && (
+          <FadeInUp delay={100}>
+            <FeaturedEventCard event={featuredEvent} />
           </FadeInUp>
+        )}
 
-          {/* Filtros */}
-          <FadeInUp delay={300}>
-            <View style={styles.chipsContainer}>
-              <Chip
-                icon={Calendar}
-                label="Todos"
-                selected={activeFilter === 'all'}
-                onPress={() => setActiveFilter('all')}
-                count={events.length}
-              />
-              <Chip
-                icon={Dumbbell}
-                label="Entrenamientos"
-                selected={activeFilter === 'training'}
-                onPress={() => setActiveFilter('training')}
-              />
-              <Chip
-                icon={Trophy}
-                label="Partidos"
-                selected={activeFilter === 'match'}
-                onPress={() => setActiveFilter('match')}
-              />
-              <Chip
-                icon={Users}
-                label="Reuniones"
-                selected={activeFilter === 'meeting'}
-                onPress={() => setActiveFilter('meeting')}
-              />
-              <Chip
-                icon={PartyPopper}
-                label="Eventos"
-                selected={activeFilter === 'event'}
-                onPress={() => setActiveFilter('event')}
-              />
-            </View>
-          </FadeInUp>
+        <FadeInUp delay={200}>
+          <CalendarWidget events={upcomingEvents} />
+        </FadeInUp>
 
-          {/* Lista de eventos */}
-          {otherEvents.length > 0 ? (
-            <View style={styles.list}>
-              <FadeInUp delay={400}>
-                <Text variant="lg" weight="bold" color={lightColors.textPrimary} style={styles.sectionHeader}>
-                  Próximos eventos
-                </Text>
-              </FadeInUp>
-              {otherEvents.map((event, index) => (
-                <FadeInUp key={event.id} delay={500 + index * 100}>
-                  <EventCard event={event} />
-                </FadeInUp>
-              ))}
-            </View>
-          ) : (
-            <EmptyState
+        <FadeInUp delay={300}>
+          <View style={styles.chipsContainer}>
+            <Chip
               icon={Calendar}
-              title="Sin convocatorias"
-              description="No hay eventos programados próximamente"
+              label="Todos"
+              selected={activeFilter === 'all'}
+              onPress={() => setActiveFilter('all')}
+              count={events.length}
             />
-          )}
-    </ScrollView>
+            <Chip
+              icon={Dumbbell}
+              label="Entrenamientos"
+              selected={activeFilter === 'training'}
+              onPress={() => setActiveFilter('training')}
+              count={events.filter((e) => e.category === 'training').length}
+            />
+            <Chip
+              icon={Trophy}
+              label="Partidos"
+              selected={activeFilter === 'match'}
+              onPress={() => setActiveFilter('match')}
+              count={events.filter((e) => e.category === 'match').length}
+            />
+            <Chip
+              icon={Users}
+              label="Reuniones"
+              selected={activeFilter === 'meeting'}
+              onPress={() => setActiveFilter('meeting')}
+              count={events.filter((e) => e.category === 'meeting').length}
+            />
+            <Chip
+              icon={PartyPopper}
+              label="Eventos"
+              selected={activeFilter === 'event'}
+              onPress={() => setActiveFilter('event')}
+              count={events.filter((e) => e.category === 'event').length}
+            />
+          </View>
+        </FadeInUp>
+
+        {otherEvents.length > 0 ? (
+          <View style={styles.list}>
+            <FadeInUp delay={400}>
+              <Text variant="lg" weight="bold" color={lightColors.textPrimary} style={styles.sectionHeader}>
+                Próximos eventos
+              </Text>
+            </FadeInUp>
+            {otherEvents.map((event, index) => (
+              <FadeInUp key={event.id} delay={500 + index * 100}>
+                <EventCard event={event} />
+              </FadeInUp>
+            ))}
+          </View>
+        ) : (
+          <EmptyState
+            icon={Calendar}
+            title="Sin convocatorias"
+            description="No hay eventos programados próximamente"
+          />
+        )}
+      </ScrollView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: lightColors.background,
-  },
   content: {
     flexGrow: 1,
+    paddingBottom: spacing.lg,
   },
   chipsContainer: {
     flexDirection: 'row',
