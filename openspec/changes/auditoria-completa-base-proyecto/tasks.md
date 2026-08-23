@@ -47,11 +47,11 @@ Chain strategy: stacked-to-main
 
 ## Phase 3: Theme + Hex Sweep (Slice c) — ~150-200 lines
 
-- [ ] 3.1 Add `infoLight`, `warningLight`, `neutralLight`, `errorLight` tokens to `src/theme/colors.ts` (both light and dark palettes)
-- [ ] 3.2 Find all hardcoded hex colors in `.tsx` files (exclude `theme/`) — grep `#[0-9a-fA-F]{3,8}`
-- [ ] 3.3 Replace each hardcoded hex with corresponding theme token reference (`colors.xxx`)
-- [ ] 3.4 Update any component that derives colors dynamically to use theme tokens
-- [ ] 3.5 Verify: zero hardcoded hex in components (`grep` returns no matches), all screens render with correct colors
+- [x] 3.1 Add `infoLight`, `warningLight`, `neutralLight`, `errorLight` tokens to `src/theme/colors.ts` (both light and dark palettes)
+- [x] 3.2 Find all hardcoded hex colors in `.tsx` files (exclude `theme/`) — grep `#[0-9a-fA-F]{3,8}`
+- [x] 3.3 Replace each hardcoded hex with corresponding theme token reference (`colors.xxx`)
+- [x] 3.4 Update any component that derives colors dynamically to use theme tokens
+- [x] 3.5 Verify: zero hardcoded hex in components (`grep` returns no matches), all screens render with correct colors
 
 ## Phase 4: UI Kit Cleanup (Slice d) — ~200-300 lines
 

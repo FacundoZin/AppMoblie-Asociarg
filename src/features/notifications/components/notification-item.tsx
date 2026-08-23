@@ -13,12 +13,12 @@ const categoryConfig: Record<string, { icon: LucideIcon; color: string; bgColor:
   payment: {
     icon: CreditCard,
     color: lightColors.success,
-    bgColor: '#E8F8E7',
+    bgColor: lightColors.successLight,
   },
   event: {
     icon: Calendar,
     color: lightColors.info,
-    bgColor: '#E8F4FD',
+    bgColor: lightColors.infoLight,
   },
   club: {
     icon: Users,
@@ -28,12 +28,12 @@ const categoryConfig: Record<string, { icon: LucideIcon; color: string; bgColor:
   system: {
     icon: Settings,
     color: lightColors.neutral,
-    bgColor: '#F3F4F6',
+    bgColor: lightColors.neutralLight,
   },
   important: {
     icon: Star,
     color: lightColors.warning,
-    bgColor: '#FFF8E7',
+    bgColor: lightColors.warningLight,
   },
   default: {
     icon: Bell,

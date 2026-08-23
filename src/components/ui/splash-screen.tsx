@@ -5,6 +5,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import { lightColors } from '@/theme';
 
 interface SplashScreenProps {
   onFinish: () => void;
@@ -56,7 +57,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#ffffff',
+    backgroundColor: lightColors.surface,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 9999,

@@ -16,7 +16,7 @@ const statusConfig = {
     label: 'Pagada', 
     color: lightColors.success,
     icon: CheckCircle,
-    bgColor: '#E8F8E7',
+    bgColor: lightColors.successLight,
   },
   pending: { 
     variant: 'warning' as const, 
@@ -30,7 +30,7 @@ const statusConfig = {
     label: 'Vencida', 
     color: lightColors.error,
     icon: AlertCircle,
-    bgColor: '#FDE8E8',
+    bgColor: lightColors.errorLight,
   },
 };
 

@@ -34,21 +34,21 @@ export function NotificationSummary({
       label: 'Importantes',
       count: importantCount,
       color: lightColors.warning,
-      bgColor: '#FFF8E7',
+      bgColor: lightColors.warningLight,
     },
     {
       icon: CreditCard,
       label: 'Pagos',
       count: paymentCount,
       color: lightColors.success,
-      bgColor: '#E8F8E7',
+      bgColor: lightColors.successLight,
     },
     {
       icon: Calendar,
       label: 'Eventos',
       count: eventCount,
       color: lightColors.info,
-      bgColor: '#E8F4FD',
+      bgColor: lightColors.infoLight,
     },
     {
       icon: Users,
@@ -62,7 +62,7 @@ export function NotificationSummary({
       label: 'Sistema',
       count: systemCount,
       color: lightColors.neutral,
-      bgColor: '#F3F4F6',
+      bgColor: lightColors.neutralLight,
     },
   ];
 

@@ -63,7 +63,7 @@ export function ContactScreen() {
               label="Enviar WhatsApp"
               description="Respuesta inmediata"
               color={lightColors.success}
-              bgColor="#E8F8E7"
+              bgColor={lightColors.successLight}
               onPress={openWhatsApp}
             />
           </FadeInUp>
@@ -85,7 +85,7 @@ export function ContactScreen() {
               label="Ver ubicación"
               description="Abrir en Maps"
               color={lightColors.info}
-              bgColor="#E8F4FD"
+              bgColor={lightColors.infoLight}
               onPress={openMaps}
             />
           </FadeInUp>

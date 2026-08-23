@@ -18,7 +18,7 @@ export function SummaryCard({ pendingPayments, activeEvents, newNotifications }:
       label: 'Cuotas pendientes',
       value: pendingPayments,
       color: lightColors.warning,
-      bgColor: '#FFF8E7',
+      bgColor: lightColors.warningLight,
       borderColor: lightColors.warning,
     },
     {
@@ -26,7 +26,7 @@ export function SummaryCard({ pendingPayments, activeEvents, newNotifications }:
       label: 'Convocatorias activas',
       value: activeEvents,
       color: lightColors.info,
-      bgColor: '#E8F4FD',
+      bgColor: lightColors.infoLight,
       borderColor: lightColors.info,
     },
     {

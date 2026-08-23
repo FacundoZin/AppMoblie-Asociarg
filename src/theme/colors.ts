@@ -11,8 +11,13 @@ export const lightColors = {
   textSecondary: '#6B7280',
   border: '#E5E7EB',
   error: '#DC2626',
+  errorLight: '#FDE8E8',
   warning: '#F59E0B',
+  warningLight: '#FFF8E7',
   info: '#3B82F6',
+  infoLight: '#E8F4FD',
+  neutralLight: '#F3F4F6',
+  shadow: '#000000',
 } as const;
 
 export const darkColors = {
@@ -28,6 +33,11 @@ export const darkColors = {
   textSecondary: '#9CA3AF',
   border: '#2D3139',
   error: '#EF4444',
+  errorLight: '#3D1A1A',
   warning: '#FBBF24',
+  warningLight: '#3D2E14',
   info: '#60A5FA',
+  infoLight: '#122A44',
+  neutralLight: '#23272F',
+  shadow: '#000000',
 } as const;

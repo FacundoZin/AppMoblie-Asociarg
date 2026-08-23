@@ -51,11 +51,11 @@ export function NotificationsScreen() {
   // Resumen horizontal
   const summaryItems = [
     { icon: Mail, label: 'Sin leer', count: unreadCount, color: lightColors.primary, bgColor: lightColors.primaryLight },
-    { icon: Star, label: 'Importantes', count: importantCount, color: lightColors.warning, bgColor: '#FFF8E7' },
-    { icon: CreditCard, label: 'Pagos', count: paymentCount, color: lightColors.success, bgColor: '#E8F8E7' },
-    { icon: Calendar, label: 'Eventos', count: eventCount, color: lightColors.info, bgColor: '#E8F4FD' },
+    { icon: Star, label: 'Importantes', count: importantCount, color: lightColors.warning, bgColor: lightColors.warningLight },
+    { icon: CreditCard, label: 'Pagos', count: paymentCount, color: lightColors.success, bgColor: lightColors.successLight },
+    { icon: Calendar, label: 'Eventos', count: eventCount, color: lightColors.info, bgColor: lightColors.infoLight },
     { icon: Users, label: 'Club', count: clubCount, color: lightColors.primary, bgColor: lightColors.primaryLight },
-    { icon: Settings, label: 'Sistema', count: systemCount, color: lightColors.neutral, bgColor: '#F3F4F6' },
+    { icon: Settings, label: 'Sistema', count: systemCount, color: lightColors.neutral, bgColor: lightColors.neutralLight },
   ];
 
   return (

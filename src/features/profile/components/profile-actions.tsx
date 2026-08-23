@@ -32,28 +32,28 @@ export function ProfileActions({
       label: 'Cambiar foto',
       onPress: onChangePhoto,
       color: lightColors.info,
-      bgColor: '#E8F4FD',
+      bgColor: lightColors.infoLight,
     },
     {
       icon: Download,
       label: 'Descargar credencial',
       onPress: onDownloadCredential,
       color: lightColors.success,
-      bgColor: '#E8F8E7',
+      bgColor: lightColors.successLight,
     },
     {
       icon: Share2,
       label: 'Compartir credencial',
       onPress: onShareCredential,
       color: lightColors.warning,
-      bgColor: '#FFF8E7',
+      bgColor: lightColors.warningLight,
     },
     {
       icon: History,
       label: 'Ver historial',
       onPress: onViewHistory,
       color: lightColors.neutral,
-      bgColor: '#F3F4F6',
+      bgColor: lightColors.neutralLight,
     },
   ];
 

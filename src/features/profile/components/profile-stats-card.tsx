@@ -23,14 +23,14 @@ export function ProfileStatsCard({
       label: 'Cuotas pagadas',
       value: paymentsCompleted,
       color: lightColors.success,
-      bgColor: '#E8F8E7',
+      bgColor: lightColors.successLight,
     },
     {
       icon: Award,
       label: 'Eventos asistidos',
       value: eventsAttended,
       color: lightColors.info,
-      bgColor: '#E8F4FD',
+      bgColor: lightColors.infoLight,
     },
     {
       icon: TrendingUp,
@@ -44,7 +44,7 @@ export function ProfileStatsCard({
       label: 'Convocatorias',
       value: invitations,
       color: lightColors.warning,
-      bgColor: '#FFF8E7',
+      bgColor: lightColors.warningLight,
     },
   ];
 
