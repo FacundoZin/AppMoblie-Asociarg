@@ -99,9 +99,9 @@ Chain strategy: stacked-to-main
 
 ## Phase 7: Docs + Cleanup (Slice g) — ~100-150 lines
 
-- [ ] 7.1 Delete empty placeholder dirs: `src/constants/`, `src/utils/`, `src/services/`, `src/types/`
-- [ ] 7.2 Remove any imports referencing deleted placeholder dirs
-- [ ] 7.3 Delete unreferenced assets (verify no imports point to them)
-- [ ] 7.4 Add conventions section to `AGENTS.md`: colors (theme-only), layout (Screen scaffold), animation (screens animate, cards pure), imports (barrel rules), data access (hooks → mocks)
-- [ ] 7.5 Add code conventions table: naming (PascalCase/camelCase/UPPER_SNAKE), import order, JSDoc requirements
-- [ ] 7.6 Verify: `npx expo start` still works, `npx tsc --noEmit` passes, `npm run lint` passes
+- [x] 7.1 Delete empty placeholder dirs: `src/constants/`, `src/utils/`, `src/services/`, `src/types/` *(also `src/hooks/` — emptied in slice d)*
+- [x] 7.2 Remove any imports referencing deleted placeholder dirs
+- [x] 7.3 Delete unreferenced assets (verify no imports point to them)
+- [x] 7.4 Add conventions section to `AGENTS.md`: colors (theme-only), layout (Screen scaffold), animation (screens animate, cards pure), imports (barrel rules), data access (hooks → mocks)
+- [x] 7.5 Add code conventions table: naming (PascalCase/camelCase/UPPER_SNAKE), import order, JSDoc requirements
+- [x] 7.6 Verify: `npx expo start` still works, `npx tsc --noEmit` passes, `npm run lint` passes
