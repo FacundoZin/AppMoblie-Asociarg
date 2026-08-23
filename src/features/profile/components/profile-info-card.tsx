@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Icon, FadeInUp } from '@/components';
+import { Card, Text, Icon } from '@/components';
 import { User, Mail, Phone, Calendar } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 import { Profile } from '../types';
@@ -25,8 +25,7 @@ export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
   });
 
   return (
-    <FadeInUp delay={200}>
-      <Card padding="xl" style={styles.card}>
+    <Card padding="xl" style={styles.card}>
         <Text variant="lg" weight="bold" color={lightColors.textPrimary} style={styles.title}>
           Información Personal
         </Text>
@@ -105,7 +104,6 @@ export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
           </View>
         </View>
       </Card>
-    </FadeInUp>
   );
 }
 
