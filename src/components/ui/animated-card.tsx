@@ -1,14 +1,14 @@
 import React from 'react';
+import { StyleProp, ViewStyle, TouchableOpacityProps } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
-import { TouchableOpacityProps } from 'react-native';
 
 interface AnimatedCardProps extends TouchableOpacityProps {
   children: React.ReactNode;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
 }
 
 export function AnimatedCard({ children, style, ...props }: AnimatedCardProps) {

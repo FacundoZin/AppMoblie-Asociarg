@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Badge, Icon, FadeInUp } from '@/components';
-import { CreditCard, Calendar, Bell, Users, Star, Settings } from 'lucide-react-native';
+import { CreditCard, Calendar, Bell, Users, Star, Settings, type LucideIcon } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 import { Notification } from '../types';
 
 interface NotificationItemProps {
   notification: Notification;
-  onPress?: () => void;
 }
 
-const categoryConfig: Record<string, { icon: any; color: string; bgColor: string }> = {
+const categoryConfig: Record<string, { icon: LucideIcon; color: string; bgColor: string }> = {
   payment: {
     icon: CreditCard,
     color: lightColors.success,

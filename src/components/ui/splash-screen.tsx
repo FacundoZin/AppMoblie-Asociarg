@@ -44,6 +44,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
       <Image
+        // eslint-disable-next-line @typescript-eslint/no-require-imports -- static asset reference, standard for Metro
         source={require('../../../assets/icon.png')}
         style={styles.logo}
         resizeMode="contain"

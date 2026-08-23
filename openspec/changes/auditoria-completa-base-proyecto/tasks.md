@@ -39,11 +39,11 @@ Chain strategy: stacked-to-main
 
 ## Phase 2: Tooling Baseline (Slice b) — ~80-120 lines
 
-- [ ] 2.1 Install `eslint`, `@eslint/js`, `typescript-eslint`, `eslint-plugin-react-native`, `prettier`, `eslint-config-prettier` as devDependencies
-- [ ] 2.2 Create `eslint.config.mjs` with flat config: react-native rules, no-`any` styles, no hex literals in `.tsx` (allow in `theme/`)
-- [ ] 2.3 Create `.prettierrc` with default Expo/RN settings
-- [ ] 2.4 Add `typecheck` (`tsc --noEmit`) and `lint` (`eslint . --max-warnings 0`) scripts to `package.json`
-- [ ] 2.5 Verify: `npm run typecheck` and `npm run lint` both pass (fix any violations surfaced by strict extras)
+- [x] 2.1 Install `eslint`, `@eslint/js`, `typescript-eslint`, `eslint-plugin-react-native`, `prettier`, `eslint-config-prettier` as devDependencies
+- [x] 2.2 Create `eslint.config.mjs` with flat config: react-native rules, no-`any` styles, no hex literals in `.tsx` (allow in `theme/`)
+- [x] 2.3 Create `.prettierrc` with default Expo/RN settings
+- [x] 2.4 Add `typecheck` (`tsc --noEmit`) and `lint` (`eslint . --max-warnings 0`) scripts to `package.json`
+- [x] 2.5 Verify: `npm run typecheck` and `npm run lint` both pass (fix any violations surfaced by strict extras)
 
 ## Phase 3: Theme + Hex Sweep (Slice c) — ~150-200 lines
 

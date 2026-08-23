@@ -3,14 +3,14 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { StyleSheet } from 'react-native';
+import { StyleProp, ViewStyle, DimensionValue, StyleSheet } from 'react-native';
 import { lightColors, radii } from '@/theme';
 
 interface SkeletonProps {
-  width?: number | string;
+  width?: DimensionValue;
   height?: number;
   borderRadius?: number;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
 }
 
 export function Skeleton({ width = '100%', height = 20, borderRadius, style }: SkeletonProps) {
