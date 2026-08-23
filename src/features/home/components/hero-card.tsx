@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Badge, Icon } from '@/components';
 import { PatternCard } from '@/components/common';

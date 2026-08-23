@@ -15,9 +15,9 @@ Mobile app for sports club members — **Asociación Deportiva San Francisco**. 
 
 | Layer | Choice |
 |-------|--------|
-| Framework | React Native 0.81 + Expo SDK 54 |
-| Navigation | Expo Router 6 (file-based) |
-| Language | TypeScript 5.9 (strict) |
+| Framework | React Native 0.86 + Expo SDK 57 |
+| Navigation | Expo Router 57 (file-based) |
+| Language | TypeScript 6.0 (strict) |
 | Icons | lucide-react-native |
 | Fonts | Manrope (@expo-google-fonts/manrope) |
 | Animations | react-native-reanimated |
@@ -26,11 +26,11 @@ Mobile app for sports club members — **Asociación Deportiva San Francisco**. 
 ## Getting Started
 
 ```bash
-npm install
-npm start
+pnpm install
+pnpm start
 ```
 
-Scan the QR code with Expo Go, or press `a`/`i` for an emulator. See [docs/SETUP.md](docs/SETUP.md) for full setup, troubleshooting, and verification gates.
+Scan the QR code with Expo Go SDK 57, or press `a`/`i` for an emulator. See [docs/SETUP.md](docs/SETUP.md) for full setup, troubleshooting, and verification gates.
 
 ## Project Structure
 
@@ -56,8 +56,8 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full data flow and conv
 ## Verification Gates
 
 ```bash
-npm run typecheck   # tsc --noEmit — zero errors
-npm run lint        # eslint . --max-warnings 0 — zero warnings
+pnpm typecheck   # tsc --noEmit — zero errors
+pnpm lint        # eslint . --max-warnings 0 — zero warnings
 ```
 
 ## Contributing

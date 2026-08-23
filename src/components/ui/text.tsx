@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import { Text as RNText, TextProps as RNTextProps, StyleSheet } from 'react-native';
 import { fontSize, lineHeight, fontWeight, fontFamily, lightColors } from '@/theme';
 
@@ -9,7 +9,7 @@ interface TextProps extends RNTextProps {
   variant?: FontSize;
   weight?: FontWeight;
   color?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function Text({

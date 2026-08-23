@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Screen, SectionTitle, FadeInUp } from '@/components';
 import { ProfileHero, ProfileInfoCard, ProfileStatsCard, ProfileActions } from '../components';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { Icon, Card, Text } from '../ui';
 import { type LucideIcon } from 'lucide-react-native';

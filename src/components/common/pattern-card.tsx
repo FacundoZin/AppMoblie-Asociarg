@@ -1,11 +1,11 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { lightColors, radii, spacing } from '@/theme';
 
 type PatternCardVariant = 'primary' | 'surface';
 
 interface PatternCardProps {
-  children: React.ReactNode;
+  children: ReactNode;
   /** Visual variant: `primary` (brand background) or `surface` (neutral card). Defaults to `primary`. */
   variant?: PatternCardVariant;
   style?: StyleProp<ViewStyle>;

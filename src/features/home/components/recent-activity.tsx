@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ComponentType } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ActivityItem } from '@/components';
 import { CreditCard, Calendar, Bell } from 'lucide-react-native';
@@ -7,7 +7,7 @@ import { lightColors, spacing } from '@/theme';
 interface RecentActivityProps {
   activities?: Array<{
     id: string;
-    icon: React.ComponentType<{ size?: number; color?: string }>;
+    icon: ComponentType<{ size?: number; color?: string }>;
     description: string;
     time: string;
   }>;

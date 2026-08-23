@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ComponentType } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
 import { Icon } from './icon';
@@ -6,7 +6,7 @@ import { Info } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 
 interface EmptyStateProps {
-  icon?: React.ComponentType<{ size?: number; color?: string }>;
+  icon?: ComponentType<{ size?: number; color?: string }>;
   title: string;
   description?: string;
 }

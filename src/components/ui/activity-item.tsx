@@ -1,11 +1,11 @@
-import React from 'react';
+import type { ComponentType } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
 import { Icon } from './icon';
 import { lightColors, spacing, shadows } from '@/theme';
 
 interface ActivityItemProps {
-  icon: React.ComponentType<{ size?: number; color?: string }>;
+  icon: ComponentType<{ size?: number; color?: string }>;
   description: string;
   time: string;
 }

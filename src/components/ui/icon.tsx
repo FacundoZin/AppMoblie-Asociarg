@@ -1,9 +1,9 @@
-import React from 'react';
+import type { ComponentType } from 'react';
 import { ColorValue } from 'react-native';
 import { lightColors } from '@/theme';
 
 interface IconProps {
-  name: React.ComponentType<{ size?: number; color?: string }>;
+  name: ComponentType<{ size?: number; color?: string }>;
   size?: number;
   color?: ColorValue;
 }

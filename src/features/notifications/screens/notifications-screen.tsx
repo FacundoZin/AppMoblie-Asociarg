@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen, Chip, Text, FadeInUp, EmptyState, StatCard } from '@/components';
 import { NotificationItem } from '../components';

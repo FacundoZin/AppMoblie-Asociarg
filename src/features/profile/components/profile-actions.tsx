@@ -1,11 +1,11 @@
-import React from 'react';
+import type { ComponentType } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Icon } from '@/components';
 import { Edit3, Camera, Download, Share2, History } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 
 interface ProfileAction {
-  icon: React.ComponentType<{ size?: number; color?: string }>;
+  icon: ComponentType<{ size?: number; color?: string }>;
   label: string;
   color: string;
   bgColor: string;

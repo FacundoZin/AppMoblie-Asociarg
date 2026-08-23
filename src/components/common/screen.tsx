@@ -1,10 +1,10 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView, Edge } from 'react-native-safe-area-context';
 import { lightColors, type Colors } from '@/theme';
 
 interface ScreenProps {
-  children: React.ReactNode;
+  children: ReactNode;
   /** Theme color token for the screen background. Defaults to `background`. */
   backgroundColor?: keyof Colors;
   /** Safe-area edges to pad content for. Defaults to `['top', 'bottom']`. */

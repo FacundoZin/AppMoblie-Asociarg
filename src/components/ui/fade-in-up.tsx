@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import type { ReactNode } from 'react';
+import { useEffect } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -9,7 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 interface FadeInUpProps {
-  children: React.ReactNode;
+  children: ReactNode;
   delay?: number;
   style?: StyleProp<ViewStyle>;
 }

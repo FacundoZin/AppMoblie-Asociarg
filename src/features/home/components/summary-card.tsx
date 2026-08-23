@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { StatCard } from '@/components/common';
 import { CreditCard, Calendar, Bell } from 'lucide-react-native';

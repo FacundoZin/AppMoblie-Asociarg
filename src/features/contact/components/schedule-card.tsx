@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Text, Icon } from '@/components';
 import { Clock, ChevronDown, ChevronUp } from 'lucide-react-native';

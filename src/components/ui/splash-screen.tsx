@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { StyleSheet, Image } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -56,7 +56,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: lightColors.surface,
     justifyContent: 'center',
     alignItems: 'center',

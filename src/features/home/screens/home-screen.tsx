@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Screen, AppHeader, SectionTitle, FadeInUp } from '@/components';
 import { HeroCard, QuickActions, SummaryCard, RecentActivity } from '../components';

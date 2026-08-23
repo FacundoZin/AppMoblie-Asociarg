@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Badge, Icon } from '@/components';
 import { Bell, Calendar, CheckCircle, type LucideIcon } from 'lucide-react-native';

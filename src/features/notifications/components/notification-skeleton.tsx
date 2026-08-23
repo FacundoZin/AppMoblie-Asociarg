@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Skeleton } from '@/components';
 import { lightColors, spacing, radii } from '@/theme';

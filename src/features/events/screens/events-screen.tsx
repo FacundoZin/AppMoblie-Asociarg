@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen, SectionTitle, Chip, Text, FadeInUp, EmptyState } from '@/components';
 import { FeaturedEventCard, EventCard, CalendarWidget } from '../components';

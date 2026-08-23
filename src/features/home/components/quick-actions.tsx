@@ -1,11 +1,11 @@
-import React from 'react';
+import type { ComponentType } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Icon } from '@/components';
 import { CreditCard, Calendar, IdCard, User, DollarSign } from 'lucide-react-native';
 import { lightColors, spacing, radii } from '@/theme';
 
 interface QuickAction {
-  icon: React.ComponentType<{ size?: number; color?: string }>;
+  icon: ComponentType<{ size?: number; color?: string }>;
   label: string;
 }
 

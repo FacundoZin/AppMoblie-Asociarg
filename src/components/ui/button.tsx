@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ComponentType } from 'react';
 import { TouchableOpacity, ActivityIndicator, StyleSheet, ViewStyle } from 'react-native';
 import { Text } from './text';
 import { Icon } from './icon';
@@ -13,8 +13,8 @@ interface ButtonProps {
   label: string;
   isLoading?: boolean;
   disabled?: boolean;
-  leftIcon?: React.ComponentType<{ size?: number; color?: string }>;
-  rightIcon?: React.ComponentType<{ size?: number; color?: string }>;
+  leftIcon?: ComponentType<{ size?: number; color?: string }>;
+  rightIcon?: ComponentType<{ size?: number; color?: string }>;
   onPress?: () => void;
   style?: ViewStyle;
 }

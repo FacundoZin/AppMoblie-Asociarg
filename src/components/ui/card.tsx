@@ -1,9 +1,9 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { lightColors, radii, shadows, spacing } from '@/theme';
 
 interface CardProps {
-  children: React.ReactNode;
+  children: ReactNode;
   padding?: keyof typeof spacing;
   shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   style?: StyleProp<ViewStyle>;

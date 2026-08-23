@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Icon } from '@/components';
 import { User, Mail, Phone, Calendar } from 'lucide-react-native';

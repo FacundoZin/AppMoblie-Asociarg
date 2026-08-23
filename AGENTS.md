@@ -2,16 +2,16 @@
 
 ## Tech Stack
 
-- React Native 0.81
-- Expo SDK 54
-- Expo Router 6
-- TypeScript 5.9 (strict)
+- React Native 0.86
+- Expo SDK 57
+- Expo Router 57
+- TypeScript 6.0 (strict)
 
 ## Documentation
 
-Always consult the official Expo SDK 54 documentation before generating Expo-specific code.
+Always consult the official Expo SDK 57 documentation before generating Expo-specific code.
 
-https://docs.expo.dev/versions/v54.0.0/
+https://docs.expo.dev/versions/v57.0.0/
 
 Additional project documentation lives in `docs/`:
 
