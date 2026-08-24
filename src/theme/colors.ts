@@ -1,4 +1,11 @@
 export const lightColors = {
+  // Brand colors sampled from the Asociarg logo asset
+  // (assets/images/iconoasociargsinfondo.png) — visual approximations.
+  brandBlue: '#2F80D8',
+  brandGreen: '#3EC24E',
+  brandNavy: '#1E4FA3',
+  /** Near-white tint used for the splash screen's diagonal light sweep. */
+  lightSweep: '#FFFFFF',
   primary: '#0D5FAE',
   primaryDark: '#123D8A',
   primaryLight: '#E8F2FC',
@@ -57,6 +64,13 @@ export const lightColors = {
 } as const;
 
 export const darkColors = {
+  // Brand colors sampled from the Asociarg logo asset
+  // (assets/images/iconoasociargsinfondo.png) — visual approximations.
+  brandBlue: '#2F80D8',
+  brandGreen: '#3EC24E',
+  brandNavy: '#1E4FA3',
+  /** Near-white tint used for the splash screen's diagonal light sweep. */
+  lightSweep: '#FFFFFF',
   primary: '#3B8FE0',
   primaryDark: '#1A6FBE',
   primaryLight: '#0D2E52',
