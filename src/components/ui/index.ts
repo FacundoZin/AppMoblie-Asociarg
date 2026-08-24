@@ -18,3 +18,4 @@ export { TopAppBar } from './top-app-bar';
 export { SearchBar } from './search-bar';
 export { Fab } from './fab';
 export { TabBar } from './tab-bar';
+export { ScreenHeader } from './screen-header';

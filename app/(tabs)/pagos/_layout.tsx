@@ -7,14 +7,16 @@ export default function PagosLayout() {
         name="index"
         options={{
           title: 'Cuotas',
-          headerShown: true,
+          // The screen draws its own ScreenHeader; a native header would duplicate it.
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="[id]"
         options={{
           title: 'Detalle de cuota',
-          headerShown: true,
+          // The detail screen renders the shared TopAppBar instead.
+          headerShown: false,
         }}
       />
     </Stack>

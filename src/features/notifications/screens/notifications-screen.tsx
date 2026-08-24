@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Screen, Chip, Text, FadeInUp, EmptyState, StatCard } from '@/components';
+import { Screen, Chip, FadeInUp, EmptyState, StatCard, ScreenHeader } from '@/components';
 import { NotificationItem, NotificationSkeleton } from '../components';
 import { useNotifications } from '../hooks';
-import { spacing, useTheme } from '@/theme';
+import { spacing } from '@/theme';
 import { Bell, Mail, CreditCard, Calendar } from 'lucide-react-native';
 import { NotificationType } from '../types';
 
 type FilterType = 'all' | 'unread' | NotificationType;
 
 export function NotificationsScreen() {
-  const { colors } = useTheme();
   const { data: notifications, isLoading, error } = useNotifications();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
@@ -18,11 +17,7 @@ export function NotificationsScreen() {
     return (
       <Screen>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <Text variant="2xl" weight="bold" color={colors.textPrimary}>
-              Actividad
-            </Text>
-          </View>
+          <ScreenHeader title="Actividad" />
           {[0, 1, 2].map((index) => (
             <NotificationSkeleton key={index} />
           ))}
@@ -85,14 +80,7 @@ export function NotificationsScreen() {
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Text variant="2xl" weight="bold" color={colors.textPrimary}>
-            Actividad
-          </Text>
-          <Text variant="sm" color={colors.textSecondary} style={styles.subtitle}>
-            {getHeaderMessage()}
-          </Text>
-        </View>
+        <ScreenHeader title="Actividad" subtitle={getHeaderMessage()} />
 
         <FadeInUp delay={100}>
           <ScrollView
@@ -181,14 +169,6 @@ const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     paddingBottom: spacing.lg,
-  },
-  header: {
-    paddingHorizontal: spacing.base,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.md,
-  },
-  subtitle: {
-    marginTop: spacing.xs,
   },
   summaryScroll: {
     paddingHorizontal: spacing.base,

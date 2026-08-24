@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Screen, SectionTitle, Chip, FadeInUp, EmptyState, SearchBar, Skeleton } from '@/components';
+import { Screen, Chip, FadeInUp, EmptyState, SearchBar, Skeleton, ScreenHeader } from '@/components';
 import { PaymentSummaryCard, PaymentCard } from '../components';
 import { usePayments } from '../hooks';
 import { spacing } from '@/theme';
@@ -30,7 +30,7 @@ export function PaymentsScreen() {
     return (
       <Screen>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-          <SectionTitle title="Cuotas" />
+          <ScreenHeader title="Cuotas" />
           <View style={styles.list}>
             {[0, 1, 2].map((index) => (
               <Skeleton key={index} height={96} style={styles.skeletonCard} />
@@ -81,7 +81,7 @@ export function PaymentsScreen() {
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <SectionTitle title="Cuotas" />
+        <ScreenHeader title="Cuotas" />
 
         <FadeInUp delay={100}>
           <PaymentSummaryCard

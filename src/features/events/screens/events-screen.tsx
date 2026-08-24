@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Screen, SectionTitle, Chip, Text, FadeInUp, EmptyState, SearchBar } from '@/components';
+import { Screen, Chip, Text, FadeInUp, EmptyState, SearchBar, ScreenHeader } from '@/components';
 import { FeaturedEventCard, EventCard, CalendarWidget, EventSkeleton } from '../components';
 import { useEvents } from '../hooks';
 import { spacing, useTheme } from '@/theme';
@@ -25,7 +25,7 @@ export function EventsScreen() {
     return (
       <Screen>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-          <SectionTitle title="Convocatorias" />
+          <ScreenHeader title="Convocatorias" />
           {[0, 1, 2].map((index) => (
             <EventSkeleton key={index} />
           ))}
@@ -67,7 +67,7 @@ export function EventsScreen() {
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <SectionTitle title="Convocatorias" />
+        <ScreenHeader title="Convocatorias" />
 
         <SearchBar
           value={query}

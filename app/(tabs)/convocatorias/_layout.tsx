@@ -7,14 +7,16 @@ export default function ConvocatoriasLayout() {
         name="index"
         options={{
           title: 'Convocatorias',
-          headerShown: true,
+          // The screen draws its own ScreenHeader; a native header would duplicate it.
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="[id]"
         options={{
           title: 'Detalle de convocatoria',
-          headerShown: true,
+          // The detail screen renders the shared TopAppBar instead.
+          headerShown: false,
         }}
       />
     </Stack>
