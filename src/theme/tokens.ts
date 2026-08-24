@@ -1,8 +1,8 @@
 import { lightColors, darkColors } from './colors';
-import { fontFamily, fontSize, lineHeight, fontWeight } from './typography';
+import { fontFamily, fontSize, lineHeight, fontWeight, typeRoles } from './typography';
 import { spacing } from './spacing';
-import { radii } from './radii';
-import { shadows } from './shadows';
+import { radii, shape } from './radii';
+import { shadows, elevation } from './shadows';
 
 export const tokens = {
   colors: lightColors,
@@ -14,4 +14,7 @@ export const tokens = {
   spacing,
   radii,
   shadows,
+  typeRoles,
+  shape,
+  elevation,
 } as const;

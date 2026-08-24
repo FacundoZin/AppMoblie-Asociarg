@@ -79,3 +79,13 @@ export const darkShadows = {
 } as const;
 
 export const shadows = lightShadows;
+
+/** MD3 elevation levels (0–5). Each level combines shadow + ambient tint guidance. */
+export const elevation = {
+  level0: {},
+  level1: lightShadows.sm,
+  level2: lightShadows.md,
+  level3: lightShadows.md,
+  level4: lightShadows.lg,
+  level5: lightShadows.xl,
+} as const;
