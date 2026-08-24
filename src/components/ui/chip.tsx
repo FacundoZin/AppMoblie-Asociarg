@@ -7,7 +7,8 @@ import Animated, {
 import { Text } from './text';
 import { Icon } from './icon';
 import { LucideIcon } from 'lucide-react-native';
-import { lightColors, shape, spacing } from '@/theme';
+import { shape, spacing } from '@/theme';
+import { useTheme } from '@/theme';
 
 interface ChipProps {
   icon?: LucideIcon;
@@ -18,6 +19,7 @@ interface ChipProps {
 }
 
 export function Chip({ icon: IconComponent, label, selected = false, onPress, count }: ChipProps) {
+  const { colors } = useTheme();
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -34,18 +36,18 @@ export function Chip({ icon: IconComponent, label, selected = false, onPress, co
 
   const palette = selected
     ? {
-        background: lightColors.primaryContainer,
-        content: lightColors.onPrimaryContainer,
-        borderColor: lightColors.primaryContainer,
-        badgeBackground: lightColors.onPrimaryContainer,
-        badgeText: lightColors.primaryContainer,
+        background: colors.primaryContainer,
+        content: colors.onPrimaryContainer,
+        borderColor: colors.primaryContainer,
+        badgeBackground: colors.onPrimaryContainer,
+        badgeText: colors.primaryContainer,
       }
     : {
-        background: lightColors.surfaceContainerLow,
-        content: lightColors.onSurfaceVariant,
-        borderColor: lightColors.outlineVariant,
-        badgeBackground: lightColors.primaryContainer,
-        badgeText: lightColors.onPrimaryContainer,
+        background: colors.surfaceContainerLow,
+        content: colors.onSurfaceVariant,
+        borderColor: colors.outlineVariant,
+        badgeBackground: colors.primaryContainer,
+        badgeText: colors.onPrimaryContainer,
       };
 
   return (

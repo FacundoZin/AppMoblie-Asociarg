@@ -1,7 +1,8 @@
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import type { StyleProp, ViewStyle } from 'react-native';
 import { Search, X } from 'lucide-react-native';
-import { lightColors, shape, spacing, typeRoles } from '@/theme';
+import { shape, spacing, typeRoles } from '@/theme';
+import { useTheme } from '@/theme';
 
 interface SearchBarProps {
   value: string;
@@ -16,17 +17,18 @@ export function SearchBar({
   placeholder = 'Buscar',
   style,
 }: SearchBarProps) {
+  const { colors } = useTheme();
   const showClear = value.length > 0;
 
   return (
-    <View style={[styles.container, style]}>
-      <Search size={22} color={lightColors.onSurfaceVariant} />
+    <View style={[styles.container, { backgroundColor: colors.surfaceContainerHigh }, style]}>
+      <Search size={22} color={colors.onSurfaceVariant} />
       <TextInput
-        style={styles.input}
+        style={[styles.input, { color: colors.onSurface }]}
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor={lightColors.onSurfaceVariant}
+        placeholderTextColor={colors.onSurfaceVariant}
         accessibilityRole="search"
         returnKeyType="search"
       />
@@ -38,7 +40,7 @@ export function SearchBar({
           hitSlop={4}
           style={({ pressed }) => [styles.clearButton, pressed && styles.clearPressed]}
         >
-          <X size={18} color={lightColors.onSurfaceVariant} />
+          <X size={18} color={colors.onSurfaceVariant} />
         </Pressable>
       )}
     </View>
@@ -51,14 +53,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: shape.full,
-    backgroundColor: lightColors.surfaceContainerHigh,
     paddingHorizontal: spacing.base,
     gap: spacing.sm,
   },
   input: {
     flex: 1,
     ...typeRoles.bodyLarge,
-    color: lightColors.onSurface,
     paddingVertical: 0,
   },
   clearButton: {

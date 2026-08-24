@@ -1,17 +1,20 @@
 import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
-import { lightColors, spacing } from '@/theme';
+import { spacing } from '@/theme';
+import { useTheme } from '@/theme';
 
 interface SectionTitleProps {
   title: string;
 }
 
 export function SectionTitle({ title }: SectionTitleProps) {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.container}>
       <View style={styles.titleRow}>
-        <View style={styles.accent} />
-        <Text variant="titleMedium" color={lightColors.textPrimary}>
+        <View style={[styles.accent, { backgroundColor: colors.primary }]} />
+        <Text variant="titleMedium" color={colors.textPrimary}>
           {title}
         </Text>
       </View>
@@ -33,7 +36,6 @@ const styles = StyleSheet.create({
   accent: {
     width: 4,
     height: 20,
-    backgroundColor: lightColors.primary,
     borderRadius: 2,
   },
 });

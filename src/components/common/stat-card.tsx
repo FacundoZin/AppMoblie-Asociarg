@@ -1,7 +1,8 @@
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { Icon, Card, Text } from '../ui';
 import { type LucideIcon } from 'lucide-react-native';
-import { lightColors, spacing, type Colors } from '@/theme';
+import { spacing, type Colors } from '@/theme';
+import { useTheme } from '@/theme';
 
 interface StatCardProps {
   icon: LucideIcon;
@@ -20,17 +21,18 @@ interface StatCardProps {
  * notifications summary grid.
  */
 export function StatCard({ icon, label, value, color, bgColor, style }: StatCardProps) {
+  const { colors } = useTheme();
   const containerColor = bgColor ?? (`${color}Light` as keyof Colors);
 
   return (
     <Card padding="lg" style={[styles.card, style]}>
-      <View style={[styles.iconContainer, { backgroundColor: lightColors[containerColor] }]}>
-        <Icon name={icon} size={20} color={lightColors[color]} />
+      <View style={[styles.iconContainer, { backgroundColor: colors[containerColor] }]}>
+        <Icon name={icon} size={20} color={colors[color]} />
       </View>
-      <Text variant="2xl" weight="bold" color={lightColors.textPrimary} style={styles.value}>
+      <Text variant="2xl" weight="bold" color={colors.textPrimary} style={styles.value}>
         {value}
       </Text>
-      <Text variant="xs" color={lightColors.textSecondary} style={styles.label}>
+      <Text variant="xs" color={colors.textSecondary} style={styles.label}>
         {label}
       </Text>
     </Card>

@@ -5,13 +5,14 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { lightColors } from '@/theme';
+import { useTheme } from '@/theme';
 
 interface SplashScreenProps {
   onFinish: () => void;
 }
 
 export function SplashScreen({ onFinish }: SplashScreenProps) {
+  const { colors } = useTheme();
   const opacity = useSharedValue(1);
   const scale = useSharedValue(1);
   const onFinishRef = useRef(onFinish);
@@ -43,7 +44,13 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
   }));
 
   return (
-    <Animated.View style={[styles.container, animatedStyle]}>
+    <Animated.View
+      style={[
+        styles.container,
+        { backgroundColor: colors.primary },
+        animatedStyle,
+      ]}
+    >
       <Image
         // eslint-disable-next-line @typescript-eslint/no-require-imports -- static asset reference, standard for Metro
         source={require('../../../assets/icon.png')}
@@ -57,7 +64,6 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: lightColors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 9999,

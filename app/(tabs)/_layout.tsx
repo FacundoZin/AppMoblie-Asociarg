@@ -10,35 +10,43 @@ import {
 } from 'lucide-react-native';
 import type { LucideIcon } from 'lucide-react-native';
 import { Icon } from '@/components';
-import { elevation, lightColors } from '@/theme';
+import { elevation } from '@/theme';
+import { useTheme } from '@/theme';
 
 const TAB_ICON_SIZE = 22;
 
-function createTabBarIcon(icon: LucideIcon) {
+function createTabBarIcon(icon: LucideIcon, focusedIconColor: string, pillColor: string) {
   return ({ focused, color }: { focused: boolean; color: ColorValue }) => (
-    <View style={[styles.iconContainer, focused && styles.iconContainerFocused]}>
+    <View
+      style={[
+        styles.iconContainer,
+        focused && { backgroundColor: pillColor },
+      ]}
+    >
       <Icon
         name={icon}
         size={TAB_ICON_SIZE}
-        color={focused ? lightColors.onSecondaryContainer : color}
+        color={focused ? focusedIconColor : color}
       />
     </View>
   );
 }
 
 export default function TabsLayout() {
+  const { colors } = useTheme();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: lightColors.onSurface,
-        tabBarInactiveTintColor: lightColors.onSurfaceVariant,
+        tabBarActiveTintColor: colors.onSurface,
+        tabBarInactiveTintColor: colors.onSurfaceVariant,
         tabBarStyle: {
           height: Platform.OS === 'ios' ? 84 : 80,
           paddingBottom: Platform.OS === 'ios' ? 26 : 12,
           paddingTop: 8,
           borderTopWidth: 0,
-          backgroundColor: lightColors.surfaceContainerLowest,
+          backgroundColor: colors.surfaceContainerLowest,
           ...elevation.level2,
         },
         tabBarLabelStyle: {
@@ -67,35 +75,35 @@ export default function TabsLayout() {
         name="notifications"
         options={{
           title: 'Avisos',
-          tabBarIcon: createTabBarIcon(Megaphone),
+          tabBarIcon: createTabBarIcon(Megaphone, colors.onSecondaryContainer, colors.secondaryContainer),
         }}
       />
       <Tabs.Screen
         name="pagos"
         options={{
           title: 'Cuotas',
-          tabBarIcon: createTabBarIcon(Wallet),
+          tabBarIcon: createTabBarIcon(Wallet, colors.onSecondaryContainer, colors.secondaryContainer),
         }}
       />
       <Tabs.Screen
         name="index"
         options={{
           title: 'Inicio',
-          tabBarIcon: createTabBarIcon(Home),
+          tabBarIcon: createTabBarIcon(Home, colors.onSecondaryContainer, colors.secondaryContainer),
         }}
       />
       <Tabs.Screen
         name="convocatorias"
         options={{
           title: 'Eventos',
-          tabBarIcon: createTabBarIcon(CalendarDays),
+          tabBarIcon: createTabBarIcon(CalendarDays, colors.onSecondaryContainer, colors.secondaryContainer),
         }}
       />
       <Tabs.Screen
         name="perfil"
         options={{
           title: 'Perfil',
-          tabBarIcon: createTabBarIcon(CircleUserRound),
+          tabBarIcon: createTabBarIcon(CircleUserRound, colors.onSecondaryContainer, colors.secondaryContainer),
         }}
       />
     </Tabs>
@@ -109,8 +117,5 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  iconContainerFocused: {
-    backgroundColor: lightColors.secondaryContainer,
   },
 });

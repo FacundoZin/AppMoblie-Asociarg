@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useColorScheme } from 'react-native';
 import * as NativeSplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -13,6 +14,7 @@ import {
   Manrope_800ExtraBold,
 } from '@expo-google-fonts/manrope';
 import { SplashScreen } from '@/components/ui/splash-screen';
+import { ThemeProvider } from '@/theme';
 
 // Keep the native splash visible until fonts are loaded (prevents font flash).
 NativeSplashScreen.preventAutoHideAsync().catch(() => {
@@ -28,6 +30,8 @@ export default function RootLayout() {
     Manrope_800ExtraBold,
   });
   const [isSplashVisible, setIsSplashVisible] = useState(true);
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
@@ -43,12 +47,14 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <StatusBar style="auto" />
-        {isSplashVisible && <SplashScreen onFinish={() => setIsSplashVisible(false)} />}
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
+        <ThemeProvider>
+          <StatusBar style={isDark ? 'light' : 'dark'} />
+          {isSplashVisible && <SplashScreen onFinish={() => setIsSplashVisible(false)} />}
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

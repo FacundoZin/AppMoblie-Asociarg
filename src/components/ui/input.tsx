@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { View, TextInput, TextInputProps, StyleSheet } from 'react-native';
 import { Text } from './text';
-import { lightColors, shape, spacing } from '@/theme';
+import { shape, spacing } from '@/theme';
+import { useTheme } from '@/theme';
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -19,18 +20,19 @@ export function Input({
   ...rest
 }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
+  const { colors } = useTheme();
 
   const borderColor = error
-    ? lightColors.error
+    ? colors.error
     : isFocused
-      ? lightColors.primary
-      : lightColors.outlineVariant;
+      ? colors.primary
+      : colors.outlineVariant;
   const borderWidth = isFocused && !error ? 2 : 1;
 
   return (
     <View style={styles.container}>
       {label && (
-        <Text variant="labelMedium" color={lightColors.onSurfaceVariant}>
+        <Text variant="labelMedium" color={colors.onSurfaceVariant}>
           {label}
         </Text>
       )}
@@ -40,13 +42,13 @@ export function Input({
           {
             borderColor,
             borderWidth,
-            backgroundColor: disabled ? lightColors.surfaceContainerLow : lightColors.surface,
-            color: lightColors.textPrimary,
+            backgroundColor: disabled ? colors.surfaceContainerLow : colors.surface,
+            color: colors.textPrimary,
           },
           style,
         ]}
         editable={!disabled}
-        placeholderTextColor={lightColors.onSurfaceVariant}
+        placeholderTextColor={colors.onSurfaceVariant}
         onFocus={(event) => {
           setIsFocused(true);
           onFocus?.(event);
@@ -58,7 +60,7 @@ export function Input({
         {...rest}
       />
       {error && (
-        <Text variant="bodySmall" color={lightColors.error}>
+        <Text variant="bodySmall" color={colors.error}>
           {error}
         </Text>
       )}

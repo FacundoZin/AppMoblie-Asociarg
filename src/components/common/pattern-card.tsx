@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { lightColors, radii, spacing } from '@/theme';
+import { radii, spacing } from '@/theme';
+import { useTheme } from '@/theme';
 
 type PatternCardVariant = 'primary' | 'surface';
 
@@ -17,14 +18,23 @@ interface PatternCardProps {
  * pattern; children render the actual content.
  */
 export function PatternCard({ children, variant = 'primary', style }: PatternCardProps) {
+  const { colors } = useTheme();
   const isPrimary = variant === 'primary';
 
+  const cardColor = isPrimary
+    ? { backgroundColor: colors.primary }
+    : { backgroundColor: colors.surface };
+  const patternColor = isPrimary
+    ? { backgroundColor: colors.primaryDark, opacity: 0.3 }
+    : { backgroundColor: colors.primaryLight, opacity: 0.6 };
+  const patternSmallColor = isPrimary
+    ? { backgroundColor: colors.primaryDark, opacity: 0.2 }
+    : { backgroundColor: colors.primaryLight, opacity: 0.5 };
+
   return (
-    <View style={[styles.card, isPrimary ? styles.cardPrimary : styles.cardSurface, style]}>
-      <View style={[styles.pattern, isPrimary ? styles.patternPrimary : styles.patternSurface]} />
-      <View
-        style={[styles.patternSmall, isPrimary ? styles.patternSmallPrimary : styles.patternSmallSurface]}
-      />
+    <View style={[styles.card, cardColor, style]}>
+      <View style={[styles.pattern, patternColor]} />
+      <View style={[styles.patternSmall, patternSmallColor]} />
       {children}
     </View>
   );
@@ -36,12 +46,6 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     overflow: 'hidden',
   },
-  cardPrimary: {
-    backgroundColor: lightColors.primary,
-  },
-  cardSurface: {
-    backgroundColor: lightColors.surface,
-  },
   pattern: {
     position: 'absolute',
     top: -40,
@@ -50,14 +54,6 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: 70,
   },
-  patternPrimary: {
-    backgroundColor: lightColors.primaryDark,
-    opacity: 0.3,
-  },
-  patternSurface: {
-    backgroundColor: lightColors.primaryLight,
-    opacity: 0.6,
-  },
   patternSmall: {
     position: 'absolute',
     bottom: -30,
@@ -65,13 +61,5 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-  },
-  patternSmallPrimary: {
-    backgroundColor: lightColors.primaryDark,
-    opacity: 0.2,
-  },
-  patternSmallSurface: {
-    backgroundColor: lightColors.primaryLight,
-    opacity: 0.5,
   },
 });

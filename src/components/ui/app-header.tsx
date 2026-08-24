@@ -1,7 +1,8 @@
 import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
 import { Avatar } from './avatar';
-import { lightColors, spacing } from '@/theme';
+import { spacing } from '@/theme';
+import { useTheme } from '@/theme';
 
 interface AppHeaderProps {
   greeting: string;
@@ -17,15 +18,17 @@ export function AppHeader({
   avatarUri,
   avatarInitials,
 }: AppHeaderProps) {
+  const { colors } = useTheme();
+
   return (
-    <View style={styles.container}>
-      <View style={styles.accentBar} />
+    <View style={[styles.container, { backgroundColor: colors.surface }]}>
+      <View style={[styles.accentBar, { backgroundColor: colors.primary }]} />
       <View style={styles.content}>
         <View style={styles.textContainer}>
-          <Text variant="bodyMedium" color={lightColors.onSurfaceVariant}>
+          <Text variant="bodyMedium" color={colors.onSurfaceVariant}>
             {greeting}
           </Text>
-          <Text variant="titleLarge" color={lightColors.textPrimary}>
+          <Text variant="titleLarge" color={colors.textPrimary}>
             {userName}
           </Text>
         </View>
@@ -40,13 +43,11 @@ export function AppHeader({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: lightColors.surface,
     paddingTop: spacing.md,
     paddingBottom: spacing.md,
   },
   accentBar: {
     height: 3,
-    backgroundColor: lightColors.primary,
     marginBottom: spacing.md,
   },
   content: {

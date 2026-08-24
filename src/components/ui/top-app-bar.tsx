@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { spacing } from '@/theme';
+import { useTheme } from '@/theme';
 import { Text } from './text';
 
 interface TopAppBarProps {
@@ -18,6 +19,7 @@ const BAR_HEIGHT = 56;
 
 export function TopAppBar({ title, actions, fallbackHref, style }: TopAppBarProps) {
   const router = useRouter();
+  const { colors } = useTheme();
 
   const handleBack = () => {
     if (router.canGoBack()) {
@@ -28,18 +30,18 @@ export function TopAppBar({ title, actions, fallbackHref, style }: TopAppBarProp
   };
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, { backgroundColor: colors.surface }, style]}>
       <Pressable
         accessibilityRole="button"
         accessibilityLabel="Volver"
         onPress={handleBack}
         style={({ pressed }) => [styles.backButton, pressed && styles.backButtonPressed]}
       >
-        <ArrowLeft size={24} color={lightColors.onSurface} />
+        <ArrowLeft size={24} color={colors.onSurface} />
       </Pressable>
       <Text
         variant="titleLarge"
-        color={lightColors.onSurface}
+        color={colors.onSurface}
         numberOfLines={1}
         ellipsizeMode="tail"
         style={styles.title}
@@ -56,7 +58,6 @@ const styles = StyleSheet.create({
     height: BAR_HEIGHT,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: lightColors.surface,
     paddingHorizontal: spacing.xs,
   },
   backButton: {

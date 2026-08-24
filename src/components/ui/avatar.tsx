@@ -1,6 +1,7 @@
 import { View, Image, StyleSheet } from 'react-native';
 import { Text } from './text';
-import { lightColors, radii } from '@/theme';
+import { radii } from '@/theme';
+import { useTheme } from '@/theme';
 
 type AvatarSize = 'sm' | 'md' | 'lg';
 
@@ -17,6 +18,7 @@ const sizeConfig: Record<AvatarSize, { width: number; height: number; fontSize: 
 };
 
 export function Avatar({ uri, initials, size = 'md' }: AvatarProps) {
+  const { colors } = useTheme();
   const config = sizeConfig[size];
 
   if (uri) {
@@ -32,14 +34,14 @@ export function Avatar({ uri, initials, size = 'md' }: AvatarProps) {
     <View
       style={[
         styles.avatar,
-        styles.avatarFallback,
+        { backgroundColor: colors.primaryContainer },
         { width: config.width, height: config.height },
       ]}
     >
       <Text
         variant="base"
         weight="semibold"
-        color={lightColors.onPrimaryContainer}
+        color={colors.onPrimaryContainer}
         style={{ fontSize: config.fontSize }}
       >
         {initials || '?'}
@@ -53,8 +55,5 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  avatarFallback: {
-    backgroundColor: lightColors.primaryContainer,
   },
 });

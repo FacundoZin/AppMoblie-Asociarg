@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView, Edge } from 'react-native-safe-area-context';
-import { lightColors, type Colors } from '@/theme';
+import { useTheme, type Colors } from '@/theme';
 
 interface ScreenProps {
   children: ReactNode;
@@ -20,9 +20,11 @@ export function Screen({
   backgroundColor = 'background',
   edges = ['top', 'bottom'],
 }: ScreenProps) {
+  const { colors } = useTheme();
+
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: lightColors[backgroundColor] }]}
+      style={[styles.container, { backgroundColor: colors[backgroundColor] }]}
       edges={edges}
     >
       {children}

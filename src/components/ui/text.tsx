@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Text as RNText, TextProps as RNTextProps, StyleSheet, TextStyle } from 'react-native';
-import { fontSize, lineHeight, fontWeight, fontFamily, typeRoles, lightColors } from '@/theme';
+import { fontSize, lineHeight, fontWeight, fontFamily, typeRoles, useTheme } from '@/theme';
+
 
 type FontSizeName = keyof typeof fontSize;
 type FontWeightName = keyof typeof fontWeight;
@@ -33,6 +34,7 @@ export function Text({
   children,
   ...rest
 }: TextProps) {
+  const { colors } = useTheme();
   const isRole = Object.prototype.hasOwnProperty.call(typeRoles, variant);
   const roleStyle = resolveVariantStyle(variant);
   const resolvedWeight = isRole ? weight : (weight ?? 'regular');
@@ -54,7 +56,7 @@ export function Text({
           fontFamily: fontFamily[(resolvedWeight ?? 'regular') as FontWeightName],
         },
         {
-          color: color || lightColors.textPrimary,
+          color: color || colors.textPrimary,
         },
         style,
       ]}

@@ -2,7 +2,9 @@ import type { ComponentType } from 'react';
 import { TouchableOpacity, ActivityIndicator, StyleSheet, ViewStyle } from 'react-native';
 import { Text } from './text';
 import { Icon } from './icon';
-import { lightColors, shape, spacing } from '@/theme';
+import { shape, spacing } from '@/theme';
+import { useTheme } from '@/theme';
+import type { Colors } from '@/theme';
 
 type ButtonVariant =
   | 'primary'
@@ -34,58 +36,60 @@ interface VariantStyle {
   borderColor: string;
 }
 
-const variantStyles: Record<ButtonVariant, VariantStyle> = {
-  // Legacy variants (kept for backward compatibility)
-  primary: {
-    backgroundColor: lightColors.primary,
-    textColor: lightColors.surface,
-    borderWidth: 0,
-    borderColor: 'transparent',
-  },
-  secondary: {
-    backgroundColor: lightColors.primaryLight,
-    textColor: lightColors.primary,
-    borderWidth: 0,
-    borderColor: 'transparent',
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-    textColor: lightColors.primary,
-    borderWidth: 0,
-    borderColor: 'transparent',
-  },
-  danger: {
-    backgroundColor: lightColors.error,
-    textColor: lightColors.surface,
-    borderWidth: 0,
-    borderColor: 'transparent',
-  },
-  // MD3 variants
-  filled: {
-    backgroundColor: lightColors.primary,
-    textColor: lightColors.onPrimary,
-    borderWidth: 0,
-    borderColor: 'transparent',
-  },
-  tonal: {
-    backgroundColor: lightColors.secondaryContainer,
-    textColor: lightColors.onSecondaryContainer,
-    borderWidth: 0,
-    borderColor: 'transparent',
-  },
-  outlined: {
-    backgroundColor: lightColors.surface,
-    textColor: lightColors.primary,
-    borderWidth: 1,
-    borderColor: lightColors.outline,
-  },
-  text: {
-    backgroundColor: 'transparent',
-    textColor: lightColors.primary,
-    borderWidth: 0,
-    borderColor: 'transparent',
-  },
-};
+function getVariantStyles(colors: Colors): Record<ButtonVariant, VariantStyle> {
+  return {
+    // Legacy variants (kept for backward compatibility)
+    primary: {
+      backgroundColor: colors.primary,
+      textColor: colors.surface,
+      borderWidth: 0,
+      borderColor: 'transparent',
+    },
+    secondary: {
+      backgroundColor: colors.primaryLight,
+      textColor: colors.primary,
+      borderWidth: 0,
+      borderColor: 'transparent',
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      textColor: colors.primary,
+      borderWidth: 0,
+      borderColor: 'transparent',
+    },
+    danger: {
+      backgroundColor: colors.error,
+      textColor: colors.surface,
+      borderWidth: 0,
+      borderColor: 'transparent',
+    },
+    // MD3 variants
+    filled: {
+      backgroundColor: colors.primary,
+      textColor: colors.onPrimary,
+      borderWidth: 0,
+      borderColor: 'transparent',
+    },
+    tonal: {
+      backgroundColor: colors.secondaryContainer,
+      textColor: colors.onSecondaryContainer,
+      borderWidth: 0,
+      borderColor: 'transparent',
+    },
+    outlined: {
+      backgroundColor: colors.surface,
+      textColor: colors.primary,
+      borderWidth: 1,
+      borderColor: colors.outline,
+    },
+    text: {
+      backgroundColor: 'transparent',
+      textColor: colors.primary,
+      borderWidth: 0,
+      borderColor: 'transparent',
+    },
+  };
+}
 
 const sizeStyles: Record<ButtonSize, { paddingVertical: number; paddingHorizontal: number }> = {
   sm: {
@@ -113,7 +117,8 @@ export function Button({
   onPress,
   style,
 }: ButtonProps) {
-  const colors = variantStyles[variant];
+  const { colors } = useTheme();
+  const variantStyle = getVariantStyles(colors)[variant];
   const sizes = sizeStyles[size];
 
   return (
@@ -121,11 +126,11 @@ export function Button({
       style={[
         styles.button,
         {
-          backgroundColor: colors.backgroundColor,
+          backgroundColor: variantStyle.backgroundColor,
           paddingVertical: sizes.paddingVertical,
           paddingHorizontal: sizes.paddingHorizontal,
-          borderWidth: colors.borderWidth,
-          borderColor: colors.borderColor,
+          borderWidth: variantStyle.borderWidth,
+          borderColor: variantStyle.borderColor,
         },
         disabled && styles.disabled,
         style,
@@ -135,21 +140,21 @@ export function Button({
       activeOpacity={0.8}
     >
       {isLoading ? (
-        <ActivityIndicator color={colors.textColor} size="small" />
+        <ActivityIndicator color={variantStyle.textColor} size="small" />
       ) : (
         <>
           {LeftIcon && (
-            <Icon name={LeftIcon} size={18} color={colors.textColor} />
+            <Icon name={LeftIcon} size={18} color={variantStyle.textColor} />
           )}
           <Text
             variant="labelLarge"
-            color={colors.textColor}
+            color={variantStyle.textColor}
             style={styles.label}
           >
             {label}
           </Text>
           {RightIcon && (
-            <Icon name={RightIcon} size={18} color={colors.textColor} />
+            <Icon name={RightIcon} size={18} color={variantStyle.textColor} />
           )}
         </>
       )}

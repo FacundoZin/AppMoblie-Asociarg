@@ -3,8 +3,9 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { StyleProp, ViewStyle, DimensionValue, StyleSheet } from 'react-native';
-import { lightColors, radii } from '@/theme';
+import { StyleProp, ViewStyle, DimensionValue } from 'react-native';
+import { radii } from '@/theme';
+import { useTheme } from '@/theme';
 
 interface SkeletonProps {
   width?: DimensionValue;
@@ -14,6 +15,7 @@ interface SkeletonProps {
 }
 
 export function Skeleton({ width = '100%', height = 20, borderRadius, style }: SkeletonProps) {
+  const { colors } = useTheme();
   const opacity = useSharedValue(0.3);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ export function Skeleton({ width = '100%', height = 20, borderRadius, style }: S
   return (
     <Animated.View
       style={[
-        styles.skeleton,
+        { backgroundColor: colors.surfaceContainerHighest },
         { width, height, borderRadius: borderRadius || radii.md },
         animatedStyle,
         style,
@@ -40,8 +42,3 @@ export function Skeleton({ width = '100%', height = 20, borderRadius, style }: S
   );
 }
 
-const styles = StyleSheet.create({
-  skeleton: {
-    backgroundColor: lightColors.surfaceContainerHighest,
-  },
-});

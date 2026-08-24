@@ -1,16 +1,18 @@
 import { View, StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { Screen, Text, TopAppBar } from '@/components';
-import { lightColors, spacing } from '@/theme';
+import { spacing } from '@/theme';
+import { useTheme } from '@/theme';
 
 export default function PaymentDetailScreen() {
   const { id } = useLocalSearchParams();
+  const { colors } = useTheme();
 
   return (
     <Screen>
       <TopAppBar title="Detalle de cuota" fallbackHref="/pagos" />
       <View style={styles.container}>
-        <Text variant="sm" color={lightColors.textSecondary}>
+        <Text variant="sm" color={colors.textSecondary}>
           ID: {id}
         </Text>
       </View>

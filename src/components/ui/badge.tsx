@@ -1,6 +1,8 @@
 import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
-import { lightColors, spacing, shape } from '@/theme';
+import { spacing, shape } from '@/theme';
+import { useTheme } from '@/theme';
+import type { Colors } from '@/theme';
 
 type BadgeVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 
@@ -9,35 +11,38 @@ interface BadgeProps {
   label: string;
 }
 
-const variantStyles: Record<BadgeVariant, { backgroundColor: string; color: string }> = {
-  default: {
-    backgroundColor: lightColors.neutral,
-    color: lightColors.surface,
-  },
-  success: {
-    backgroundColor: lightColors.success,
-    color: lightColors.surface,
-  },
-  warning: {
-    backgroundColor: lightColors.warning,
-    color: lightColors.surface,
-  },
-  error: {
-    backgroundColor: lightColors.error,
-    color: lightColors.onError,
-  },
-  info: {
-    backgroundColor: lightColors.info,
-    color: lightColors.surface,
-  },
-};
+function getVariantStyles(colors: Colors): Record<BadgeVariant, { backgroundColor: string; color: string }> {
+  return {
+    default: {
+      backgroundColor: colors.neutral,
+      color: colors.surface,
+    },
+    success: {
+      backgroundColor: colors.success,
+      color: colors.surface,
+    },
+    warning: {
+      backgroundColor: colors.warning,
+      color: colors.surface,
+    },
+    error: {
+      backgroundColor: colors.error,
+      color: colors.onError,
+    },
+    info: {
+      backgroundColor: colors.info,
+      color: colors.surface,
+    },
+  };
+}
 
 export function Badge({ variant = 'default', label }: BadgeProps) {
-  const colors = variantStyles[variant];
+  const { colors } = useTheme();
+  const variantStyle = getVariantStyles(colors)[variant];
 
   return (
-    <View style={[styles.badge, { backgroundColor: colors.backgroundColor }]}>
-      <Text variant="labelSmall" color={colors.color}>
+    <View style={[styles.badge, { backgroundColor: variantStyle.backgroundColor }]}>
+      <Text variant="labelSmall" color={variantStyle.color}>
         {label}
       </Text>
     </View>
