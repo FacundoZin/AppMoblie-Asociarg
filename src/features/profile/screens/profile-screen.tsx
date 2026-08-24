@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import { Screen, SectionTitle, FadeInUp } from '@/components';
-import { ProfileHero, ProfileInfoCard, ProfileStatsCard, ProfileActions } from '../components';
+import { ProfileHero, ProfileInfoCard, ProfileStatsCard, ProfileActions, ProfileContactSection } from '../components';
 import { useProfile } from '../hooks';
 import { spacing } from '@/theme';
 
@@ -31,6 +31,10 @@ export function ProfileScreen() {
 
         <FadeInUp delay={400}>
           <ProfileActions />
+        </FadeInUp>
+
+        <FadeInUp delay={500}>
+          <ProfileContactSection />
         </FadeInUp>
       </ScrollView>
     </Screen>
