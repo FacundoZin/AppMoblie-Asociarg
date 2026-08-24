@@ -87,7 +87,11 @@ export function EventsScreen() {
         </FadeInUp>
 
         <FadeInUp delay={300}>
-          <View style={styles.chipsContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.chipsContainer}
+          >
             <Chip
               icon={Calendar}
               label="Todos"
@@ -123,7 +127,7 @@ export function EventsScreen() {
               onPress={() => setActiveFilter('event')}
               count={events.filter((e) => e.category === 'event').length}
             />
-          </View>
+          </ScrollView>
         </FadeInUp>
 
         {otherEvents.length > 0 ? (
@@ -161,11 +165,9 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   chipsContainer: {
-    flexDirection: 'row',
     paddingHorizontal: spacing.base,
-    marginBottom: spacing.lg,
+    paddingVertical: spacing.sm,
     gap: spacing.sm,
-    flexWrap: 'wrap',
   },
   list: {
     paddingHorizontal: spacing.base,

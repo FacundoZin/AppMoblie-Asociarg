@@ -101,7 +101,11 @@ export function PaymentsScreen() {
         />
 
         <FadeInUp delay={200}>
-          <View style={styles.chipsContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.chipsContainer}
+          >
             <Chip
               icon={CreditCard}
               label="Todas"
@@ -130,7 +134,7 @@ export function PaymentsScreen() {
               onPress={() => setActiveFilter('overdue')}
               count={overduePayments.length}
             />
-          </View>
+          </ScrollView>
         </FadeInUp>
 
         {filteredPayments.length === 0 ? (
@@ -174,11 +178,9 @@ const styles = StyleSheet.create({
     bottom: spacing.base,
   },
   chipsContainer: {
-    flexDirection: 'row',
     paddingHorizontal: spacing.base,
-    marginBottom: spacing.lg,
+    paddingVertical: spacing.sm,
     gap: spacing.sm,
-    flexWrap: 'wrap',
   },
   list: {
     paddingHorizontal: spacing.base,
