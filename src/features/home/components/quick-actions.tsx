@@ -24,7 +24,7 @@ export function QuickActions() {
         {actions.map((action) => (
           <View key={action.label} style={styles.action}>
             <View style={styles.iconContainer}>
-              <Icon name={action.icon} size={22} color={lightColors.primary} />
+              <Icon name={action.icon} size={20} color={lightColors.primary} />
             </View>
             <Text variant="xs" weight="medium" color={lightColors.textPrimary} style={styles.label}>
               {action.label}
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: lightColors.surface,
     borderRadius: radii.xl,
-    padding: spacing.lg,
+    padding: spacing.base,
     borderWidth: 1,
     borderColor: lightColors.border,
   },
@@ -55,15 +55,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: radii.lg,
+    width: 44,
+    height: 44,
+    borderRadius: radii.md,
     backgroundColor: lightColors.primaryLight,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: spacing.xs,
-    borderWidth: 1,
-    borderColor: lightColors.primary,
   },
   label: {
     textAlign: 'center',

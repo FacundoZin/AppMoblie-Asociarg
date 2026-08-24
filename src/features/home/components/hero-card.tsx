@@ -1,8 +1,9 @@
-import { View, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { Text, Badge, Icon } from '@/components';
 import { PatternCard } from '@/components/common';
 import { CreditCard } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { lightColors, spacing, radii } from '@/theme';
+import { images } from '@/constants/assets';
 
 interface HeroCardProps {
   memberNumber: string;
@@ -33,7 +34,7 @@ export function HeroCard({ memberNumber, status, dueDate }: HeroCardProps) {
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <View style={styles.brandRow}>
-              <View style={styles.brandDot} />
+              <Image source={images.logo} style={styles.brandLogo} resizeMode="contain" />
               <Text variant="xs" color={lightColors.primaryLight} style={styles.brandLabel}>
                 ASOCIARG
               </Text>
@@ -84,11 +85,10 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
     marginBottom: spacing.xs,
   },
-  brandDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: lightColors.success,
+  brandLogo: {
+    width: 20,
+    height: 20,
+    borderRadius: radii.sm,
   },
   brandLabel: {
     fontWeight: '700',
