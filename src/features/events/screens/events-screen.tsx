@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen, SectionTitle, Chip, Text, FadeInUp, EmptyState, SearchBar } from '@/components';
 import { FeaturedEventCard, EventCard, CalendarWidget } from '../components';
 import { useEvents } from '../hooks';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { Calendar, Dumbbell, Trophy, Users, PartyPopper } from 'lucide-react-native';
 import { EventCategory } from '../types';
 
@@ -16,6 +16,7 @@ const normalizeText = (text: string) =>
     .replace(/[\u0300-\u036f]/g, '');
 
 export function EventsScreen() {
+  const { colors } = useTheme();
   const { data: events } = useEvents();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [query, setQuery] = useState('');
@@ -103,7 +104,7 @@ export function EventsScreen() {
         {otherEvents.length > 0 ? (
           <View style={styles.list}>
             <FadeInUp delay={400}>
-              <Text variant="lg" weight="bold" color={lightColors.textPrimary} style={styles.sectionHeader}>
+              <Text variant="lg" weight="bold" color={colors.textPrimary} style={styles.sectionHeader}>
                 Próximos eventos
               </Text>
             </FadeInUp>

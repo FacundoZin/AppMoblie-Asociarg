@@ -1,11 +1,13 @@
 import { View, StyleSheet } from 'react-native';
 import { Card, Skeleton } from '@/components';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme } from '@/theme';
 
 export function NotificationSkeleton() {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.container}>
-      <Card padding="xl" style={styles.card}>
+      <Card padding="xl" style={{ backgroundColor: colors.surface }}>
         <View style={styles.header}>
           <Skeleton width={40} height={40} borderRadius={radii.full} />
           <View style={styles.content}>
@@ -24,9 +26,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.base,
     marginBottom: spacing.md,
-  },
-  card: {
-    backgroundColor: lightColors.surface,
   },
   header: {
     flexDirection: 'row',

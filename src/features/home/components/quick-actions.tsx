@@ -2,7 +2,7 @@ import type { ComponentType } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Icon } from '@/components';
 import { CreditCard, Calendar, IdCard, User, DollarSign } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme } from '@/theme';
 
 interface QuickAction {
   icon: ComponentType<{ size?: number; color?: string }>;
@@ -18,15 +18,17 @@ const actions: QuickAction[] = [
 ];
 
 export function QuickActions() {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.container}>
-      <View style={styles.grid}>
+      <View style={[styles.grid, { backgroundColor: colors.surface, borderColor: colors.border }]}>
         {actions.map((action) => (
           <View key={action.label} style={styles.action}>
-            <View style={styles.iconContainer}>
-              <Icon name={action.icon} size={20} color={lightColors.primary} />
+            <View style={[styles.iconContainer, { backgroundColor: colors.primaryLight }]}>
+              <Icon name={action.icon} size={20} color={colors.primary} />
             </View>
-            <Text variant="xs" weight="medium" color={lightColors.textPrimary} style={styles.label}>
+            <Text variant="xs" weight="medium" color={colors.textPrimary} style={styles.label}>
               {action.label}
             </Text>
           </View>
@@ -44,11 +46,9 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: lightColors.surface,
     borderRadius: radii.xl,
     padding: spacing.base,
     borderWidth: 1,
-    borderColor: lightColors.border,
   },
   action: {
     flex: 1,
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: radii.md,
-    backgroundColor: lightColors.primaryLight,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: spacing.xs,

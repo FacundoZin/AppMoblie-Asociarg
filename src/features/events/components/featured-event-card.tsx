@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Badge, Icon } from '@/components';
 import { PatternCard } from '@/components/common';
 import { Calendar, MapPin, Users } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { Event } from '../types';
 
 interface FeaturedEventCardProps {
@@ -10,6 +10,7 @@ interface FeaturedEventCardProps {
 }
 
 export function FeaturedEventCard({ event }: FeaturedEventCardProps) {
+  const { colors } = useTheme();
   const date = new Date(event.date);
   const formattedDate = date.toLocaleDateString('es-AR', {
     weekday: 'long',
@@ -28,37 +29,37 @@ export function FeaturedEventCard({ event }: FeaturedEventCardProps) {
         </View>
 
         <View style={styles.dateContainer}>
-          <Text variant="4xl" weight="bold" color={lightColors.primary}>
+          <Text variant="4xl" weight="bold" color={colors.primary}>
             {dayNumber}
           </Text>
-          <Text variant="lg" color={lightColors.textSecondary}>
+          <Text variant="lg" color={colors.textSecondary}>
             {monthShort.toUpperCase()}
           </Text>
         </View>
 
         <View style={styles.body}>
-          <Text variant="2xl" weight="bold" color={lightColors.textPrimary} style={styles.title}>
+          <Text variant="2xl" weight="bold" color={colors.textPrimary} style={styles.title}>
             {event.title}
           </Text>
 
           <View style={styles.info}>
             <View style={styles.infoRow}>
-              <Icon name={Calendar} size={18} color={lightColors.primary} />
-              <Text variant="sm" color={lightColors.textSecondary}>
+              <Icon name={Calendar} size={18} color={colors.primary} />
+              <Text variant="sm" color={colors.textSecondary}>
                 {formattedDate}
               </Text>
             </View>
 
             <View style={styles.infoRow}>
-              <Icon name={MapPin} size={18} color={lightColors.primary} />
-              <Text variant="sm" color={lightColors.textSecondary}>
+              <Icon name={MapPin} size={18} color={colors.primary} />
+              <Text variant="sm" color={colors.textSecondary}>
                 {event.location}
               </Text>
             </View>
 
             <View style={styles.infoRow}>
-              <Icon name={Users} size={18} color={lightColors.primary} />
-              <Text variant="sm" color={lightColors.textSecondary}>
+              <Icon name={Users} size={18} color={colors.primary} />
+              <Text variant="sm" color={colors.textSecondary}>
                 {event.attendees} asistentes
               </Text>
             </View>

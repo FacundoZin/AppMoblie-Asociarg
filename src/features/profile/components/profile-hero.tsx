@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Badge, Icon } from '@/components';
 import { PatternCard } from '@/components/common';
 import { CreditCard, Award } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { Profile } from '../types';
 
 interface ProfileHeroProps {
@@ -10,6 +10,7 @@ interface ProfileHeroProps {
 }
 
 export function ProfileHero({ profile }: ProfileHeroProps) {
+  const { colors } = useTheme();
   const initials = profile.name
     .split(' ')
     .map((n) => n[0])
@@ -22,39 +23,39 @@ export function ProfileHero({ profile }: ProfileHeroProps) {
     <View style={styles.container}>
       <PatternCard variant="primary" style={styles.card}>
         <View style={styles.avatarContainer}>
-          <View style={styles.avatar}>
-            <Text variant="2xl" weight="bold" color={lightColors.surface}>
+          <View style={[styles.avatar, { borderColor: colors.surface }]}>
+            <Text variant="2xl" weight="bold" color={colors.surface}>
               {initials}
             </Text>
           </View>
         </View>
 
         <View style={styles.info}>
-          <Text variant="xl" weight="bold" color={lightColors.surface} style={styles.name}>
+          <Text variant="xl" weight="bold" color={colors.surface} style={styles.name}>
             {profile.name}
           </Text>
-          <Text variant="sm" color={lightColors.primaryLight}>
+          <Text variant="sm" color={colors.primaryLight}>
             Socio #{profile.dni}
           </Text>
           <View style={styles.badgeContainer}>
             <Badge variant="success" label="Miembro Activo" />
           </View>
-          <Text variant="xs" color={lightColors.primaryLight} style={styles.memberSince}>
+          <Text variant="xs" color={colors.primaryLight} style={styles.memberSince}>
             Socio desde {memberYears} {memberYears === 1 ? 'año' : 'años'}
           </Text>
         </View>
 
         <View style={styles.stats}>
           <View style={styles.stat}>
-            <Icon name={CreditCard} size={20} color={lightColors.primaryLight} />
-            <Text variant="xs" color={lightColors.primaryLight} style={styles.statLabel}>
+            <Icon name={CreditCard} size={20} color={colors.primaryLight} />
+            <Text variant="xs" color={colors.primaryLight} style={styles.statLabel}>
               Plan {profile.plan}
             </Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.stat}>
-            <Icon name={Award} size={20} color={lightColors.primaryLight} />
-            <Text variant="xs" color={lightColors.primaryLight} style={styles.statLabel}>
+            <Icon name={Award} size={20} color={colors.primaryLight} />
+            <Text variant="xs" color={colors.primaryLight} style={styles.statLabel}>
               {profile.discipline}
             </Text>
           </View>
@@ -83,7 +84,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 3,
-    borderColor: lightColors.surface,
   },
   info: {
     alignItems: 'center',

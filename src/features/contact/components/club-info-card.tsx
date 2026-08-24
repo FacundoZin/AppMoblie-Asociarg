@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { Text, Badge, Icon } from '@/components';
 import { Building2, Phone, Clock } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme } from '@/theme';
 import { ClubContact } from '../types';
 
 interface ClubInfoCardProps {
@@ -15,6 +15,7 @@ const statusConfig = {
 };
 
 export function ClubInfoCard({ club }: ClubInfoCardProps) {
+  const { colors } = useTheme();
   const status = statusConfig[club.status];
   const todaySchedule = club.schedule.find((s) => {
     const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -23,15 +24,20 @@ export function ClubInfoCard({ club }: ClubInfoCardProps) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
-          <View style={styles.pattern} />
+      <View style={[styles.card, { backgroundColor: colors.primary }]}>
+          <View
+            style={[
+              styles.pattern,
+              { backgroundColor: colors.primaryDark },
+            ]}
+          />
 
           <View style={styles.header}>
             <View style={styles.logoContainer}>
-              <Icon name={Building2} size={24} color={lightColors.surface} />
+              <Icon name={Building2} size={24} color={colors.surface} />
             </View>
             <View style={styles.headerInfo}>
-              <Text variant="base" weight="bold" color={lightColors.surface} numberOfLines={1}>
+              <Text variant="base" weight="bold" color={colors.surface} numberOfLines={1}>
                 {club.name}
               </Text>
               <Badge variant={status.variant} label={status.label} />
@@ -39,16 +45,16 @@ export function ClubInfoCard({ club }: ClubInfoCardProps) {
           </View>
 
           <View style={styles.infoRow}>
-            <Icon name={Phone} size={14} color={lightColors.primaryLight} />
-            <Text variant="xs" color={lightColors.primaryLight}>
+            <Icon name={Phone} size={14} color={colors.primaryLight} />
+            <Text variant="xs" color={colors.primaryLight}>
               {club.phone}
             </Text>
           </View>
 
           {todaySchedule && (
             <View style={styles.infoRow}>
-              <Icon name={Clock} size={14} color={lightColors.primaryLight} />
-              <Text variant="xs" color={lightColors.primaryLight}>
+              <Icon name={Clock} size={14} color={colors.primaryLight} />
+              <Text variant="xs" color={colors.primaryLight}>
                 {todaySchedule.isOpen
                   ? `Hoy: ${todaySchedule.open} - ${todaySchedule.close}`
                   : 'Hoy cerrado'}
@@ -66,7 +72,6 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   card: {
-    backgroundColor: lightColors.primary,
     borderRadius: radii.xl,
     padding: spacing.lg,
     overflow: 'hidden',
@@ -77,7 +82,6 @@ const styles = StyleSheet.create({
     right: -30,
     width: 100,
     height: 100,
-    backgroundColor: lightColors.primaryDark,
     borderRadius: 50,
     opacity: 0.3,
   },

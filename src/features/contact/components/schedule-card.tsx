@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Text, Icon } from '@/components';
 import { Clock, ChevronDown, ChevronUp } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme } from '@/theme';
 import { ScheduleItem } from '../types';
 
 interface ScheduleCardProps {
@@ -10,6 +10,7 @@ interface ScheduleCardProps {
 }
 
 export function ScheduleCard({ schedule }: ScheduleCardProps) {
+  const { colors } = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const today = new Date();
@@ -25,15 +26,15 @@ export function ScheduleCard({ schedule }: ScheduleCardProps) {
           activeOpacity={0.7}
         >
           <View style={styles.headerLeft}>
-            <View style={styles.iconContainer}>
-              <Icon name={Clock} size={18} color={lightColors.primary} />
+            <View style={[styles.iconContainer, { backgroundColor: colors.primaryLight }]}>
+              <Icon name={Clock} size={18} color={colors.primary} />
             </View>
             <View style={styles.headerText}>
-              <Text variant="sm" weight="semibold" color={lightColors.textPrimary}>
+              <Text variant="sm" weight="semibold" color={colors.textPrimary}>
                 Horarios de atención
               </Text>
               {todaySchedule && (
-                <Text variant="xs" color={lightColors.textSecondary}>
+                <Text variant="xs" color={colors.textSecondary}>
                   {todaySchedule.isOpen
                     ? `Hoy: ${todaySchedule.open} - ${todaySchedule.close}`
                     : 'Hoy cerrado'}
@@ -44,31 +45,36 @@ export function ScheduleCard({ schedule }: ScheduleCardProps) {
           <Icon
             name={isExpanded ? ChevronUp : ChevronDown}
             size={18}
-            color={lightColors.textSecondary}
+            color={colors.textSecondary}
           />
         </TouchableOpacity>
 
         {isExpanded && (
-          <View style={styles.scheduleList}>
+          <View
+            style={[styles.scheduleList, { borderTopColor: colors.border }]}
+          >
             {schedule.map((item) => (
               <View
                 key={item.day}
                 style={[
                   styles.scheduleRow,
-                  item.day === currentDayName && styles.todayRow,
+                  item.day === currentDayName && [
+                    styles.todayRow,
+                    { backgroundColor: colors.primaryLight },
+                  ],
                 ]}
               >
                 <Text
                   variant="xs"
                   weight={item.day === currentDayName ? 'semibold' : 'regular'}
-                  color={lightColors.textPrimary}
+                  color={colors.textPrimary}
                 >
                   {item.day}
                 </Text>
                 <Text
                   variant="xs"
                   weight={item.day === currentDayName ? 'semibold' : 'regular'}
-                  color={item.isOpen ? lightColors.textPrimary : lightColors.textSecondary}
+                  color={item.isOpen ? colors.textPrimary : colors.textSecondary}
                 >
                   {item.isOpen ? `${item.open} - ${item.close}` : 'Cerrado'}
                 </Text>
@@ -100,7 +106,6 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: radii.md,
-    backgroundColor: lightColors.primaryLight,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -112,7 +117,6 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
     paddingTop: spacing.md,
     borderTopWidth: 1,
-    borderTopColor: lightColors.border,
   },
   scheduleRow: {
     flexDirection: 'row',
@@ -121,7 +125,6 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
   },
   todayRow: {
-    backgroundColor: lightColors.primaryLight,
     marginHorizontal: -spacing.lg,
     paddingHorizontal: spacing.lg,
     borderRadius: radii.md,

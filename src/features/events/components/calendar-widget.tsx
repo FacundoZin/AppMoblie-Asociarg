@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import { Card, Text } from '@/components';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme } from '@/theme';
 import { Event } from '../types';
 
 interface CalendarWidgetProps {
@@ -9,6 +9,7 @@ interface CalendarWidgetProps {
 }
 
 export function CalendarWidget({ events }: CalendarWidgetProps) {
+  const { colors } = useTheme();
   const today = new Date();
   const currentDay = today.getDate();
   const currentMonth = today.toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
@@ -33,19 +34,19 @@ export function CalendarWidget({ events }: CalendarWidgetProps) {
 
   return (
     <View style={styles.container}>
-      <Card padding="lg" style={styles.card}>
+      <Card padding="lg" style={{ backgroundColor: colors.surface }}>
         <View style={styles.header}>
-          <Text variant="base" weight="bold" color={lightColors.textPrimary}>
+          <Text variant="base" weight="bold" color={colors.textPrimary}>
             {currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)}
           </Text>
-          <Text variant="xs" color={lightColors.primary} weight="medium">
+          <Text variant="xs" color={colors.primary} weight="medium">
             {eventDays.length} eventos
           </Text>
         </View>
 
         <View style={styles.weekDays}>
           {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, index) => (
-            <Text key={index} variant="xs" color={lightColors.textSecondary} style={styles.weekDay}>
+            <Text key={index} variant="xs" color={colors.textSecondary} style={styles.weekDay}>
               {day}
             </Text>
           ))}
@@ -61,18 +62,20 @@ export function CalendarWidget({ events }: CalendarWidgetProps) {
                 key={day}
                 style={[
                   styles.day,
-                  isToday && styles.today,
-                  hasEvent && styles.eventDay,
+                  isToday && { backgroundColor: colors.primary },
+                  hasEvent && !isToday && { backgroundColor: colors.primaryLight },
                 ]}
               >
                 <Text
                   variant="xs"
                   weight={isToday ? 'bold' : 'regular'}
-                  color={isToday ? lightColors.surface : lightColors.textPrimary}
+                  color={isToday ? colors.surface : colors.textPrimary}
                 >
                   {day}
                 </Text>
-                {hasEvent && !isToday && <View style={styles.eventDot} />}
+                {hasEvent && !isToday && (
+                  <View style={[styles.eventDot, { backgroundColor: colors.primary }]} />
+                )}
               </View>
             );
           })}
@@ -86,9 +89,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.base,
     marginBottom: spacing.lg,
-  },
-  card: {
-    backgroundColor: lightColors.surface,
   },
   header: {
     flexDirection: 'row',
@@ -118,18 +118,11 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     position: 'relative',
   },
-  today: {
-    backgroundColor: lightColors.primary,
-  },
-  eventDay: {
-    backgroundColor: lightColors.primaryLight,
-  },
   eventDot: {
     position: 'absolute',
     bottom: 4,
     width: 4,
     height: 4,
     borderRadius: 2,
-    backgroundColor: lightColors.primary,
   },
 });

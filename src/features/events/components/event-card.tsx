@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Badge, Icon } from '@/components';
 import { MapPin, Users } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme, type Colors } from '@/theme';
 import { Event } from '../types';
 
 interface EventCardProps {
@@ -9,13 +9,15 @@ interface EventCardProps {
   onPress?: () => void;
 }
 
-const statusConfig: Record<string, { variant: 'success' | 'warning' | 'info' | 'default'; label: string; color: string }> = {
-  upcoming: { variant: 'info', label: 'Próxima', color: lightColors.info },
-  active: { variant: 'success', label: 'Activa', color: lightColors.success },
-  completed: { variant: 'default', label: 'Finalizada', color: lightColors.neutral },
-};
+const getStatusConfig = (colors: Colors): Record<string, { variant: 'success' | 'warning' | 'info' | 'default'; label: string; color: string }> => ({
+  upcoming: { variant: 'info', label: 'Próxima', color: colors.info },
+  active: { variant: 'success', label: 'Activa', color: colors.success },
+  completed: { variant: 'default', label: 'Finalizada', color: colors.neutral },
+});
 
 export function EventCard({ event }: EventCardProps) {
+  const { colors } = useTheme();
+  const statusConfig = getStatusConfig(colors);
   const config = statusConfig[event.status] || statusConfig.upcoming;
   const date = new Date(event.date);
 
@@ -25,32 +27,31 @@ export function EventCard({ event }: EventCardProps) {
   return (
     <Card padding="lg" style={styles.card}>
       <View style={styles.header}>
-        {/* Fecha compacta */}
         <View style={styles.dateContainer}>
-          <Text variant="2xl" weight="bold" color={lightColors.primary}>
+          <Text variant="2xl" weight="bold" color={colors.primary}>
             {dayNumber}
           </Text>
-          <Text variant="xs" color={lightColors.textSecondary}>
+          <Text variant="xs" color={colors.textSecondary}>
             {monthShort.toUpperCase()}
           </Text>
         </View>
 
         {/* Contenido */}
         <View style={styles.content}>
-          <Text variant="base" weight="bold" color={lightColors.textPrimary} style={styles.title}>
+          <Text variant="base" weight="bold" color={colors.textPrimary} style={styles.title}>
             {event.title}
           </Text>
-          
+
           <View style={styles.infoRow}>
-            <Icon name={MapPin} size={14} color={lightColors.textSecondary} />
-            <Text variant="xs" color={lightColors.textSecondary}>
+            <Icon name={MapPin} size={14} color={colors.textSecondary} />
+            <Text variant="xs" color={colors.textSecondary}>
               {event.location}
             </Text>
           </View>
 
           <View style={styles.infoRow}>
-            <Icon name={Users} size={14} color={lightColors.textSecondary} />
-            <Text variant="xs" color={lightColors.textSecondary}>
+            <Icon name={Users} size={14} color={colors.textSecondary} />
+            <Text variant="xs" color={colors.textSecondary}>
               {event.attendees} asistentes
             </Text>
           </View>

@@ -2,7 +2,7 @@ import type { ComponentType } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ActivityItem } from '@/components';
 import { CreditCard, Calendar, Bell } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 
 interface RecentActivityProps {
   activities?: Array<{
@@ -35,10 +35,15 @@ const defaultActivities = [
 ];
 
 export function RecentActivity({ activities = defaultActivities }: RecentActivityProps) {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.container}>
       {activities.map((activity) => (
-        <View key={activity.id} style={styles.itemWrapper}>
+        <View
+          key={activity.id}
+          style={[styles.itemWrapper, { borderBottomColor: colors.border }]}
+        >
           <ActivityItem
             icon={activity.icon}
             description={activity.description}
@@ -57,6 +62,5 @@ const styles = StyleSheet.create({
   },
   itemWrapper: {
     borderBottomWidth: 1,
-    borderBottomColor: lightColors.border,
   },
 });

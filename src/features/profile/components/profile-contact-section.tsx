@@ -1,10 +1,11 @@
 import { View, StyleSheet } from 'react-native';
 import { SectionTitle, Text } from '@/components';
 import { MessageCircle, Phone, MapPin } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { ClubInfoCard, QuickAction, ScheduleCard, useContact } from '@/features/contact';
 
 export function ProfileContactSection() {
+  const { colors } = useTheme();
   const { club, isLoading, openWhatsApp, openPhone, openMaps } = useContact();
 
   return (
@@ -12,13 +13,13 @@ export function ProfileContactSection() {
       <SectionTitle title="Contacto del club" />
 
       {isLoading && (
-        <Text variant="sm" color={lightColors.textSecondary} style={styles.message}>
+        <Text variant="sm" color={colors.textSecondary} style={styles.message}>
           Cargando información del club...
         </Text>
       )}
 
       {!isLoading && !club && (
-        <Text variant="sm" color={lightColors.textSecondary} style={styles.message}>
+        <Text variant="sm" color={colors.textSecondary} style={styles.message}>
           No pudimos cargar los datos del club
         </Text>
       )}
@@ -32,8 +33,8 @@ export function ProfileContactSection() {
               icon={MessageCircle}
               label="Enviar WhatsApp"
               description="Respuesta inmediata"
-              color={lightColors.success}
-              bgColor={lightColors.successLight}
+              color={colors.success}
+              bgColor={colors.successLight}
               onPress={openWhatsApp}
             />
 
@@ -41,8 +42,8 @@ export function ProfileContactSection() {
               icon={Phone}
               label="Llamar al club"
               description={club.phone}
-              color={lightColors.primary}
-              bgColor={lightColors.primaryLight}
+              color={colors.primary}
+              bgColor={colors.primaryLight}
               onPress={openPhone}
             />
 
@@ -50,8 +51,8 @@ export function ProfileContactSection() {
               icon={MapPin}
               label="Ver ubicación"
               description="Abrir en Maps"
-              color={lightColors.info}
-              bgColor={lightColors.infoLight}
+              color={colors.info}
+              bgColor={colors.infoLight}
               onPress={openMaps}
             />
           </View>

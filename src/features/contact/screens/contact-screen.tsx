@@ -1,11 +1,12 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen, SectionTitle, Text, FadeInUp, EmptyState } from '@/components';
 import { MessageCircle, Phone, MapPin } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { useContact } from '../hooks';
 import { ClubInfoCard, QuickAction, ScheduleCard } from '../components';
 
 export function ContactScreen() {
+  const { colors } = useTheme();
   const { club, isLoading, openWhatsApp, openPhone, openMaps } = useContact();
 
   if (isLoading) {
@@ -14,7 +15,7 @@ export function ContactScreen() {
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <SectionTitle title="Contacto" />
           <View style={styles.loadingContainer}>
-            <Text variant="sm" color={lightColors.textSecondary}>
+            <Text variant="sm" color={colors.textSecondary}>
               Cargando información del club...
             </Text>
           </View>
@@ -41,7 +42,7 @@ export function ContactScreen() {
 
         <FadeInUp delay={50}>
           <View style={styles.headerMessage}>
-            <Text variant="sm" color={lightColors.textSecondary}>
+            <Text variant="sm" color={colors.textSecondary}>
               ¿Cómo podemos ayudarte?
             </Text>
           </View>
@@ -57,8 +58,8 @@ export function ContactScreen() {
               icon={MessageCircle}
               label="Enviar WhatsApp"
               description="Respuesta inmediata"
-              color={lightColors.success}
-              bgColor={lightColors.successLight}
+              color={colors.success}
+              bgColor={colors.successLight}
               onPress={openWhatsApp}
             />
           </FadeInUp>
@@ -68,8 +69,8 @@ export function ContactScreen() {
               icon={Phone}
               label="Llamar al club"
               description={club.phone}
-              color={lightColors.primary}
-              bgColor={lightColors.primaryLight}
+              color={colors.primary}
+              bgColor={colors.primaryLight}
               onPress={openPhone}
             />
           </FadeInUp>
@@ -79,8 +80,8 @@ export function ContactScreen() {
               icon={MapPin}
               label="Ver ubicación"
               description="Abrir en Maps"
-              color={lightColors.info}
-              bgColor={lightColors.infoLight}
+              color={colors.info}
+              bgColor={colors.infoLight}
               onPress={openMaps}
             />
           </FadeInUp>

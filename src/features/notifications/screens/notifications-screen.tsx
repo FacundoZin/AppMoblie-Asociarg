@@ -3,13 +3,14 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen, Chip, Text, FadeInUp, EmptyState, StatCard } from '@/components';
 import { NotificationItem } from '../components';
 import { useNotifications } from '../hooks';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { Bell, Mail, CreditCard, Calendar } from 'lucide-react-native';
 import { NotificationType } from '../types';
 
 type FilterType = 'all' | 'unread' | NotificationType;
 
 export function NotificationsScreen() {
+  const { colors } = useTheme();
   const { data: notifications } = useNotifications();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
@@ -56,10 +57,10 @@ export function NotificationsScreen() {
     <Screen>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text variant="2xl" weight="bold" color={lightColors.textPrimary}>
+          <Text variant="2xl" weight="bold" color={colors.textPrimary}>
             Actividad
           </Text>
-          <Text variant="sm" color={lightColors.textSecondary} style={styles.subtitle}>
+          <Text variant="sm" color={colors.textSecondary} style={styles.subtitle}>
             {getHeaderMessage()}
           </Text>
         </View>

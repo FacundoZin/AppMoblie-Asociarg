@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Icon } from '@/components';
 import { User, Mail, Phone, Calendar } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme } from '@/theme';
 import { Profile } from '../types';
 
 interface ProfileInfoCardProps {
@@ -9,6 +9,7 @@ interface ProfileInfoCardProps {
 }
 
 export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
+  const { colors } = useTheme();
   const birthDate = new Date(profile.birthDate);
   const formattedBirthDate = birthDate.toLocaleDateString('es-AR', {
     day: '2-digit',
@@ -25,78 +26,78 @@ export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
 
   return (
     <Card padding="xl" style={styles.card}>
-        <Text variant="lg" weight="bold" color={lightColors.textPrimary} style={styles.title}>
+        <Text variant="lg" weight="bold" color={colors.textPrimary} style={styles.title}>
           Información Personal
         </Text>
 
-        <View style={styles.divider} />
+        <View style={[styles.divider, { backgroundColor: colors.border }]} />
 
         <View style={styles.infoList}>
           <View style={styles.infoRow}>
-            <View style={styles.iconContainer}>
-              <Icon name={User} size={18} color={lightColors.primary} />
+            <View style={[styles.iconContainer, { backgroundColor: colors.primaryLight }]}>
+              <Icon name={User} size={18} color={colors.primary} />
             </View>
             <View style={styles.infoContent}>
-              <Text variant="xs" color={lightColors.textSecondary}>
+              <Text variant="xs" color={colors.textSecondary}>
                 NOMBRE COMPLETO
               </Text>
-              <Text variant="sm" weight="medium" color={lightColors.textPrimary}>
+              <Text variant="sm" weight="medium" color={colors.textPrimary}>
                 {profile.name}
               </Text>
             </View>
           </View>
 
           <View style={styles.infoRow}>
-            <View style={styles.iconContainer}>
-              <Icon name={Mail} size={18} color={lightColors.primary} />
+            <View style={[styles.iconContainer, { backgroundColor: colors.primaryLight }]}>
+              <Icon name={Mail} size={18} color={colors.primary} />
             </View>
             <View style={styles.infoContent}>
-              <Text variant="xs" color={lightColors.textSecondary}>
+              <Text variant="xs" color={colors.textSecondary}>
                 EMAIL
               </Text>
-              <Text variant="sm" weight="medium" color={lightColors.textPrimary}>
+              <Text variant="sm" weight="medium" color={colors.textPrimary}>
                 {profile.email}
               </Text>
             </View>
           </View>
 
           <View style={styles.infoRow}>
-            <View style={styles.iconContainer}>
-              <Icon name={Phone} size={18} color={lightColors.primary} />
+            <View style={[styles.iconContainer, { backgroundColor: colors.primaryLight }]}>
+              <Icon name={Phone} size={18} color={colors.primary} />
             </View>
             <View style={styles.infoContent}>
-              <Text variant="xs" color={lightColors.textSecondary}>
+              <Text variant="xs" color={colors.textSecondary}>
                 TELÉFONO
               </Text>
-              <Text variant="sm" weight="medium" color={lightColors.textPrimary}>
+              <Text variant="sm" weight="medium" color={colors.textPrimary}>
                 {profile.phone}
               </Text>
             </View>
           </View>
 
           <View style={styles.infoRow}>
-            <View style={styles.iconContainer}>
-              <Icon name={Calendar} size={18} color={lightColors.primary} />
+            <View style={[styles.iconContainer, { backgroundColor: colors.primaryLight }]}>
+              <Icon name={Calendar} size={18} color={colors.primary} />
             </View>
             <View style={styles.infoContent}>
-              <Text variant="xs" color={lightColors.textSecondary}>
+              <Text variant="xs" color={colors.textSecondary}>
                 FECHA DE NACIMIENTO
               </Text>
-              <Text variant="sm" weight="medium" color={lightColors.textPrimary}>
+              <Text variant="sm" weight="medium" color={colors.textPrimary}>
                 {formattedBirthDate}
               </Text>
             </View>
           </View>
 
           <View style={styles.infoRow}>
-            <View style={styles.iconContainer}>
-              <Icon name={Calendar} size={18} color={lightColors.primary} />
+            <View style={[styles.iconContainer, { backgroundColor: colors.primaryLight }]}>
+              <Icon name={Calendar} size={18} color={colors.primary} />
             </View>
             <View style={styles.infoContent}>
-              <Text variant="xs" color={lightColors.textSecondary}>
+              <Text variant="xs" color={colors.textSecondary}>
                 MIEMBRO DESDE
               </Text>
-              <Text variant="sm" weight="medium" color={lightColors.textPrimary}>
+              <Text variant="sm" weight="medium" color={colors.textPrimary}>
                 {formattedMemberSince}
               </Text>
             </View>
@@ -116,7 +117,6 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: lightColors.border,
     marginBottom: spacing.lg,
   },
   infoList: {
@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: radii.md,
-    backgroundColor: lightColors.primaryLight,
     justifyContent: 'center',
     alignItems: 'center',
     flexShrink: 0,

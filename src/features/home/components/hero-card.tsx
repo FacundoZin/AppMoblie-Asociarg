@@ -2,7 +2,7 @@ import { View, Image, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, Badge, Icon } from '@/components';
 import { CreditCard } from 'lucide-react-native';
-import { lightColors, spacing, shape, elevation } from '@/theme';
+import { spacing, shape, elevation, useTheme } from '@/theme';
 import { images } from '@/constants/assets';
 
 interface HeroCardProps {
@@ -19,6 +19,7 @@ const statusConfig = {
 };
 
 export function HeroCard({ memberNumber, status, dueDate }: HeroCardProps) {
+  const { colors } = useTheme();
   const config = statusConfig[status];
   const formattedDueDate = dueDate
     ? new Date(dueDate).toLocaleDateString('es-AR', {
@@ -30,9 +31,9 @@ export function HeroCard({ memberNumber, status, dueDate }: HeroCardProps) {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.shadowWrapper]}>
+      <View style={[styles.shadowWrapper, { backgroundColor: colors.primary }]}>
         <LinearGradient
-          colors={[lightColors.primary, lightColors.primaryDark]}
+          colors={[colors.primary, colors.primaryDark]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.card}
@@ -41,11 +42,11 @@ export function HeroCard({ memberNumber, status, dueDate }: HeroCardProps) {
             <View style={styles.headerLeft}>
               <View style={styles.brandRow}>
                 <Image source={images.logo} style={styles.brandLogo} resizeMode="contain" />
-                <Text variant="xs" color={lightColors.onPrimary} style={styles.brandLabel}>
+                <Text variant="xs" color={colors.onPrimary} style={styles.brandLabel}>
                   ASOCIARG
                 </Text>
               </View>
-              <Text variant="sm" color={lightColors.primaryLight}>
+              <Text variant="sm" color={colors.primaryLight}>
                 Socio #{memberNumber}
               </Text>
             </View>
@@ -54,15 +55,15 @@ export function HeroCard({ memberNumber, status, dueDate }: HeroCardProps) {
 
           <View style={styles.body}>
             <View style={styles.amountRow}>
-              <Text variant="displaySmall" weight="bold" color={lightColors.onPrimary}>
+              <Text variant="displaySmall" weight="bold" color={colors.onPrimary}>
                 ${dueDate ? '15.000' : '0'}
               </Text>
-              <View style={styles.iconContainer}>
-                <Icon name={CreditCard} size={28} color={lightColors.onPrimary} />
+              <View style={[styles.iconContainer, { backgroundColor: colors.onPrimaryOverlay }]}>
+                <Icon name={CreditCard} size={28} color={colors.onPrimary} />
               </View>
             </View>
 
-            <Text variant="sm" color={lightColors.primaryLight} style={styles.dueText}>
+            <Text variant="sm" color={colors.primaryLight} style={styles.dueText}>
               {formattedDueDate ? `Vence el ${formattedDueDate}` : 'Sin cuotas pendientes'}
             </Text>
           </View>
@@ -78,9 +79,9 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   // Elevation needs a solid background on Android to draw the shadow silhouette.
+  // The background color comes from the active palette (see inline style).
   shadowWrapper: {
     borderRadius: shape.extraLarge,
-    backgroundColor: lightColors.primary,
     ...elevation.level1,
   },
   card: {
@@ -124,7 +125,6 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: shape.full,
-    backgroundColor: lightColors.onPrimaryOverlay,
     justifyContent: 'center',
     alignItems: 'center',
   },

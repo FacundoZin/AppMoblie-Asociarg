@@ -6,7 +6,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Card, Text, Icon } from '@/components';
 import { LucideIcon, ChevronRight } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme } from '@/theme';
 
 interface QuickActionProps {
   icon: LucideIcon;
@@ -25,6 +25,7 @@ export function QuickAction({
   bgColor,
   onPress,
 }: QuickActionProps) {
+  const { colors } = useTheme();
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -52,16 +53,16 @@ export function QuickAction({
             <Icon name={IconComponent} size={20} color={color} />
           </View>
           <View style={styles.content}>
-            <Text variant="sm" weight="semibold" color={lightColors.textPrimary} numberOfLines={1}>
+            <Text variant="sm" weight="semibold" color={colors.textPrimary} numberOfLines={1}>
               {label}
             </Text>
             {description && (
-              <Text variant="xs" color={lightColors.textSecondary} numberOfLines={1}>
+              <Text variant="xs" color={colors.textSecondary} numberOfLines={1}>
                 {description}
               </Text>
             )}
           </View>
-          <Icon name={ChevronRight} size={18} color={lightColors.textSecondary} />
+          <Icon name={ChevronRight} size={18} color={colors.textSecondary} />
         </Card>
       </TouchableOpacity>
     </Animated.View>

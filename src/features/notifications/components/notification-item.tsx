@@ -1,30 +1,30 @@
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Badge, Icon } from '@/components';
 import { Bell, Calendar, CheckCircle, type LucideIcon } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme, type Colors } from '@/theme';
 import { Notification, NotificationType } from '../types';
 
 interface NotificationItemProps {
   notification: Notification;
 }
 
-const categoryConfig: Record<NotificationType, { icon: LucideIcon; color: string; bgColor: string }> = {
+const getCategoryConfig = (colors: Colors): Record<NotificationType, { icon: LucideIcon; color: string; bgColor: string }> => ({
   info: {
     icon: Bell,
-    color: lightColors.primary,
-    bgColor: lightColors.primaryLight,
+    color: colors.primary,
+    bgColor: colors.primaryLight,
   },
   event: {
     icon: Calendar,
-    color: lightColors.info,
-    bgColor: lightColors.infoLight,
+    color: colors.info,
+    bgColor: colors.infoLight,
   },
   success: {
     icon: CheckCircle,
-    color: lightColors.success,
-    bgColor: lightColors.successLight,
+    color: colors.success,
+    bgColor: colors.successLight,
   },
-};
+});
 
 const badgeLabel: Record<NotificationType, string> = {
   info: 'Info',
@@ -39,10 +39,13 @@ const badgeVariant: Record<NotificationType, 'success' | 'info' | 'warning' | 'd
 };
 
 export function NotificationItem({ notification }: NotificationItemProps) {
-  const config = categoryConfig[notification.type];
+  const { colors } = useTheme();
+  const config = getCategoryConfig(colors)[notification.type];
 
   return (
-    <View style={[styles.card, !notification.read && styles.unread]}>
+    <View
+      style={[styles.card, !notification.read && { borderLeftColor: colors.primary }]}
+    >
       <Card padding="xl">
         <View style={styles.header}>
           <View style={[styles.iconContainer, { backgroundColor: config.bgColor }]}>
@@ -51,13 +54,15 @@ export function NotificationItem({ notification }: NotificationItemProps) {
 
           <View style={styles.content}>
             <View style={styles.titleRow}>
-              <Text variant="base" weight="semibold" color={lightColors.textPrimary} style={styles.title}>
+              <Text variant="base" weight="semibold" color={colors.textPrimary} style={styles.title}>
                 {notification.from}
               </Text>
-              {!notification.read && <View style={styles.dot} />}
+              {!notification.read && (
+                <View style={[styles.dot, { backgroundColor: colors.primary }]} />
+              )}
             </View>
 
-            <Text variant="sm" color={lightColors.textPrimary} style={styles.text} numberOfLines={2}>
+            <Text variant="sm" color={colors.textPrimary} style={styles.text} numberOfLines={2}>
               {notification.text}
             </Text>
 
@@ -66,7 +71,7 @@ export function NotificationItem({ notification }: NotificationItemProps) {
                 variant={badgeVariant[notification.type]}
                 label={badgeLabel[notification.type]}
               />
-              <Text variant="xs" color={lightColors.textSecondary}>
+              <Text variant="xs" color={colors.textSecondary}>
                 {notification.time}
               </Text>
             </View>
@@ -79,11 +84,8 @@ export function NotificationItem({ notification }: NotificationItemProps) {
 
 const styles = StyleSheet.create({
   card: {
-    marginBottom: spacing.md,
-  },
-  unread: {
     borderLeftWidth: 3,
-    borderLeftColor: lightColors.primary,
+    marginBottom: spacing.md,
   },
   header: {
     flexDirection: 'row',
@@ -113,7 +115,6 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: lightColors.primary,
   },
   text: {
     marginBottom: spacing.md,

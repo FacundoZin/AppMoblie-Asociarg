@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Icon } from '@/components';
 import { PatternCard } from '@/components/common';
 import { CreditCard } from 'lucide-react-native';
-import { lightColors, spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 
 interface PaymentSummaryCardProps {
   totalPending: number;
@@ -17,61 +17,63 @@ export function PaymentSummaryCard({
   paidCount,
   overdueCount,
 }: PaymentSummaryCardProps) {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.container}>
       <PatternCard variant="primary">
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <View style={styles.brandRow}>
-              <View style={styles.brandDot} />
-              <Text variant="xs" color={lightColors.primaryLight} style={styles.brandLabel}>
+              <View style={[styles.brandDot, { backgroundColor: colors.success }]} />
+              <Text variant="xs" color={colors.primaryLight} style={styles.brandLabel}>
                 ASOCIARG
               </Text>
             </View>
-            <Text variant="sm" color={lightColors.primaryLight}>
+            <Text variant="sm" color={colors.primaryLight}>
               {pendingCount > 0
                 ? `${pendingCount} cuota${pendingCount > 1 ? 's' : ''} pendiente${pendingCount > 1 ? 's' : ''}`
                 : 'Todas al día'}
             </Text>
           </View>
           <View style={styles.iconContainer}>
-            <Icon name={CreditCard} size={28} color={lightColors.surface} />
+            <Icon name={CreditCard} size={28} color={colors.surface} />
           </View>
         </View>
 
         <View style={styles.body}>
-          <Text variant="xs" color={lightColors.primaryLight} style={styles.amountLabel}>
+          <Text variant="xs" color={colors.primaryLight} style={styles.amountLabel}>
             TOTAL PENDIENTE
           </Text>
-          <Text variant="4xl" weight="bold" color={lightColors.surface}>
+          <Text variant="4xl" weight="bold" color={colors.surface}>
             ${totalPending.toLocaleString('es-AR')}
           </Text>
         </View>
 
         <View style={styles.stats}>
           <View style={styles.stat}>
-            <Text variant="2xl" weight="bold" color={lightColors.surface}>
+            <Text variant="2xl" weight="bold" color={colors.surface}>
               {paidCount}
             </Text>
-            <Text variant="xs" color={lightColors.primaryLight}>
+            <Text variant="xs" color={colors.primaryLight}>
               Pagadas
             </Text>
           </View>
           <View style={styles.divider} />
           <View style={styles.stat}>
-            <Text variant="2xl" weight="bold" color={lightColors.surface}>
+            <Text variant="2xl" weight="bold" color={colors.surface}>
               {pendingCount}
             </Text>
-            <Text variant="xs" color={lightColors.primaryLight}>
+            <Text variant="xs" color={colors.primaryLight}>
               Pendientes
             </Text>
           </View>
           <View style={styles.divider} />
           <View style={styles.stat}>
-            <Text variant="2xl" weight="bold" color={lightColors.surface}>
+            <Text variant="2xl" weight="bold" color={colors.surface}>
               {overdueCount}
             </Text>
-            <Text variant="xs" color={lightColors.primaryLight}>
+            <Text variant="xs" color={colors.primaryLight}>
               Vencidas
             </Text>
           </View>
@@ -105,7 +107,6 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: lightColors.success,
   },
   brandLabel: {
     fontWeight: '700',

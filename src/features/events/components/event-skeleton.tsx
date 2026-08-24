@@ -1,11 +1,13 @@
 import { View, StyleSheet } from 'react-native';
 import { Card, Skeleton } from '@/components';
-import { lightColors, spacing, radii } from '@/theme';
+import { spacing, radii, useTheme } from '@/theme';
 
 export function EventSkeleton() {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.container}>
-      <Card padding="lg" style={styles.card}>
+      <Card padding="lg" style={{ backgroundColor: colors.surface }}>
         <View style={styles.header}>
           <Skeleton width={50} height={60} borderRadius={radii.md} />
           <View style={styles.content}>
@@ -24,9 +26,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.base,
     marginBottom: spacing.md,
-  },
-  card: {
-    backgroundColor: lightColors.surface,
   },
   header: {
     flexDirection: 'row',
