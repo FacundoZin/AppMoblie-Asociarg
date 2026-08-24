@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { Screen, Text } from '@/components';
+import { Screen, Text, TopAppBar } from '@/components';
 import { lightColors, spacing } from '@/theme';
 
 export default function PaymentDetailScreen() {
@@ -8,11 +8,9 @@ export default function PaymentDetailScreen() {
 
   return (
     <Screen>
+      <TopAppBar title="Detalle de cuota" fallbackHref="/pagos" />
       <View style={styles.container}>
-        <Text variant="lg" weight="semibold" color={lightColors.textPrimary}>
-          Detalle de cuota
-        </Text>
-        <Text variant="sm" color={lightColors.textSecondary} style={styles.idText}>
+        <Text variant="sm" color={lightColors.textSecondary}>
           ID: {id}
         </Text>
       </View>
@@ -27,7 +25,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: spacing.base,
   },
-  idText: {
-    marginTop: spacing.sm,
-  },
 });
+
