@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen, Chip, Text, FadeInUp, EmptyState, StatCard } from '@/components';
-import { NotificationItem } from '../components';
+import { NotificationItem, NotificationSkeleton } from '../components';
 import { useNotifications } from '../hooks';
 import { spacing, useTheme } from '@/theme';
 import { Bell, Mail, CreditCard, Calendar } from 'lucide-react-native';
@@ -11,8 +11,37 @@ type FilterType = 'all' | 'unread' | NotificationType;
 
 export function NotificationsScreen() {
   const { colors } = useTheme();
-  const { data: notifications } = useNotifications();
+  const { data: notifications, isLoading, error } = useNotifications();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+
+  if (isLoading) {
+    return (
+      <Screen>
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <Text variant="2xl" weight="bold" color={colors.textPrimary}>
+              Actividad
+            </Text>
+          </View>
+          {[0, 1, 2].map((index) => (
+            <NotificationSkeleton key={index} />
+          ))}
+        </ScrollView>
+      </Screen>
+    );
+  }
+
+  if (error) {
+    return (
+      <Screen>
+        <EmptyState
+          icon={Bell}
+          title="Sin notificaciones"
+          description="No pudimos cargar tus notificaciones"
+        />
+      </Screen>
+    );
+  }
 
   // Counters
   const unreadCount = notifications.filter((n) => !n.read).length;

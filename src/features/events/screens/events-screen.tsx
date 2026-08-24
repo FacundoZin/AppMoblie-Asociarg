@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Screen, SectionTitle, Chip, Text, FadeInUp, EmptyState, SearchBar } from '@/components';
-import { FeaturedEventCard, EventCard, CalendarWidget } from '../components';
+import { FeaturedEventCard, EventCard, CalendarWidget, EventSkeleton } from '../components';
 import { useEvents } from '../hooks';
 import { spacing, useTheme } from '@/theme';
 import { Calendar, Dumbbell, Trophy, Users, PartyPopper } from 'lucide-react-native';
@@ -17,9 +17,34 @@ const normalizeText = (text: string) =>
 
 export function EventsScreen() {
   const { colors } = useTheme();
-  const { data: events } = useEvents();
+  const { data: events, isLoading, error } = useEvents();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [query, setQuery] = useState('');
+
+  if (isLoading) {
+    return (
+      <Screen>
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <SectionTitle title="Convocatorias" />
+          {[0, 1, 2].map((index) => (
+            <EventSkeleton key={index} />
+          ))}
+        </ScrollView>
+      </Screen>
+    );
+  }
+
+  if (error) {
+    return (
+      <Screen>
+        <EmptyState
+          icon={Calendar}
+          title="Sin convocatorias"
+          description="No pudimos cargar los eventos"
+        />
+      </Screen>
+    );
+  }
 
   const upcomingEvents = events.filter((e) => {
     const eventDate = new Date(e.date);

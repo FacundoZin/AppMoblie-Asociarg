@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Screen, SectionTitle, Text, FadeInUp, EmptyState } from '@/components';
+import { Screen, SectionTitle, Text, FadeInUp, EmptyState, Skeleton } from '@/components';
 import { MessageCircle, Phone, MapPin } from 'lucide-react-native';
 import { spacing, useTheme } from '@/theme';
 import { useContact } from '../hooks';
@@ -15,9 +15,8 @@ export function ContactScreen() {
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <SectionTitle title="Contacto" />
           <View style={styles.loadingContainer}>
-            <Text variant="sm" color={colors.textSecondary}>
-              Cargando información del club...
-            </Text>
+            <Skeleton height={120} />
+            <Skeleton height={180} style={styles.skeletonGap} />
           </View>
         </ScrollView>
       </Screen>
@@ -111,6 +110,8 @@ const styles = StyleSheet.create({
   loadingContainer: {
     paddingHorizontal: spacing.base,
     paddingVertical: spacing.xl,
-    alignItems: 'center',
+  },
+  skeletonGap: {
+    marginTop: spacing.md,
   },
 });

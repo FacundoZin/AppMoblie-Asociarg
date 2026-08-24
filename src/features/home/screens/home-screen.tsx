@@ -1,11 +1,37 @@
-import { ScrollView, StyleSheet } from 'react-native';
-import { Screen, AppHeader, SectionTitle, FadeInUp } from '@/components';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Screen, AppHeader, SectionTitle, FadeInUp, EmptyState, Skeleton } from '@/components';
 import { HeroCard, QuickActions, SummaryCard, RecentActivity } from '../components';
 import { useUser } from '../hooks';
 import { spacing } from '@/theme';
 
 export function HomeScreen() {
-  const { data: user } = useUser();
+  const { data: user, isLoading, error } = useUser();
+
+  if (isLoading) {
+    return (
+      <Screen>
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <View style={styles.skeletonContainer}>
+            <Skeleton height={56} />
+            <Skeleton height={180} style={styles.skeletonGap} />
+            <Skeleton height={120} style={styles.skeletonGap} />
+          </View>
+        </ScrollView>
+      </Screen>
+    );
+  }
+
+  if (error) {
+    return (
+      <Screen>
+        <EmptyState
+          title="Sin información"
+          description="No pudimos cargar tu perfil"
+        />
+      </Screen>
+    );
+  }
+
   const initials = user.name
     .split(' ')
     .map((n) => n[0])
@@ -46,5 +72,12 @@ const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     paddingBottom: spacing.lg,
+  },
+  skeletonContainer: {
+    paddingHorizontal: spacing.base,
+    paddingTop: spacing.lg,
+  },
+  skeletonGap: {
+    marginTop: spacing.md,
   },
 });

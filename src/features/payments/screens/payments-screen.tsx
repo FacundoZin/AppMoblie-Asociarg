@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Screen, SectionTitle, Chip, FadeInUp, EmptyState, SearchBar, Fab } from '@/components';
+import { Screen, SectionTitle, Chip, FadeInUp, EmptyState, SearchBar, Fab, Skeleton } from '@/components';
 import { PaymentSummaryCard, PaymentCard } from '../components';
 import { usePayments } from '../hooks';
 import { spacing } from '@/theme';
@@ -23,9 +23,36 @@ const normalizeText = (text: string) =>
     .replace(/[\u0300-\u036f]/g, '');
 
 export function PaymentsScreen() {
-  const { data: payments } = usePayments();
+  const { data: payments, isLoading, error } = usePayments();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [query, setQuery] = useState('');
+
+  if (isLoading) {
+    return (
+      <Screen>
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <SectionTitle title="Cuotas" />
+          <View style={styles.list}>
+            {[0, 1, 2].map((index) => (
+              <Skeleton key={index} height={96} style={styles.skeletonCard} />
+            ))}
+          </View>
+        </ScrollView>
+      </Screen>
+    );
+  }
+
+  if (error) {
+    return (
+      <Screen>
+        <EmptyState
+          icon={AlertCircle}
+          title="Sin cuotas"
+          description="No pudimos cargar tus cuotas"
+        />
+      </Screen>
+    );
+  }
 
   const pendingPayments = payments.filter((p) => p.status === 'pending');
   const paidPayments = payments.filter((p) => p.status === 'paid');
@@ -155,5 +182,8 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: spacing.base,
+  },
+  skeletonCard: {
+    marginBottom: spacing.md,
   },
 });

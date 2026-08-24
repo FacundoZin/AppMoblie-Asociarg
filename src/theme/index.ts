@@ -5,4 +5,5 @@ export { radii, shape } from './radii';
 export { shadows, lightShadows, darkShadows, elevation } from './shadows';
 export { tokens } from './tokens';
 export { ThemeProvider, useTheme } from './theme-provider';
+export type { ThemeMode } from './theme-provider';
 export type { Theme, Colors, DarkColors, FontFamily, FontSize, LineHeight, FontWeight, Spacing, Radii, Shadows, TypeRoleName, TypeRole, Shape, ElevationLevels } from './types';
