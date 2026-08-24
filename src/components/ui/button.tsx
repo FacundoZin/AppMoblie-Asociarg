@@ -2,9 +2,17 @@ import type { ComponentType } from 'react';
 import { TouchableOpacity, ActivityIndicator, StyleSheet, ViewStyle } from 'react-native';
 import { Text } from './text';
 import { Icon } from './icon';
-import { lightColors, radii, spacing } from '@/theme';
+import { lightColors, shape, spacing } from '@/theme';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
+type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'danger'
+  | 'filled'
+  | 'tonal'
+  | 'outlined'
+  | 'text';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface ButtonProps {
@@ -19,22 +27,63 @@ interface ButtonProps {
   style?: ViewStyle;
 }
 
-const variantStyles: Record<ButtonVariant, { backgroundColor: string; textColor: string }> = {
+interface VariantStyle {
+  backgroundColor: string;
+  textColor: string;
+  borderWidth: number;
+  borderColor: string;
+}
+
+const variantStyles: Record<ButtonVariant, VariantStyle> = {
+  // Legacy variants (kept for backward compatibility)
   primary: {
     backgroundColor: lightColors.primary,
     textColor: lightColors.surface,
+    borderWidth: 0,
+    borderColor: 'transparent',
   },
   secondary: {
     backgroundColor: lightColors.primaryLight,
     textColor: lightColors.primary,
+    borderWidth: 0,
+    borderColor: 'transparent',
   },
   ghost: {
     backgroundColor: 'transparent',
     textColor: lightColors.primary,
+    borderWidth: 0,
+    borderColor: 'transparent',
   },
   danger: {
     backgroundColor: lightColors.error,
     textColor: lightColors.surface,
+    borderWidth: 0,
+    borderColor: 'transparent',
+  },
+  // MD3 variants
+  filled: {
+    backgroundColor: lightColors.primary,
+    textColor: lightColors.onPrimary,
+    borderWidth: 0,
+    borderColor: 'transparent',
+  },
+  tonal: {
+    backgroundColor: lightColors.secondaryContainer,
+    textColor: lightColors.onSecondaryContainer,
+    borderWidth: 0,
+    borderColor: 'transparent',
+  },
+  outlined: {
+    backgroundColor: lightColors.surface,
+    textColor: lightColors.primary,
+    borderWidth: 1,
+    borderColor: lightColors.outline,
+  },
+  text: {
+    backgroundColor: 'transparent',
+    textColor: lightColors.primary,
+    borderWidth: 0,
+    borderColor: 'transparent',
   },
 };
 
@@ -75,6 +124,8 @@ export function Button({
           backgroundColor: colors.backgroundColor,
           paddingVertical: sizes.paddingVertical,
           paddingHorizontal: sizes.paddingHorizontal,
+          borderWidth: colors.borderWidth,
+          borderColor: colors.borderColor,
         },
         disabled && styles.disabled,
         style,
@@ -91,8 +142,7 @@ export function Button({
             <Icon name={LeftIcon} size={18} color={colors.textColor} />
           )}
           <Text
-            variant="base"
-            weight="semibold"
+            variant="labelLarge"
             color={colors.textColor}
             style={styles.label}
           >
@@ -109,7 +159,8 @@ export function Button({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: radii.lg,
+    borderRadius: shape.full,
+    minHeight: 40,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

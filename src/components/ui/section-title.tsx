@@ -11,7 +11,7 @@ export function SectionTitle({ title }: SectionTitleProps) {
     <View style={styles.container}>
       <View style={styles.titleRow}>
         <View style={styles.accent} />
-        <Text variant="lg" weight="bold" color={lightColors.textPrimary}>
+        <Text variant="titleMedium" color={lightColors.textPrimary}>
           {title}
         </Text>
       </View>

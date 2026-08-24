@@ -39,7 +39,8 @@ export function Avatar({ uri, initials, size = 'md' }: AvatarProps) {
       <Text
         variant="base"
         weight="semibold"
-        color={lightColors.primary}
+        color={lightColors.onPrimaryContainer}
+        style={{ fontSize: config.fontSize }}
       >
         {initials || '?'}
       </Text>
@@ -54,6 +55,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   avatarFallback: {
-    backgroundColor: lightColors.primaryLight,
+    backgroundColor: lightColors.primaryContainer,
   },
 });

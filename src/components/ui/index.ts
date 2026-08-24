@@ -14,3 +14,4 @@ export { ActivityItem } from './activity-item';
 export { FadeInUp } from './fade-in-up';
 export { EmptyState } from './empty-state';
 export { SplashScreen } from './splash-screen';
+export { TopAppBar } from './top-app-bar';

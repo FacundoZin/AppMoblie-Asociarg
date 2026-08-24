@@ -1,21 +1,54 @@
 import type { ReactNode } from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { lightColors, radii, shadows, spacing } from '@/theme';
+import { lightColors, shape, shadows, spacing, elevation } from '@/theme';
+
+type CardVariant = 'elevated' | 'filled' | 'outlined';
+type CardShadow = 'none' | 'sm' | 'md' | 'lg' | 'xl';
 
 interface CardProps {
   children: ReactNode;
   padding?: keyof typeof spacing;
-  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  shadow?: CardShadow;
+  variant?: CardVariant;
   style?: StyleProp<ViewStyle>;
 }
 
-export function Card({ children, padding = 'base', shadow = 'md', style }: CardProps) {
+const variantStyles: Record<CardVariant, { backgroundColor: string; borderWidth: number; borderColor: string }> = {
+  elevated: {
+    backgroundColor: lightColors.surfaceContainerLow,
+    borderWidth: 0,
+    borderColor: 'transparent',
+  },
+  filled: {
+    backgroundColor: lightColors.surfaceContainerHighest,
+    borderWidth: 0,
+    borderColor: 'transparent',
+  },
+  outlined: {
+    backgroundColor: lightColors.surface,
+    borderWidth: 1,
+    borderColor: lightColors.outlineVariant,
+  },
+};
+
+export function Card({
+  children,
+  padding = 'base',
+  shadow,
+  variant = 'elevated',
+  style,
+}: CardProps) {
+  const colors = variantStyles[variant];
+  const resolvedShadow: CardShadow = shadow ?? (variant === 'elevated' ? 'sm' : 'none');
+
   return (
     <View
       style={[
         styles.card,
+        colors,
         { padding: spacing[padding] },
-        shadow !== 'none' && shadows[shadow],
+        resolvedShadow !== 'none' && shadows[resolvedShadow],
+        resolvedShadow === 'sm' && elevation.level1,
         style,
       ]}
     >
@@ -26,7 +59,6 @@ export function Card({ children, padding = 'base', shadow = 'md', style }: CardP
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: lightColors.surface,
-    borderRadius: radii.xl,
+    borderRadius: shape.large,
   },
 });

@@ -16,16 +16,16 @@ export function EmptyState({ icon: IconComponent, title, description }: EmptySta
     <View style={styles.container}>
       <View style={styles.iconContainer}>
         {IconComponent ? (
-          <Icon name={IconComponent} size={48} color={lightColors.neutral} />
+          <Icon name={IconComponent} size={48} color={lightColors.onSurfaceVariant} />
         ) : (
-          <Icon name={Info} size={48} color={lightColors.neutral} />
+          <Icon name={Info} size={48} color={lightColors.onSurfaceVariant} />
         )}
       </View>
-      <Text variant="lg" weight="semibold" color={lightColors.textPrimary} style={styles.title}>
+      <Text variant="titleMedium" color={lightColors.textPrimary} style={styles.title}>
         {title}
       </Text>
       {description && (
-        <Text variant="sm" color={lightColors.textSecondary} style={styles.description}>
+        <Text variant="bodyMedium" color={lightColors.onSurfaceVariant} style={styles.description}>
           {description}
         </Text>
       )}
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     width: 96,
     height: 96,
     borderRadius: radii.full,
-    backgroundColor: lightColors.background,
+    backgroundColor: lightColors.surfaceContainerHigh,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: spacing.lg,

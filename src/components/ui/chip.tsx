@@ -7,7 +7,7 @@ import Animated, {
 import { Text } from './text';
 import { Icon } from './icon';
 import { LucideIcon } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { lightColors, shape, spacing } from '@/theme';
 
 interface ChipProps {
   icon?: LucideIcon;
@@ -32,29 +32,50 @@ export function Chip({ icon: IconComponent, label, selected = false, onPress, co
     scale.value = withSpring(1, { damping: 15, stiffness: 150 });
   };
 
+  const palette = selected
+    ? {
+        background: lightColors.primaryContainer,
+        content: lightColors.onPrimaryContainer,
+        borderColor: lightColors.primaryContainer,
+        badgeBackground: lightColors.onPrimaryContainer,
+        badgeText: lightColors.primaryContainer,
+      }
+    : {
+        background: lightColors.surfaceContainerLow,
+        content: lightColors.onSurfaceVariant,
+        borderColor: lightColors.outlineVariant,
+        badgeBackground: lightColors.primaryContainer,
+        badgeText: lightColors.onPrimaryContainer,
+      };
+
   return (
     <Animated.View style={animatedStyle}>
       <TouchableOpacity
-        style={[styles.chip, selected && styles.chipSelected]}
+        style={[
+          styles.chip,
+          {
+            backgroundColor: palette.background,
+            borderColor: palette.borderColor,
+          },
+        ]}
         onPress={onPress}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         activeOpacity={0.8}
       >
         {IconComponent && (
-          <Icon name={IconComponent} size={14} color={selected ? lightColors.surface : lightColors.textSecondary} />
+          <Icon name={IconComponent} size={14} color={palette.content} />
         )}
         <Text
-          variant="xs"
-          weight="medium"
-          color={selected ? lightColors.surface : lightColors.textSecondary}
+          variant="labelLarge"
+          color={palette.content}
           style={styles.label}
         >
           {label}
         </Text>
         {count !== undefined && count > 0 && (
-          <View style={[styles.badge, selected && styles.badgeSelected]}>
-            <Text variant="xs" weight="bold" color={selected ? lightColors.surface : lightColors.textSecondary}>
+          <View style={[styles.badge, { backgroundColor: palette.badgeBackground }]}>
+            <Text variant="labelMedium" color={palette.badgeText}>
               {count}
             </Text>
           </View>
@@ -70,28 +91,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
-    borderRadius: radii.full,
-    backgroundColor: lightColors.background,
+    borderRadius: shape.small,
     borderWidth: 1,
-    borderColor: lightColors.border,
     gap: spacing.xs,
-  },
-  chipSelected: {
-    backgroundColor: lightColors.primary,
-    borderColor: lightColors.primary,
   },
   label: {
     marginRight: spacing.xs,
   },
   badge: {
-    backgroundColor: lightColors.primaryLight,
     paddingHorizontal: spacing.xs,
     paddingVertical: 2,
-    borderRadius: radii.full,
+    borderRadius: shape.full,
     minWidth: 20,
     alignItems: 'center',
-  },
-  badgeSelected: {
-    backgroundColor: lightColors.surface,
   },
 });

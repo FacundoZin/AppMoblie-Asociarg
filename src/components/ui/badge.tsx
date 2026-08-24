@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import { Text } from './text';
-import { lightColors, spacing, radii } from '@/theme';
+import { lightColors, spacing, shape } from '@/theme';
 
 type BadgeVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 
@@ -24,7 +24,7 @@ const variantStyles: Record<BadgeVariant, { backgroundColor: string; color: stri
   },
   error: {
     backgroundColor: lightColors.error,
-    color: lightColors.surface,
+    color: lightColors.onError,
   },
   info: {
     backgroundColor: lightColors.info,
@@ -37,7 +37,7 @@ export function Badge({ variant = 'default', label }: BadgeProps) {
 
   return (
     <View style={[styles.badge, { backgroundColor: colors.backgroundColor }]}>
-      <Text variant="xs" weight="semibold" color={colors.color}>
+      <Text variant="labelSmall" color={colors.color}>
         {label}
       </Text>
     </View>
@@ -46,9 +46,9 @@ export function Badge({ variant = 'default', label }: BadgeProps) {
 
 const styles = StyleSheet.create({
   badge: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radii.full,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs + 2,
+    borderRadius: shape.full,
     alignSelf: 'flex-start',
   },
 });

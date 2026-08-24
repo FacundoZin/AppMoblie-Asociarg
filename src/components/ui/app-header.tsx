@@ -22,10 +22,10 @@ export function AppHeader({
       <View style={styles.accentBar} />
       <View style={styles.content}>
         <View style={styles.textContainer}>
-          <Text variant="sm" color={lightColors.textSecondary}>
+          <Text variant="bodyMedium" color={lightColors.onSurfaceVariant}>
             {greeting}
           </Text>
-          <Text variant="xl" weight="bold" color={lightColors.textPrimary}>
+          <Text variant="titleLarge" color={lightColors.textPrimary}>
             {userName}
           </Text>
         </View>

@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { View, TextInput, TextInputProps, StyleSheet } from 'react-native';
 import { Text } from './text';
-import { lightColors, radii, spacing } from '@/theme';
+import { lightColors, shape, spacing } from '@/theme';
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -8,11 +9,28 @@ interface InputProps extends TextInputProps {
   disabled?: boolean;
 }
 
-export function Input({ label, error, disabled, style, ...rest }: InputProps) {
+export function Input({
+  label,
+  error,
+  disabled,
+  style,
+  onFocus,
+  onBlur,
+  ...rest
+}: InputProps) {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const borderColor = error
+    ? lightColors.error
+    : isFocused
+      ? lightColors.primary
+      : lightColors.outlineVariant;
+  const borderWidth = isFocused && !error ? 2 : 1;
+
   return (
     <View style={styles.container}>
       {label && (
-        <Text variant="sm" weight="medium" color={lightColors.textSecondary}>
+        <Text variant="labelMedium" color={lightColors.onSurfaceVariant}>
           {label}
         </Text>
       )}
@@ -20,17 +38,27 @@ export function Input({ label, error, disabled, style, ...rest }: InputProps) {
         style={[
           styles.input,
           {
-            borderColor: error ? lightColors.error : lightColors.border,
-            backgroundColor: disabled ? lightColors.background : lightColors.surface,
+            borderColor,
+            borderWidth,
+            backgroundColor: disabled ? lightColors.surfaceContainerLow : lightColors.surface,
+            color: lightColors.textPrimary,
           },
           style,
         ]}
         editable={!disabled}
-        placeholderTextColor={lightColors.textSecondary}
+        placeholderTextColor={lightColors.onSurfaceVariant}
+        onFocus={(event) => {
+          setIsFocused(true);
+          onFocus?.(event);
+        }}
+        onBlur={(event) => {
+          setIsFocused(false);
+          onBlur?.(event);
+        }}
         {...rest}
       />
       {error && (
-        <Text variant="xs" color={lightColors.error}>
+        <Text variant="bodySmall" color={lightColors.error}>
           {error}
         </Text>
       )}
@@ -43,11 +71,9 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
   },
   input: {
-    borderWidth: 1,
-    borderRadius: radii.md,
+    borderRadius: shape.small,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     fontSize: 16,
-    color: lightColors.textPrimary,
   },
 });

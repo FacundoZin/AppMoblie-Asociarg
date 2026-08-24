@@ -42,6 +42,6 @@ export function Skeleton({ width = '100%', height = 20, borderRadius, style }: S
 
 const styles = StyleSheet.create({
   skeleton: {
-    backgroundColor: lightColors.border,
+    backgroundColor: lightColors.surfaceContainerHighest,
   },
 });
