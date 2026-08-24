@@ -1,17 +1,31 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Screen, SectionTitle, Chip, FadeInUp, EmptyState } from '@/components';
+import { Screen, SectionTitle, Chip, FadeInUp, EmptyState, SearchBar, Fab } from '@/components';
 import { PaymentSummaryCard, PaymentCard } from '../components';
 import { usePayments } from '../hooks';
 import { spacing } from '@/theme';
-import { CreditCard, CheckCircle, Clock, AlertCircle } from 'lucide-react-native';
+import { CreditCard, CheckCircle, Clock, AlertCircle, Headset } from 'lucide-react-native';
+import { router } from 'expo-router';
 import { PaymentStatus } from '../types';
 
 type FilterType = 'all' | PaymentStatus;
 
+const paymentStatusLabels: Record<PaymentStatus, string> = {
+  pending: 'pendiente',
+  paid: 'pagada',
+  overdue: 'vencida',
+};
+
+const normalizeText = (text: string) =>
+  text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
 export function PaymentsScreen() {
   const { data: payments } = usePayments();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  const [query, setQuery] = useState('');
 
   const pendingPayments = payments.filter((p) => p.status === 'pending');
   const paidPayments = payments.filter((p) => p.status === 'paid');
@@ -31,7 +45,12 @@ export function PaymentsScreen() {
     }
   };
 
-  const filteredPayments = getFilteredPayments();
+  const filteredPayments = getFilteredPayments().filter((payment) => {
+    const normalizedQuery = normalizeText(query.trim());
+    if (!normalizedQuery) return true;
+    const searchableText = `${paymentStatusLabels[payment.status]} ${payment.dueDate} ${payment.amount}`;
+    return normalizeText(searchableText).includes(normalizedQuery);
+  });
 
   return (
     <Screen>
@@ -46,6 +65,13 @@ export function PaymentsScreen() {
             overdueCount={overduePayments.length}
           />
         </FadeInUp>
+
+        <SearchBar
+          value={query}
+          onChangeText={setQuery}
+          placeholder="Buscar cuota"
+          style={styles.searchBar}
+        />
 
         <FadeInUp delay={200}>
           <View style={styles.chipsContainer}>
@@ -96,6 +122,12 @@ export function PaymentsScreen() {
           </View>
         )}
       </ScrollView>
+      <Fab
+        icon={Headset}
+        label="Consultar"
+        onPress={() => router.navigate('/perfil')}
+        style={styles.fab}
+      />
     </Screen>
   );
 }
@@ -103,7 +135,16 @@ export function PaymentsScreen() {
 const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
-    paddingBottom: spacing.lg,
+    paddingBottom: spacing['5xl'] + spacing.lg,
+  },
+  searchBar: {
+    marginHorizontal: spacing.base,
+    marginBottom: spacing.lg,
+  },
+  fab: {
+    position: 'absolute',
+    right: spacing.base,
+    bottom: spacing.base,
   },
   chipsContainer: {
     flexDirection: 'row',

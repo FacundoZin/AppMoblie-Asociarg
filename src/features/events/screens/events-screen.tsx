@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Screen, SectionTitle, Chip, Text, FadeInUp, EmptyState } from '@/components';
+import { Screen, SectionTitle, Chip, Text, FadeInUp, EmptyState, SearchBar } from '@/components';
 import { FeaturedEventCard, EventCard, CalendarWidget } from '../components';
 import { useEvents } from '../hooks';
 import { lightColors, spacing } from '@/theme';
@@ -9,9 +9,16 @@ import { EventCategory } from '../types';
 
 type FilterType = 'all' | EventCategory;
 
+const normalizeText = (text: string) =>
+  text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
 export function EventsScreen() {
   const { data: events } = useEvents();
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  const [query, setQuery] = useState('');
 
   const upcomingEvents = events.filter((e) => {
     const eventDate = new Date(e.date);
@@ -19,8 +26,14 @@ export function EventsScreen() {
     return eventDate >= today;
   });
 
-  const visibleEvents =
-    activeFilter === 'all' ? upcomingEvents : upcomingEvents.filter((e) => e.category === activeFilter);
+  const normalizedQuery = normalizeText(query.trim());
+
+  const visibleEvents = upcomingEvents.filter((e) => {
+    if (activeFilter !== 'all' && e.category !== activeFilter) return false;
+    if (!normalizedQuery) return true;
+    const searchableText = `${e.title} ${e.location}`;
+    return normalizeText(searchableText).includes(normalizedQuery);
+  });
 
   const featuredEvent = visibleEvents[0];
   const otherEvents = visibleEvents.slice(1);
@@ -29,6 +42,13 @@ export function EventsScreen() {
     <Screen>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <SectionTitle title="Convocatorias" />
+
+        <SearchBar
+          value={query}
+          onChangeText={setQuery}
+          placeholder="Buscar convocatoria"
+          style={styles.searchBar}
+        />
 
         {featuredEvent && (
           <FadeInUp delay={100}>
@@ -109,6 +129,10 @@ const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     paddingBottom: spacing.lg,
+  },
+  searchBar: {
+    marginHorizontal: spacing.base,
+    marginBottom: spacing.lg,
   },
   chipsContainer: {
     flexDirection: 'row',
