@@ -5,7 +5,7 @@ import prettierConfig from 'eslint-config-prettier';
 
 export default tseslint.config(
   {
-    ignores: ['node_modules/**', '.expo/**', 'dist/**', 'android/**', 'ios/**'],
+    ignores: ['node_modules/**', '.expo/**', 'dist/**', 'android/**', 'ios/**', 'babel.config.js'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

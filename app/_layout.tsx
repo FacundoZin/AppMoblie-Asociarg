@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as NativeSplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   useFonts,
   Manrope_400Regular,
@@ -40,13 +41,15 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <StatusBar style="auto" />
-      {isSplashVisible && <SplashScreen onFinish={() => setIsSplashVisible(false)} />}
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <StatusBar style="auto" />
+        {isSplashVisible && <SplashScreen onFinish={() => setIsSplashVisible(false)} />}
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
