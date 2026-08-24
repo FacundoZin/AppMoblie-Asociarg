@@ -52,6 +52,8 @@ export const lightColors = {
   inverseOnSurface: '#F0F0F7',
   inversePrimary: '#A2C9FF',
   scrim: '#000000',
+  /** State-layer tint for content sitting on primary/gradient surfaces. */
+  onPrimaryOverlay: 'rgba(255, 255, 255, 0.16)',
 } as const;
 
 export const darkColors = {
@@ -108,4 +110,6 @@ export const darkColors = {
   inverseOnSurface: '#2E3036',
   inversePrimary: '#0D5FAE',
   scrim: '#000000',
+  /** State-layer tint for content sitting on primary/gradient surfaces. */
+  onPrimaryOverlay: 'rgba(255, 255, 255, 0.16)',
 } as const;

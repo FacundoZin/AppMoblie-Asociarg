@@ -1,8 +1,8 @@
 import { View, Image, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Text, Badge, Icon } from '@/components';
-import { PatternCard } from '@/components/common';
 import { CreditCard } from 'lucide-react-native';
-import { lightColors, spacing, radii } from '@/theme';
+import { lightColors, spacing, shape, elevation } from '@/theme';
 import { images } from '@/constants/assets';
 
 interface HeroCardProps {
@@ -30,37 +30,44 @@ export function HeroCard({ memberNumber, status, dueDate }: HeroCardProps) {
 
   return (
     <View style={styles.container}>
-      <PatternCard variant="primary">
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <View style={styles.brandRow}>
-              <Image source={images.logo} style={styles.brandLogo} resizeMode="contain" />
-              <Text variant="xs" color={lightColors.primaryLight} style={styles.brandLabel}>
-                ASOCIARG
+      <View style={[styles.shadowWrapper]}>
+        <LinearGradient
+          colors={[lightColors.primary, lightColors.primaryDark]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.card}
+        >
+          <View style={styles.header}>
+            <View style={styles.headerLeft}>
+              <View style={styles.brandRow}>
+                <Image source={images.logo} style={styles.brandLogo} resizeMode="contain" />
+                <Text variant="xs" color={lightColors.onPrimary} style={styles.brandLabel}>
+                  ASOCIARG
+                </Text>
+              </View>
+              <Text variant="sm" color={lightColors.primaryLight}>
+                Socio #{memberNumber}
               </Text>
             </View>
-            <Text variant="sm" color={lightColors.primaryLight}>
-              Socio #{memberNumber}
-            </Text>
+            <Badge variant={config.variant} label={config.label} />
           </View>
-          <Badge variant={config.variant} label={config.label} />
-        </View>
 
-        <View style={styles.body}>
-          <View style={styles.amountRow}>
-            <Text variant="4xl" weight="bold" color={lightColors.surface}>
-              ${dueDate ? '15.000' : '0'}
-            </Text>
-            <View style={styles.iconContainer}>
-              <Icon name={CreditCard} size={28} color={lightColors.surface} />
+          <View style={styles.body}>
+            <View style={styles.amountRow}>
+              <Text variant="displaySmall" weight="bold" color={lightColors.onPrimary}>
+                ${dueDate ? '15.000' : '0'}
+              </Text>
+              <View style={styles.iconContainer}>
+                <Icon name={CreditCard} size={28} color={lightColors.onPrimary} />
+              </View>
             </View>
-          </View>
 
-          <Text variant="sm" color={lightColors.primaryLight} style={styles.dueText}>
-            {formattedDueDate ? `Vence el ${formattedDueDate}` : 'Sin cuotas pendientes'}
-          </Text>
-        </View>
-      </PatternCard>
+            <Text variant="sm" color={lightColors.primaryLight} style={styles.dueText}>
+              {formattedDueDate ? `Vence el ${formattedDueDate}` : 'Sin cuotas pendientes'}
+            </Text>
+          </View>
+        </LinearGradient>
+      </View>
     </View>
   );
 }
@@ -69,6 +76,16 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.base,
     marginBottom: spacing.lg,
+  },
+  // Elevation needs a solid background on Android to draw the shadow silhouette.
+  shadowWrapper: {
+    borderRadius: shape.extraLarge,
+    backgroundColor: lightColors.primary,
+    ...elevation.level1,
+  },
+  card: {
+    borderRadius: shape.extraLarge,
+    padding: spacing.xl,
   },
   header: {
     flexDirection: 'row',
@@ -88,14 +105,14 @@ const styles = StyleSheet.create({
   brandLogo: {
     width: 20,
     height: 20,
-    borderRadius: radii.sm,
+    borderRadius: shape.small,
   },
   brandLabel: {
     fontWeight: '700',
     letterSpacing: 1.5,
   },
   body: {
-    marginBottom: spacing.xl,
+    marginBottom: spacing.xs,
   },
   amountRow: {
     flexDirection: 'row',
@@ -106,8 +123,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 48,
     height: 48,
-    borderRadius: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: shape.full,
+    backgroundColor: lightColors.onPrimaryOverlay,
     justifyContent: 'center',
     alignItems: 'center',
   },
