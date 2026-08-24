@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Screen, SectionTitle, Chip, FadeInUp, EmptyState, SearchBar, Fab, Skeleton } from '@/components';
+import { Screen, SectionTitle, Chip, FadeInUp, EmptyState, SearchBar, Skeleton } from '@/components';
 import { PaymentSummaryCard, PaymentCard } from '../components';
 import { usePayments } from '../hooks';
 import { spacing } from '@/theme';
-import { CreditCard, CheckCircle, Clock, AlertCircle, Headset } from 'lucide-react-native';
-import { router } from 'expo-router';
+import { CreditCard, CheckCircle, Clock, AlertCircle } from 'lucide-react-native';
 import { PaymentStatus } from '../types';
 
 type FilterType = 'all' | PaymentStatus;
@@ -153,12 +152,6 @@ export function PaymentsScreen() {
           </View>
         )}
       </ScrollView>
-      <Fab
-        icon={Headset}
-        label="Consultar"
-        onPress={() => router.navigate('/perfil')}
-        style={styles.fab}
-      />
     </Screen>
   );
 }
@@ -171,11 +164,6 @@ const styles = StyleSheet.create({
   searchBar: {
     marginHorizontal: spacing.base,
     marginBottom: spacing.lg,
-  },
-  fab: {
-    position: 'absolute',
-    right: spacing.base,
-    bottom: spacing.base,
   },
   chipsContainer: {
     paddingHorizontal: spacing.base,

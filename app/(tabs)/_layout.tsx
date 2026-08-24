@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import type { ColorValue } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Tabs } from 'expo-router';
 import {
   Megaphone,
@@ -6,10 +8,12 @@ import {
   Home,
   CalendarDays,
   CircleUserRound,
+  Headset,
 } from 'lucide-react-native';
 import type { LucideIcon } from 'lucide-react-native';
-import { Icon } from '@/components';
-import { useTheme } from '@/theme';
+import { Fab, Icon } from '@/components';
+import { SupportChatSheet } from '@/features/support';
+import { spacing, useTheme } from '@/theme';
 import { TabBar, type TabBarProps } from '../../src/components/ui/tab-bar';
 
 const TAB_ICON_SIZE = 22;
@@ -24,8 +28,10 @@ function createTabBarIcon(icon: LucideIcon) {
 
 export default function TabsLayout() {
   const { colors } = useTheme();
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
+    <>
     <Tabs
       screenOptions={{
         headerShown: false,
@@ -84,6 +90,27 @@ export default function TabsLayout() {
           tabBarIcon: createTabBarIcon(CircleUserRound),
         }}
       />
-    </Tabs>
+      </Tabs>
+      {/* Global support entry point. Siblings of <Tabs> layer on top of every
+          tab scene; the Fab hides while the sheet is open to avoid overlap. */}
+      {!chatOpen && (
+        <Fab
+          icon={Headset}
+          label="Soporte"
+          onPress={() => setChatOpen(true)}
+          style={styles.fab}
+        />
+      )}
+      <SupportChatSheet visible={chatOpen} onDismiss={() => setChatOpen(false)} />
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  // Sits above the ~80/84px tab bar with breathing room.
+  fab: {
+    position: 'absolute',
+    right: spacing.base,
+    bottom: 96,
+  },
+});
